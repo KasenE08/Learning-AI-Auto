@@ -1,0 +1,51 @@
+/* Design system: "Blueprint". The app looks like the canvas of a workflow tool:
+   faint grid paper, navy ink, cobalt for action, teal for AI, green only for "done/right". */
+:root {
+  color-scheme: light;
+
+  --bg: #f3f7fc;
+  --surface: #ffffff;
+  --surface-2: #e8eff8;
+  --surface-3: #dbe6f3;
+  --line: #cbd8e8;
+  --line-2: #b3c6dd;
+
+  --ink: #0f2340;
+  --ink-2: #44576f;
+  --ink-3: #6f7f95;
+  --ink-4: #a2b0c2;
+
+  --blue: #1f5fd6;
+  --blue-2: #174bb0;
+  --blue-soft: #e3ecfc;
+  --teal: #0e8f9b;
+  --teal-soft: #dff3f4;
+  --violet: #6a4fc9;
+  --violet-soft: #ece8fa;
+  --amber: #b86e00;
+  --amber-soft: #fdf1dc;
+  --ok: #138a5e;
+  --ok-soft: #e1f3ea;
+  --bad: #c9372a;
+  --bad-soft: #fcebe8;
+
+  --font: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --r-sm: 4px;
+  --r: 6px;
+  --r-lg: 10px;
+  --shadow: 0 1px 2px rgba(15, 35, 64, .06), 0 1px 0 rgba(15, 35, 64, .03);
+
+  --grid: linear-gradient(rgba(31, 95, 214, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 95, 214, .055) 1px, transparent 1px);
+
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --tabbar-h: 58px;
+  --topbar-h: 50px;
+  --rail-w: 220px;
+  --gutter: 16px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+}
