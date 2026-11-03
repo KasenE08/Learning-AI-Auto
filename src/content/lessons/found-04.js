@@ -1,0 +1,65 @@
+// M01 · L04 · Data flow between steps
+export default {
+  steps: [
+    { tag: 'example', title: 'Where does each word come from?', visualFirst: true,
+      visual: { type: 'flow', nodes: [
+        { label: 'New lead', kind: 'trigger', app: 'Webhook', data: { full_name: 'Chris Patel', phone: '555-410-7731', goal: 'Join with my partner, evening classes' } },
+        { label: 'Format: first name only', kind: 'logic', app: 'Formatter', data: { value: 'Chris' } },
+        { label: 'Post to #sales', kind: 'action', app: 'Team chat', data: { message: 'Call Chris at 555-410-7731. Goal: Join with my partner, evening classes' } },
+      ] },
+      body: ['The chat message was built from pieces. Tap each block to see what it passed on.'],
+      check: {
+        type: 'mc', q: 'In the message, where did “Chris” (not “Chris Patel”) come from?',
+        options: ['The Format step’s output', 'The trigger’s full_name field', 'Someone typed it in', 'The chat app guessed it'], answer: 0,
+        why: 'The Format step took `full_name` from the trigger and returned just the first name. The chat step used **that** output.',
+        wrong: { 1: 'That field says “Chris Patel”. Something shortened it before the message was built.' },
+      },
+      stuck: {
+        metaphor: 'An assembly line: each station takes parts from the stations before it and adds its own. The last station can use anything already on the belt.',
+        visual: { type: 'flow', nodes: [{ label: 'Station 1: frame', kind: 'trigger' }, { label: 'Station 2: wheels', kind: 'action' }, { label: 'Station 3: paint (uses frame + wheels)', kind: 'action' }] },
+        worked: ['The trigger gave “Chris Patel”.', 'The Format step changed it to “Chris”.', 'The chat message inserted the Format step’s output, so it says “Chris”.'],
+      },
+    },
+    { tag: 'how', title: 'Mapping: wiring fields into inputs',
+      body: [
+        '[[data-mapping|Mapping]] means pointing an input at a field from an earlier step: “To = the trigger’s Email”.',
+        'In builders this shows up as a chip or pill like **[Form › Email]**. At run time it’s replaced by that run’s real value.',
+        'Every run gets its own values. Map once; it works for the 1st record and the 10,000th.',
+        'A step can only use fields from steps **before** it. That’s why order matters.',
+      ] },
+    { tag: 'try', title: 'Your turn: what will the message say?',
+      body: ['Template in the email step: **“Hi [Format › first name], your [Form › Reason for visit] request is in.”**', 'The trigger record: name = Omar Khan, reason = Routine cleaning.'],
+      check: {
+        type: 'mc', q: 'What does Omar receive?',
+        options: ['Hi Omar, your Routine cleaning request is in.', 'Hi Omar Khan, your Routine cleaning request is in.', 'Hi [Format › first name], your [Form › Reason for visit] request is in.', 'Hi there, your request is in.'], answer: 0,
+        why: 'Each chip is swapped for this run’s value: the formatted first name, then the reason.',
+        wrong: { 2: 'Chips are placeholders. They’re replaced with real values when the workflow runs.', 1: 'The first chip points at the Format step, which kept only the first name.' },
+      },
+    },
+    { tag: 'warn', title: 'The three classic mapping bugs',
+      body: [
+        '**Wrong field:** “To” mapped to Name instead of Email. Every email bounces.',
+        '**Fixed text where a field belongs:** you typed your test email into “To”. Every customer’s message goes to you.',
+        '**Empty field:** a lead skipped “Phone”, so “Call  at ” goes out with a blank. Lesson 9 shows how to branch on empty fields.',
+      ] },
+    { tag: 'build', title: 'Build it: alert sales about every lead', build: { challenge: 'lead-alert' },
+      body: ['Map Ironside Fitness’s lead fields into a chat post and a spreadsheet row. One check catches mixed-up columns.'] },
+  ],
+  quiz: [
+    { type: 'mc', q: 'What does “mapping a field” mean?', options: ['Pointing a step’s input at a value from an earlier step', 'Drawing the workflow on paper', 'Renaming a column', 'Copying data by hand'], answer: 0,
+      why: 'Mapping wires an earlier step’s field into a later step’s input, so each run uses its own value.' },
+    { type: 'mc', scenario: 'You tested a welcome email by typing your own address into “To”. It worked, so you turned the workflow on.', q: 'What happens next?',
+      options: ['Every lead’s welcome email goes to you', 'Each lead gets their own email', 'The workflow refuses to run', 'Only the first lead gets it'], answer: 0,
+      why: 'Fixed text is the same on every run. Map “To” to the lead’s Email field instead.' },
+    { type: 'order', q: 'Order these steps so every step only uses data that already exists.', items: ['New form entry', 'Format the name to first name only', 'Find or create CRM contact', 'Email: “Hi [first name], you’re contact #[contact ID]”'],
+      why: 'The email needs both the first name (Format) and the contact ID (CRM), so it comes after both.' },
+    { type: 'mc', q: 'A lead left Phone blank. Your message is “Call [Name] at [Phone]”. What goes out?', options: ['“Call Kim Nguyen at ” with a blank', 'The step is skipped automatically', 'The workflow guesses a number', 'An error stops everything'], answer: 0,
+      why: 'Empty fields become empty text. Check for blanks with a filter or a branch (lesson 9).' },
+  ],
+  cards: [
+    { id: 'mapping', front: 'What is mapping?', back: 'Pointing a step’s input at a field from an earlier step, so each run uses its own value.' },
+    { id: 'before', front: 'Which fields can a step use?', back: 'Only fields produced by the trigger and the steps before it.' },
+    { id: 'fixed', front: 'Classic bug: you typed a test value into an input', back: 'Fixed text is the same every run. Every customer gets your test value.' },
+    { id: 'empty', front: 'What does an empty mapped field produce?', back: 'Empty text. Guard with a filter or branch.' },
+  ],
+};

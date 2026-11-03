@@ -48,6 +48,7 @@ export const datasets = {
     blurb: 'Every job request lands in one shared inbox. The owner reads them at night, picks out the urgent ones, and types addresses into the job sheet.',
     trigger: 'email.new',
     source: 'Shared inbox (jobs@)',
+    owner: '555-310-0001',
     fields: [
       { key: 'from_name', label: 'Sender name' }, { key: 'from_email', label: 'Sender email' },
       { key: 'subject', label: 'Subject' }, { key: 'body', label: 'Email text' },

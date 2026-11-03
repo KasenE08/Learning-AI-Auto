@@ -1,0 +1,74 @@
+// M01 · L03 · Actions and steps
+export default {
+  steps: [
+    { tag: 'example', title: 'One new lead, four actions', visualFirst: true,
+      visual: { type: 'flow', play: true, nodes: [
+        { label: 'New lead from ad', kind: 'trigger', app: 'Webhook', data: { full_name: 'Jordan Bell', email: 'jordan.bell@example.com', goal: 'Lose 20 lbs before June' } },
+        { label: 'Find or create contact', kind: 'action', app: 'CRM', data: { contact_id: 'c7', was_new: 'yes' } },
+        { label: 'Add row to Leads', kind: 'action', app: 'Sheet', data: { row_number: '12' } },
+        { label: 'Post to #sales', kind: 'action', app: 'Team chat', data: { posted: 'New lead: Jordan Bell' } },
+        { label: 'Send welcome email', kind: 'action', app: 'Email', data: { to: 'jordan.bell@example.com' } },
+      ] },
+      body: ['Ironside Fitness gets a lead from an ad. Run it and look at what each action **does** and what it **gives back**.'],
+      check: {
+        type: 'mc', q: 'What did “Find or create contact” give back that a later step could use?',
+        options: ['A contact ID and whether the contact was new', 'Nothing; actions only do things', 'The whole CRM', 'The welcome email'], answer: 0,
+        why: 'Most actions do something **and** return a small result: an ID, a row number, a status. Later steps can use it.',
+        wrong: { 1: 'Tap the CRM block. It returned `contact_id` and `was_new`.' },
+      },
+      stuck: {
+        metaphor: 'Like ordering at a counter: you hand over your order (input), they make it (the action), and you get a receipt with an order number (output).',
+        worked: ['Tap “Find or create contact”.', 'The data leaving it shows contact_id and was_new.', 'That’s the action’s output.'],
+      },
+    },
+    { tag: 'how', title: 'Anatomy of an action',
+      body: [
+        'Every [[action]] has three parts: **which app**, **what to do** (create, update, find, send, delete), and **inputs** (the fields you fill in).',
+        'You fill inputs with fixed text, with [[field|fields]] from earlier steps, or a mix: “Hi [Name], thanks for…”.',
+        'It returns an **output**: the new record’s ID, the row number, the found contact. That output is a new set of fields for later steps.',
+      ] },
+    { tag: 'see', title: 'Common action verbs',
+      visual: { type: 'compare', cols: ['Verb', 'What it does', 'Watch out'], rows: [
+        ['Create', 'Adds a new record', 'Runs twice = two records'],
+        ['Find', 'Looks one up by a field', 'Can find nothing, or several'],
+        ['Update', 'Changes an existing record', 'Needs to know **which** record'],
+        ['Find or create', 'Looks up first, creates if missing', 'Safest for contacts'],
+        ['Send / post', 'Email, text, chat message', 'Can’t be taken back'],
+        ['Delete', 'Removes a record', 'Rarely needed; risky'],
+      ] },
+      body: ['Learn the verbs once. Every app’s actions are some mix of them.'] },
+    { tag: 'try', title: 'Your turn: pick the verb',
+      body: ['A gym member changes their phone number on a form. The CRM already has them.'],
+      check: {
+        type: 'order', q: 'Put the actions in the order the workflow needs them.',
+        items: ['Form “update my details” is submitted', 'Find the contact in the CRM by email', 'Update that contact’s phone', 'Email the member: “Your details are updated”'],
+        wrongStep: 'Not next. You can’t update a contact until you know which one it is.',
+        why: 'Update needs to know **which** record, so a Find comes first. The confirmation goes last, once the change actually happened.',
+      },
+      stuck: {
+        metaphor: 'To fix a typo in one paper file, you first have to pull the right folder from the cabinet.',
+        worked: ['Trigger first: the form.', 'Find the contact (pull the folder).', 'Update the phone (fix the page).', 'Confirm to the member.'],
+      },
+    },
+    { tag: 'warn', title: 'Sends can’t be undone',
+      body: [
+        'A wrong spreadsheet row is easy to delete. A wrong email to 300 customers is not.',
+        'Put “send” actions **after** the steps that could fail, and test with fake data before anything reaches real people.',
+      ] },
+  ],
+  quiz: [
+    { type: 'mc', q: 'Which action is safest when you don’t know if the customer already exists?', options: ['Find or create', 'Create', 'Update', 'Delete'], answer: 0,
+      why: 'Find or create looks first, so a repeat customer doesn’t become a duplicate.', wrong: { 1: 'Create adds a new record every time, even for someone you already have.' } },
+    { type: 'multi', q: 'Which of these can a later step use?', options: ['The ID returned by “Create contact”', 'The row number returned by “Add row”', 'The trigger’s fields', 'Fields from a step that runs **after** it'], answer: [0, 1, 2],
+      why: 'Steps can use anything produced **before** them. A later step’s output doesn’t exist yet.' },
+    { type: 'mc', scenario: 'A workflow sends a welcome email, then adds the contact to the CRM. The CRM step fails for a bad email address.', q: 'What’s the problem with this order?',
+      options: ['The customer got an email even though they were never saved', 'Nothing; order doesn’t matter', 'The CRM will send its own email', 'Email steps can’t come first'], answer: 0,
+      why: 'Put the irreversible step last. Save first; if saving fails, nothing has been sent yet.' },
+  ],
+  cards: [
+    { id: 'parts', front: 'Three parts of an action?', back: 'Which app, what to do (verb), and the inputs you fill in.' },
+    { id: 'output', front: 'What does an action return?', back: 'An output, like a new ID, a row number, or a found record, that later steps can use.' },
+    { id: 'update', front: 'What must happen before “Update record”?', back: 'A Find (or an ID from earlier), so it knows which record to change.' },
+    { id: 'sends', front: 'Where do “send” actions go?', back: 'After the steps that could fail. Sends can’t be undone.' },
+  ],
+};

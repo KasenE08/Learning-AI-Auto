@@ -25,6 +25,7 @@ const checkQuestion = (q, where) => {
 const checkVisual = (v, where) => {
   expect(VISUALS, where).toContain(v.type);
   if (v.type === 'flow') expect(v.nodes.length).toBeGreaterThan(0);
+  if (v.type === 'compare') for (const r of v.rows) expect([v.cols.length, v.cols.length + 1], `${where}: compare row width`).toContain(r.length);
   if (v.type === 'calc') for (const o of v.outputs) expect(Number.isFinite(o.f(Object.fromEntries(v.inputs.map((i) => [i.key, i.value]))))).toBe(true);
   if (v.type === 'exchange') for (const m of v.messages) { expect(m.from).toBeLessThan(v.actors.length); expect(m.to).toBeLessThan(v.actors.length); }
 };
