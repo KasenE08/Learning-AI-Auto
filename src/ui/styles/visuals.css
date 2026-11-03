@@ -53,6 +53,8 @@
 .ex__lanes { display: grid; gap: 6px; }
 .ex__msg { position: relative; margin-left: calc((var(--l) + .5) / var(--cols) * 100%); width: calc((var(--r) - var(--l)) / var(--cols) * 100%); padding-bottom: 8px; opacity: .55; }
 .ex__msg.is-now { opacity: 1; }
+.ex__msg.is-self { padding-bottom: 0; }
+.ex__msg.is-self .ex__lbl { border: 1px dashed var(--line-2); border-radius: var(--r-sm); padding: 4px 6px; background: var(--surface); }
 .ex__lbl { display: block; font-size: 13px; text-align: center; padding: 0 4px 3px; }
 .ex__arrow { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--blue); }
 .ex__arrow::after { content: ""; position: absolute; right: -1px; top: -4px; border: 5px solid transparent; border-left: 7px solid var(--blue); border-right: 0; }
@@ -90,3 +92,15 @@
 .cmp thead th { font: 500 12px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); background: var(--surface-2); }
 .cmp thead th.is-pick { color: var(--blue); }
 .cmp tbody th { font-weight: 600; width: 28%; }
+
+/* phones: each row becomes a small card, each cell labeled with its column */
+@media (max-width: 600px) {
+  .cmp, .cmp tbody, .cmp tr, .cmp th, .cmp td { display: block; width: 100%; }
+  .cmp thead { display: none; }
+  .cmp { background: transparent; }
+  .cmp tr { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); margin-bottom: 8px; overflow: hidden; }
+  .cmp tbody th { width: 100%; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+  .cmp td { border-bottom: 1px solid var(--line); }
+  .cmp td:last-child { border-bottom: 0; }
+  .cmp td[data-label]:not([data-label=""])::before { content: attr(data-label); display: block; font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); margin-bottom: 2px; }
+}

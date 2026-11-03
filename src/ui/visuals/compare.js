@@ -9,6 +9,6 @@ export function mountCompare(box, spec) {
   const vals = full ? spec.cols.slice(1) : spec.cols;
   box.innerHTML = String(html`<div class="cmp-wrap"><table class="cmp">
     <thead><tr><th>${head}</th>${vals.map((c, i) => html`<th class="${spec.pick === i ? 'is-pick' : ''}">${c}</th>`)}</tr></thead>
-    <tbody>${spec.rows.map((r) => html`<tr><th scope="row">${rich(r[0])}</th>${r.slice(1).map((c) => html`<td>${rich(c)}</td>`)}</tr>`)}</tbody>
+    <tbody>${spec.rows.map((r) => html`<tr><th scope="row">${rich(r[0])}</th>${r.slice(1).map((c, i) => html`<td data-label="${vals[i] || ''}">${rich(c)}</td>`)}</tr>`)}</tbody>
   </table></div>`);
 }

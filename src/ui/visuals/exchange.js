@@ -11,8 +11,9 @@ export function mountExchange(box, spec) {
     box.innerHTML = String(html`<div class="ex" style="--cols:${n}">
         <div class="ex__actors">${spec.actors.map((a) => html`<span class="ex__actor">${a}</span>`)}</div>
         <div class="ex__lanes">${spec.messages.slice(0, i + 1).map((x, k) => {
-          const l = Math.min(x.from, x.to), r = Math.max(x.from, x.to);
-          return html`<div class="ex__msg ex__msg--${x.kind || 'request'} ${k === i ? 'is-now' : ''} ${x.from > x.to ? 'is-left' : ''}" style="--l:${l};--r:${r}"><span class="ex__lbl">${k + 1}. ${x.label}</span><span class="ex__arrow"></span></div>`;
+          const self = x.from === x.to;
+          const l = self ? x.from - 0.5 : Math.min(x.from, x.to), r = self ? x.from + 0.5 : Math.max(x.from, x.to);
+          return html`<div class="ex__msg ex__msg--${x.kind || 'request'} ${k === i ? 'is-now' : ''} ${x.from > x.to ? 'is-left' : ''} ${self ? 'is-self' : ''}" style="--l:${l};--r:${r}"><span class="ex__lbl">${k + 1}. ${x.label}</span>${self ? '' : html`<span class="ex__arrow"></span>`}</div>`;
         })}</div>
       </div>
       <div class="ex__detail">${m.body ? (typeof m.body === 'string' ? html`<p>${m.body}</p>` : kvTable(m.body)) : ''}${m.note ? html`<p class="muted">${m.note}</p>` : ''}</div>

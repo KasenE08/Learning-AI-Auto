@@ -49,6 +49,6 @@ tests/                        vitest
 ## Build stages
 - ✅ **Stage 1 (design):** five theme concepts; Blueprint picked.
 - ✅ **Stage a (app):** shell, path, lesson player, quizzes, flashcards, streak, progress + module reset, backup, workflow builder sandbox with 2 challenges, outside-app builds, 1 sample lesson.
-- **Stage b:** Modules 1–6 (technical).
+- ✅ **Stage b:** Modules 1–6 (technical): 57 lessons, 11 sandbox challenges, 6 outside-app builds.
 - **Stage c:** Modules 7–13 (business, legal/ethics).
 - **Stage d:** Capstone, launch-readiness exam, template library.
