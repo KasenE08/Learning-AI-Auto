@@ -1,0 +1,86 @@
+// M02 · L04 · Structured output
+export default {
+  steps: [
+    { tag: 'example', title: 'Why the router dropped Dana', visualFirst: true,
+      visual: { type: 'flow', nodes: [
+        { label: 'Form: Dana, “chipped tooth, hurts”', kind: 'trigger', app: 'Form', data: { reason: 'Chipped my front tooth and it hurts when I bite' } },
+        { label: 'AI: classify (free text)', kind: 'ai', data: { label: 'Urgent - patient reports pain' } },
+        { label: 'Split into paths', kind: 'logic', branches: [
+          { label: 'Category is exactly “urgent”', nodes: [{ label: 'Text front desk', kind: 'action' }] },
+          { label: 'Category is exactly “routine”', nodes: [{ label: 'Add to waitlist', kind: 'action' }] },
+        ] },
+      ] },
+      body: ['Dana is in pain. The AI even said so. But no path ran. Tap the AI step.'],
+      check: {
+        type: 'mc', q: 'Why didn’t the “urgent” path run?',
+        options: ['The AI wrote “Urgent - patient reports pain”, which isn’t exactly “urgent”', 'The AI said routine', 'The router is broken', 'Dana didn’t give a reason'], answer: 0,
+        why: 'The answer was right in meaning but not in form. Conditions are literal (Module 1, lesson 9).',
+      },
+      stuck: {
+        metaphor: 'A vending machine wants exact coins. “About a dollar in assorted change” is the right value in the wrong form, and the machine rejects it.',
+        worked: ['Tap the AI step: label = “Urgent - patient reports pain”.', 'The path wants exactly “urgent”.', 'They don’t match, so neither path runs.'],
+      },
+    },
+    { tag: 'how', title: 'Structured output: fixed fields, fixed choices',
+      body: [
+        '[[structured-output|Structured output]] means the model returns data in a set shape: named fields, and for some fields, one of a fixed list of values.',
+        'You describe the shape, called a [[schema]]: “label: one of urgent, routine. reason_short: under 10 words.”',
+        'Many AI blocks have a setting for this (“output fields”, “JSON mode”, “choose from options”). Use it whenever a later step makes a decision on the answer.',
+        'Even with the setting on, add a **fallback**: an Otherwise path for anything unexpected.',
+      ] },
+    { tag: 'see', title: 'Free text vs structured',
+      visual: { type: 'record', title: 'Structured answer for Dana', data: { label: 'urgent', reason_short: 'chipped tooth with pain', confidence: 'high' }, start: 'json' },
+      body: ['Each field can be mapped into later steps like any other field: route on `label`, put `reason_short` in the text to the front desk.'] },
+    { tag: 'try', title: 'Your turn: design the schema',
+      body: ['A plumbing inbox step must decide what to do with each email and pull out the address.'],
+      check: {
+        type: 'multi', q: 'Which fields belong in a good schema for this step?',
+        options: ['category: one of emergency, service, quote, billing, spam', 'address: text, empty if not in the email', 'reply: a friendly 300-word essay', 'mood: any words you like'], answer: [0, 1],
+        why: 'Fields a later step uses, with fixed choices where you route and “empty if missing” where you extract. Free-form essays and moods don’t drive anything.',
+      } },
+    { tag: 'outside', title: 'Optional: test a structured prompt in Claude',
+      body: ['No automation tool needed. You’ll use Claude itself as the AI step and check its output by hand.'],
+      outside: {
+        id: 'structured-classify',
+        title: 'Make an AI step that always answers in the same shape',
+        goal: 'Write a prompt that sorts plumbing emails into fixed categories and returns the same fields every time, then test it on fake emails.',
+        steps: [
+          'Open a new chat in Claude.',
+          'Write a prompt with: a role (inbox sorter for a plumbing company), the five categories (emergency, service, quote, billing, spam) with one line each defining them, and the output shape: category, address (empty if none), one_line_summary.',
+          'Tell it to answer **only** in that shape, with no extra words.',
+          'Paste the five fake emails below one at a time (or all at once, asking for one answer each).',
+          'Save the prompt and the five answers; you’ll grade them next.',
+        ],
+        data: [
+          'Water heater leaking all over the garage floor. 14 Elm St. Call 555-310-2210.',
+          'Quote please for a new tub and vanity, 88 Oak Ave, no rush.',
+          'You charged us twice for invoice 2291.',
+          'Get to #1 on Google in 30 days!!! Reply YES.',
+          'Kitchen sink backed up since this morning, 5 Birch Rd.',
+        ],
+        prompt: 'You are grading a beginner’s classification prompt for an automation. Below I will paste the prompt and the outputs it produced for five test emails. Be strict.',
+        checklist: [
+          'The prompt defines all five categories, each with a one-line meaning.',
+          'The prompt specifies the exact output fields: category, address, one_line_summary.',
+          'All five outputs use exactly those fields and nothing else.',
+          'Every category value is one of the five allowed words, spelled exactly.',
+          'The billing and spam emails have an empty address instead of an invented one.',
+          'The leaking water heater is labeled emergency and the clogged sink is not.',
+        ],
+      } },
+  ],
+  quiz: [
+    { type: 'mc', q: 'When do you need structured output?', options: ['When a later step decides or maps based on the AI’s answer', 'Only for long answers', 'Never; free text is always fine', 'Only for chatbots'], answer: 0, why: 'Routers, filters and mappings need predictable fields and values.' },
+    { type: 'mc', q: 'What is a schema?', options: ['A description of the fields and allowed values the output must have', 'A type of AI model', 'A database password', 'A workflow diagram'], answer: 0, why: 'The schema is the shape you ask for.' },
+    { type: 'mc', scenario: 'Structured output is on, with labels urgent/routine. One day the model returns an empty label for a garbled form.', q: 'What stops this record vanishing?', options: ['An Otherwise path that alerts a person', 'Nothing; structured output can’t fail', 'Turning structured output off', 'Adding more labels'], answer: 0,
+      why: 'Always plan for the unexpected answer. Fallback paths catch what rules can’t.' },
+    { type: 'multi', q: 'Which are good schema choices?', options: ['priority: one of low, normal, high', 'address: text, empty if not stated', 'notes: anything', 'is_spam: yes or no'], answer: [0, 1, 3],
+      why: 'Fixed choices and clear empty-if-missing rules make output usable. “Anything” isn’t a shape.' },
+  ],
+  cards: [
+    { id: 'structured', front: 'Structured output?', back: 'The model returns set fields, some limited to fixed choices, so later steps can rely on them.' },
+    { id: 'schema', front: 'Schema?', back: 'The description of the output’s fields and allowed values.' },
+    { id: 'route', front: 'Rule: AI answer feeds a router. What do you need?', back: 'Fixed-choice structured output, plus an Otherwise fallback.' },
+    { id: 'meaning', front: '“Urgent - patient reports pain” vs “urgent”?', back: 'Right meaning, wrong form. Conditions need the exact value.' },
+  ],
+};
