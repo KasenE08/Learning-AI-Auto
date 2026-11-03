@@ -2,8 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    # main once it exists; the Claude branch while it's the repo's default branch
-    branches: [main, claude/learning-ai-auto-design-yues85]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
