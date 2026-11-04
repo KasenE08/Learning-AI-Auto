@@ -20,6 +20,7 @@ export default {
       },
     },
     { tag: 'how', title: 'Two documents, two readers',
+      visual: {"type": "sort", "cols": ["Client guide", "Build notes + runbook"], "items": [{"text": "How to pause the system", "col": 0}, {"text": "Which API connections each workflow uses", "col": 1}, {"text": "What a failure alert means and who to call", "col": 0}, {"text": "The test set and change log", "col": 1}, {"text": "How to change the instant-reply wording", "col": 0}, {"text": "Accounts and permission levels", "col": 1, "why": "Technical details for whoever maintains it."}], "prompt": "Which document does each belong in?"},
       body: [
         '**Client guide (1–2 pages):** what it does, what they’ll see, how to pause it, what alerts mean, who to call, common small edits. Screenshots help.',
         '**Your build notes + runbook:** workflows, connections, accounts, test set, change log (Module 6). Shared with the client too, so they’re never locked in.',
@@ -31,6 +32,7 @@ export default {
         why: 'API details belong in your build notes. The guide covers what a non-technical user needs.',
       } },
     { tag: 'biz', title: 'Docs reduce support load',
+      predict: {"q": "Three clients ask the same question this month. What do you update?", "options": ["The client guide", "Nothing", "Your prices", "The contract"], "answer": 0, "why": "Every question the guide answers is a message you don’t get."},
       body: ['Every question the guide answers is a message you don’t get. Update it whenever you notice the same question twice.'] },
   ],
   quiz: [

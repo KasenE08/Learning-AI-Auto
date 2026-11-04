@@ -23,18 +23,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Three ways to handle variable costs',
-      body: [
-        '**Client-owned accounts:** the client pays the phone, AI and tool providers directly. Cleanest; you charge for your work.',
-        '**Pass-through with markup:** you pay, then bill usage at cost plus a margin (e.g. 15–30%) for handling it.',
-        '**Usage-based pricing:** price per unit of outcome (per call handled, per lead processed), with a monthly minimum.',
-        'Always set a cap or an alert threshold, so nobody gets a surprise bill.',
-      ] },
+      visual: {"type": "sort", "cols": ["Client-owned", "Pass-through", "Usage-based"], "items": [{"text": "The client pays the phone provider directly", "col": 0}, {"text": "You pay AI costs and bill them at cost + 20%", "col": 1}, {"text": "$0.60 per call handled, $100 monthly minimum", "col": 2}, {"text": "Client’s own AI account, you’re added as a user", "col": 0}, {"text": "You bill this month’s SMS usage plus a handling fee", "col": 1}, {"text": "$2 per lead processed", "col": 2, "why": "Price per unit of outcome is usage-based."}], "prompt": "Which approach is each setup?"},
+      body: ["**Client-owned accounts** (cleanest), **pass-through with markup**, or **usage-based pricing** with a minimum.", "Always set a cap or alert threshold.", "Never absorb variable costs under a flat fee by accident."] },
     { tag: 'try', title: 'Your turn: per-unit price',
       check: {
         type: 'num', q: 'Your cost is $0.45 per call. You want a 40% markup. Price per call in dollars?', answer: 0.63, tol: 0.005, prefix: '$',
         why: '$0.45 × 1.40 = **$0.63** per call.',
       } },
     { tag: 'law', title: 'Tennessee note: how you package can change sales tax',
+      predict: {"q": "In Tennessee, which is more likely to be subject to sales tax?", "options": ["Reselling access to software the client uses remotely", "Pure consulting", "Neither, ever", "Both equally"], "answer": 0, "why": "Services are generally not taxed; remotely accessed software can be. Ask a Tennessee CPA."},
       body: [
         'In Tennessee, consulting and services are generally not subject to sales tax, but access to software that a customer uses remotely can be taxable.',
         'If you resell software access or bundle it with your service, sales tax may apply. Client-owned accounts avoid most of that question.',

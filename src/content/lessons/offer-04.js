@@ -23,12 +23,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Seven parts of a packaged offer',
-      body: [
-        'Who it’s for, the outcome, what’s included, what’s not, timeline, price, and a guarantee or risk reducer.',
-        'Give it a plain name that states the outcome.',
-        'Same package every time; customize inside the boundaries, not around them.',
-        'One flagship plus, at most, one smaller entry offer (e.g. a paid process audit). Too many options slow decisions.',
-      ] },
+      predict: {"q": "Which offer name sells best?", "options": ["“Never Miss a Job”", "“Automation Package B”", "“AI Solution Pro”", "“Tier 2”"], "answer": 0, "why": "A plain name that states the outcome sells before you explain anything."},
+      body: ["Who, outcome, included, not included, timeline, price, guarantee.", "Same package every time; customize inside the boundaries.", "One flagship plus, at most, one small entry offer."] },
     { tag: 'try', title: 'Your turn: fix the scope',
       check: {
         type: 'multi', q: 'Which belong in the “Included” list of a clear offer?',
@@ -36,6 +32,7 @@ export default {
         why: '“Anything else you need” makes the scope infinite. Name concrete deliverables.',
       } },
     { tag: 'biz', title: 'Packaging is what lets you scale solo',
+      predict: {"q": "What does a packaged offer give you that custom quotes don’t?", "options": ["Reusable builds and a repeatable sales conversation", "Higher costs", "More meetings", "Nothing"], "answer": 0, "why": "Predictable delivery and a tested price, which Module 12 builds on."},
       body: ['A packaged offer means reusable builds, a repeatable sales conversation, predictable delivery time, and a price you’ve tested. Module 12 builds on this.'] },
   ],
   quiz: [

@@ -19,18 +19,15 @@ export default {
       },
     },
     { tag: 'law', title: 'Consent rules to keep straight (concepts)',
-      body: [
-        '**Call recording:** federal law and Tennessee generally allow a party to a call to record it (one-party consent). Some states require all parties’ consent. Announce recording.',
-        '**Texting:** marketing texts generally need prior written consent under the TCPA; honor STOP right away; register business texting (Module 4).',
-        '**Email:** CAN-SPAM for commercial email: honest headers, a postal address, opt-out within 10 business days (Module 9).',
-        '**Calls with AI voices:** consent rules for artificial voices apply (lesson 4).',
-      ] },
+      visual: {"type": "sort", "cols": ["Calls / recording", "Texting", "Email"], "items": [{"text": "Announce “this call may be recorded”", "col": 0}, {"text": "Honor STOP immediately", "col": 1}, {"text": "Include a postal address in commercial email", "col": 2}, {"text": "Prior consent for AI-voice outbound calls", "col": 0}, {"text": "Prior written consent for marketing texts", "col": 1}, {"text": "Honor unsubscribes within 10 business days", "col": 2, "why": "That’s the CAN-SPAM rule."}], "prompt": "Which channel does each rule belong to?"},
+      body: ["**Calls:** Tennessee is one-party consent, but some states need all parties, so announce recording. AI voices need consent for outbound calls.", "**Texting:** prior written consent for marketing, honor STOP, register business texting.", "**Email:** CAN-SPAM: honest headers, postal address, opt-out within 10 business days."] },
     { tag: 'try', title: 'Your turn: the call script',
       check: {
         type: 'mc', q: 'Best opening for a recorded AI phone agent?', options: ['“Hi, you’ve reached Bright Smile’s virtual assistant. This call may be recorded for quality. How can I help?”', '“Hello?”', '“Hi, this is Sarah.”', '“Press 1 to agree to everything.”'], answer: 0,
         why: 'Discloses AI and recording in one breath, then gets to helping.',
       } },
     { tag: 'key', title: 'Your compliance checklist for client systems',
+      predict: {"q": "Who decides unclear legal questions for a client’s system?", "options": ["The client’s lawyer", "You", "The AI", "Nobody"], "answer": 0, "why": "Your job is to build systems where compliance is the default."},
       body: [
         'AI disclosed? Recording announced? Text consent stored and checked? STOP and unsubscribe honored automatically? Email sender, address, and opt-out in place? Regulated data with suitable vendors?',
         'For anything unclear, the client’s lawyer decides. Your job is to build systems that make compliance the default.',

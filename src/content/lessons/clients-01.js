@@ -23,14 +23,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Stages and what moves people through them',
-      body: [
-        '**Reach:** they hear of you (outreach, referrals, content).',
-        '**Reply / interest:** something specific to them makes them answer.',
-        '**Discovery call:** you learn their problem and check fit.',
-        '**Proposal:** a written plan with price.',
-        '**Close:** signed agreement and first payment.',
-        'Track every stage in your own CRM. You’ll automate your own pipeline in Module 12.',
-      ] },
+      visual: {"type": "sort", "cols": ["Reach", "Reply", "Discovery", "Proposal", "Close"], "items": [{"text": "You send a first message to an HVAC owner", "col": 0}, {"text": "She answers: “Sure, what’s this about?”", "col": 1}, {"text": "A 20-minute call about her missed calls", "col": 2}, {"text": "A one-page plan with two prices", "col": 3}, {"text": "Signed agreement + first payment", "col": 4}, {"text": "A friend introduces you to a dentist", "col": 0, "why": "Being introduced is how they first hear of you."}], "prompt": "Which pipeline stage is each moment?"},
+      body: ["**Reach** → **reply** → **discovery call** → **proposal** → **close**.", "Each stage has its own conversion rate; fix the weakest one.", "Track every stage in your own CRM (you’ll automate it in Module 12)."] },
     { tag: 'try', title: 'Your turn: find the bottleneck',
       check: {
         type: 'mc', scenario: 'Last month: 150 messages, 20 replies, 12 calls, 0 clients.',
@@ -38,6 +32,7 @@ export default {
         why: 'Plenty of calls, no wins. Work on discovery questions, fit, and proposals (lessons 7–11), not on sending more messages.',
       } },
     { tag: 'key', title: 'Consistency beats bursts',
+      predict: {"q": "Which outreach habit fills a pipeline better?", "options": ["25 thoughtful messages every week", "200 messages once, then nothing", "One message a month", "Only when you need money"], "answer": 0, "why": "Pipelines take weeks to fill. Steady beats bursts."},
       body: ['A steady weekly habit (say, 25 thoughtful messages and 2 follow-up rounds) beats 200 messages once and then nothing. Pipelines take weeks to fill.'] },
   ],
   quiz: [

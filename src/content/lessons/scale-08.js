@@ -30,18 +30,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Capacity math',
-      body: [
-        'Monthly client hours = (weekly hours − sales/admin hours) × 52 ÷ 12.',
-        'Subtract new-build hours. Divide the rest by hours per retainer client.',
-        'Leave headroom (10–20%) for bad weeks, illness, and urgent issues.',
-        'Revenue ceiling = max clients × retainer + new builds × setup fee. Raise it with price, not just volume.',
-      ] },
+      predict: {"q": "Halving your hours per client roughly does what to capacity?", "options": ["Doubles it", "Halves it", "Nothing", "Adds 10%"], "answer": 0, "why": "Hours per client is the biggest lever."},
+      body: ["Monthly client hours = (weekly hours − sales/admin) × 52 ÷ 12, minus new-build hours.", "Divide by hours per retainer client, and keep 10–20% headroom.", "Revenue ceiling = clients × retainer + builds × setup. Raise it with price."] },
     { tag: 'try', title: 'Your turn: compute it',
       check: {
         type: 'num', q: '120 monthly client hours available, 1 build of 20 hours, 4 hours per retainer client. Max retainer clients?', answer: 25, tol: 0,
         why: '(120 − 20) ÷ 4 = **25** clients (before headroom).',
       } },
     { tag: 'biz', title: 'Choose your number',
+      predict: {"q": "You hit your client cap and demand keeps coming. Best move in a solo business?", "options": ["Raise prices for new clients", "Squeeze in more", "Drop quality checks", "Lower prices"], "answer": 0, "why": "Higher value per client keeps you at one-person scale."},
       body: ['Decide a client cap that keeps your review quality high (lesson 7). When you hit it, raise prices for new clients or tighten the package instead of squeezing in more.'] },
   ],
   quiz: [

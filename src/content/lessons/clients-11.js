@@ -39,18 +39,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Closing habits',
-      body: [
-        '**Ask directly:** “Shall I send the agreement?” Silence after asking is fine.',
-        '**Surface the last concern:** “Anything you’d change before we start?”',
-        '**Make it easy:** e-signature, a payment link, an access checklist, a kickoff date.',
-        '**Never fake urgency.** Real deadlines (their promo, your schedule) are fine to mention.',
-      ] },
+      predict: {"q": "You ask “Shall I send the agreement?” and the owner goes quiet. What do you do?", "options": ["Wait; silence after asking is fine", "Lower the price", "Keep talking", "Withdraw the offer"], "answer": 0, "why": "Ask directly, then let them think."},
+      body: ["**Ask directly**, then be quiet; **surface the last concern**: “Anything you’d change?”", "**Make it easy:** e-signature, payment link, access checklist, kickoff date.", "**Never fake urgency.** Real deadlines are fine."] },
     { tag: 'try', title: 'Your turn: the ask',
       check: {
         type: 'mc', q: 'Best closing question after a good proposal walkthrough?', options: ['“Does this look right? If so, I’ll send the agreement and we can kick off Monday.”', '“So… what do you think about maybe possibly moving forward?”', '“Sign now or the price doubles.”', '“Let me know whenever.”'], answer: 0,
         why: 'Clear, direct, with a concrete next step.',
       } },
     { tag: 'biz', title: 'After yes',
+      predict: {"q": "A client says yes on Tuesday. When do the agreement and invoice go out?", "options": ["Tuesday", "Next week", "After you finish building", "When they ask"], "answer": 0, "why": "Same day, plus a “what happens next” email. Momentum matters."},
       body: ['Send the agreement and invoice the same day, plus a short “what happens next” email: kickoff date, what you need from them, when they’ll see progress. Onboarding starts here (Module 11).'] },
   ],
   quiz: [

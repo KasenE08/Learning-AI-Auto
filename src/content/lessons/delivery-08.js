@@ -19,18 +19,15 @@ export default {
       },
     },
     { tag: 'how', title: 'When and how to expand',
-      body: [
-        'Earn it first: the original promise delivered and reported.',
-        'Listen for new pains in check-ins and reports. Write them down.',
-        'Suggest one thing at a time, with its own small ROI estimate.',
-        'Tiers make it easy: “move to Standard” (Module 10).',
-      ] },
+      predict: {"q": "When should you suggest the first add-on?", "options": ["After the first result shows up in a report", "In week one", "In the first proposal, as required", "Never"], "answer": 0, "why": "Earn it first, then suggest one thing tied to a pain they mentioned."},
+      body: ["Earn it: deliver and report the original promise.", "Listen for new pains; suggest one thing at a time with its own small ROI.", "Tiers make it simple: “move to Standard”."] },
     { tag: 'try', title: 'Your turn: timing',
       check: {
         type: 'mc', q: 'When should you first suggest an add-on?', options: ['After the first result is visible in a report', 'During the first week', 'In the first proposal, as a must-have', 'Never'], answer: 0,
         why: 'Trust and evidence first. The report’s “one suggestion” line is the natural place.',
       } },
     { tag: 'biz', title: 'Expansion is cheaper than new clients',
+      predict: {"q": "Which costs you less effort: one more project for a current client, or a brand-new client?", "options": ["The current client", "The new client", "The same", "Neither"], "answer": 0, "why": "No outreach, no discovery from scratch, existing trust."},
       body: ['No outreach, no discovery from scratch, an existing relationship. Many solo businesses grow more from expanding current clients than from new ones.'] },
   ],
   quiz: [

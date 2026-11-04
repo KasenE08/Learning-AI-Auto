@@ -24,18 +24,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Floor, ceiling, and the price',
-      body: [
-        '**Floor:** your time × a rate you’d be happy with, plus your costs. Below it, you’re subsidizing the client.',
-        '**Ceiling:** the value to the client. Above it, nobody buys.',
-        '**Price:** in the gap. Many consultants aim for the client to get several times their money back in year one.',
-        'Reuse lowers your floor over time (Module 12). Same price, fewer hours = higher effective rate.',
-      ] },
+      predict: {"q": "Your floor is $1,500; the client’s first-year value is $10,000. Where should the price land?", "options": ["In between, leaving them a clear win", "$1,500", "$10,000", "Below $1,500"], "answer": 0, "why": "Above your floor, well under their value."},
+      body: ["**Floor:** your time × target rate + costs. **Ceiling:** the value to the client.", "**Price** sits in the gap, so the client gets several times their money back.", "Reuse lowers your floor over time: same price, fewer hours."] },
     { tag: 'try', title: 'Your turn: effective rate',
       check: {
         type: 'num', q: 'You charge $3,000 for a build. The first time took 40 hours; with reuse it now takes 12. What’s your effective hourly rate now?', answer: 250, tol: 0.5, prefix: '$',
         why: '$3,000 ÷ 12 = **$250/hour**, up from $75. That’s why fixed prices beat hourly billing for packaged work.',
       } },
     { tag: 'warn', title: 'Why not bill hourly?',
+      predict: {"q": "With hourly billing, what happens when you get twice as fast?", "options": ["You earn half as much for the same result", "You earn more", "Nothing", "Clients pay more"], "answer": 0, "why": "Hourly punishes efficiency. Fixed setup + retainer rewards it. Track hours privately anyway."},
       body: [
         'Hourly billing punishes you for getting faster and makes clients watch the clock.',
         'Fixed setup fees + monthly retainers match how clients think: “what do I get, what does it cost?”',

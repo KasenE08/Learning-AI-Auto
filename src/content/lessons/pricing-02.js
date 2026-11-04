@@ -21,18 +21,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Setting the setup fee',
-      body: [
-        'Estimate every phase, not just building. Add a buffer for surprises (access delays, messy data).',
-        'Check it against value (lesson 1): the client should still get a clear win.',
-        'Collect part up front (often 50%) and the rest at launch.',
-        'State what the fee covers and what counts as a change (lesson 7).',
-      ] },
+      predict: {"q": "Beginners most often forget to price which phases?", "options": ["Testing, documentation and launch support", "Building", "Discovery", "None"], "answer": 0, "why": "Estimate every phase and add a buffer for surprises."},
+      body: ["Estimate every phase, plus a buffer for access delays and messy data.", "Check it against value; collect part up front (often 50%) and the rest at launch.", "State what the fee covers and what counts as a change."] },
     { tag: 'try', title: 'Your turn: price it',
       check: {
         type: 'num', q: '20 estimated hours + 25% buffer, at $90/hour. Setup fee in dollars?', answer: 2250, tol: 0, prefix: '$',
         hint: '20 × 1.25 = hours with buffer.', why: '25 hours × $90 = **$2,250**.',
       } },
     { tag: 'biz', title: 'Running costs are separate',
+      predict: {"q": "Where do a client’s AI and phone costs go?", "options": ["Their own accounts, or the retainer", "Into the setup fee", "You absorb them", "Nowhere"], "answer": 0, "why": "Setup is one-time; running costs continue every month."},
       body: ['Tool plans, AI usage and phone numbers are ongoing. Keep them out of the setup fee: in the client’s own accounts, or in the retainer (lesson 5).'] },
   ],
   quiz: [

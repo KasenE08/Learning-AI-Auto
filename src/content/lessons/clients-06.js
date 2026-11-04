@@ -20,18 +20,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Client referrals',
-      body: [
-        'Ask when the client is happiest: right after a measurable win (“that’s 6 after-hours jobs booked this month”).',
-        'Make it specific: “Who else do you know who runs a shop like yours?”',
-        'Make it easy: a 2-line intro text they can forward.',
-        'Thank every referral, win or not.',
-      ] },
+      predict: {"q": "When is the best moment to ask a client for a referral?", "options": ["Right after you report a clear win", "During onboarding", "With the invoice", "When something broke"], "answer": 0, "why": "Ask when they’ve just felt the value; make it specific and easy to forward."},
+      body: ["Ask right after a measurable win.", "Make it specific (“who else runs a shop like yours?”) and easy (a 2-line intro they can forward).", "Thank every referral, win or not."] },
     { tag: 'try', title: 'Your turn: timing',
       check: {
         type: 'mc', q: 'Best moment to ask a client for a referral?', options: ['Right after you report a clear win', 'In the first week, before launch', 'When sending an invoice', 'When something broke'], answer: 0,
         why: 'Ask when they’ve just felt the value.',
       } },
     { tag: 'biz', title: 'Partner terms',
+      predict: {"q": "A web designer will refer clients for a 10% fee. What do you do?", "options": ["Agree terms in writing; be transparent with clients where it matters", "Keep it secret", "Refuse all partners", "Pay in cash only"], "answer": 0, "why": "Clear, written, honest terms keep partnerships clean."},
       body: [
         'Some partners want a referral fee; others just want their clients served well. Agree terms in writing.',
         'Tell clients about any referral payment if it could affect their trust. Transparency keeps partnerships clean.',

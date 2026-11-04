@@ -20,13 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Four layers of questions',
-      body: [
-        '**Situation:** “walk me through what happens when…”',
-        '**Problem:** “what goes wrong? how often?”',
-        '**Cost:** “what does that cost you: money, time, stress, customers?”',
-        '**Meaning:** “what would it mean if that was fixed?” In their answer is your pitch.',
-        'Follow-ups beat new questions: “tell me more”, “what happened next?”, “how did that feel?”',
-      ] },
+      visual: {"type": "sort", "cols": ["Situation", "Problem", "Cost", "Meaning"], "items": [{"text": "“Walk me through what happens when a lead comes in Saturday.”", "col": 0}, {"text": "“How often do those go cold?”", "col": 1}, {"text": "“What’s a lost install worth to you?”", "col": 2}, {"text": "“What would it mean if weekends were covered?”", "col": 3}, {"text": "“Who handles voicemail on Mondays?”", "col": 0, "why": "What happens and who does it is the situation."}, {"text": "“How does that affect your summer?”", "col": 3}], "prompt": "Which layer is each question?"},
+      body: ["**Situation** → **problem** → **cost** → **meaning**. In their answer to “meaning” is your pitch.", "Follow-ups beat new questions: “tell me more”, “what happened next?”", "Turn vague answers into numbers: how many, how often, how much."] },
     { tag: 'try', title: 'Your turn: next layer',
       body: ['Owner: “Sometimes quotes don’t get followed up.”'],
       check: {

@@ -22,6 +22,7 @@ export default {
       },
     },
     { tag: 'how', title: 'Renewals',
+      predict: {"q": "What should a renewal review call open with?", "options": ["Results vs the baseline", "The new price", "A feature list", "Small talk only"], "answer": 0, "why": "Show value first. Price changes come with notice after."},
       body: [
         'Renewals are won monthly through reports, not at the end of the term.',
         'Before a term ends: a short review call with results vs baseline and next quarter’s suggestion.',
@@ -33,6 +34,7 @@ export default {
         why: 'Show the value first. Everything else follows from it.',
       } },
     { tag: 'key', title: 'The full delivery loop',
+      visual: {"type": "sort", "cols": ["First", "Later"], "items": [{"text": "Onboard with a baseline", "col": 0}, {"text": "Deliver in visible weekly pieces", "col": 0}, {"text": "Launch, watched", "col": 0}, {"text": "Report monthly", "col": 1}, {"text": "Expand with one suggestion", "col": 1}, {"text": "Renew or offboard cleanly", "col": 1, "why": "The relationship ends (or continues) on clear terms."}], "prompt": "Early or later in the client lifecycle?"},
       body: ['Onboard with a baseline → deliver in visible weekly pieces → document → launch watched → support on clear terms → report monthly → expand → renew or offboard cleanly.'] },
   ],
   quiz: [

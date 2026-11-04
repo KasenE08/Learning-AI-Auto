@@ -21,13 +21,8 @@ export default {
       },
     },
     { tag: 'see', title: 'The local-service starter kit',
-      body: [
-        '**Speed-to-lead:** instant acknowledgment + routing + a follow-up sequence.',
-        '**Missed-call text-back** or an after-hours voice agent (Module 5).',
-        '**Booking + reminders** with reschedule links (Module 4).',
-        '**Review requests** after a job is done (ask happy customers; route unhappy ones to the owner first).',
-        '**Invoice reminders / dunning** (Module 4).',
-      ] },
+      visual: {"type": "sort", "cols": ["Speed-to-lead", "Missed calls", "Reminders", "Reviews", "Invoices"], "items": [{"text": "Instant reply + follow-up for new web leads", "col": 0}, {"text": "Text-back when a call goes unanswered", "col": 1}, {"text": "Text 24 h before an appointment", "col": 2}, {"text": "Ask happy customers for a review after the job", "col": 3}, {"text": "Nudge for unpaid invoices", "col": 4}, {"text": "After-hours voice agent", "col": 1, "why": "It answers calls that would otherwise be missed."}], "prompt": "Which kit item is each workflow?"},
+      body: ["Speed-to-lead and missed-call recovery.", "Booking + reminders, and review requests (unhappy customers go to the owner first).", "Invoice reminders and dunning."] },
     { tag: 'try', title: 'Your turn: pick for this owner',
       check: {
         type: 'mc', scenario: 'A Memphis lawn-care owner: “We have more leads than we can handle. What kills us is customers who don’t pay on time.”',
@@ -35,6 +30,7 @@ export default {
         why: 'Listen to the pain they named. More leads won’t help a business that can’t collect.',
       } },
     { tag: 'warn', title: 'Kit, not cookie-cutter',
+      predict: {"q": "A new plumber client fits your kit perfectly. Do you still map their process?", "options": ["Yes: who answers, which tools and which rules always differ", "No, use the kit as-is", "Only if they pay extra", "Only after launch"], "answer": 0, "why": "The kit tells you what to look for; the map gives the details."},
       body: [
         'Use the kit to know what to look for, but map each client’s process anyway. The details (who answers, which tools, which rules) always differ.',
         'Regulated trades (healthcare, finance) need extra care with data and messaging (Module 13).',

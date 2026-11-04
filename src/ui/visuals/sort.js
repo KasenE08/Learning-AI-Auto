@@ -26,6 +26,7 @@ export function mountSort(box, spec) {
     const i = Number(b.dataset.i), c = Number(b.dataset.c);
     const item = spec.items[i];
     if (item.col === c) { placed.set(i, c); msg = null; }
+    if (placed.size === spec.items.length) setTimeout(() => box.dispatchEvent(new CustomEvent('vis-done', { bubbles: true })));
     else { mistakes++; msg = { i, why: item.why || `It belongs in “${spec.cols[item.col]}”. Try again.` }; }
     draw();
   });

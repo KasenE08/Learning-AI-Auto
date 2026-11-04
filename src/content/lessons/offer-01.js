@@ -20,6 +20,7 @@ export default {
       },
     },
     { tag: 'how', title: 'The trade-off',
+      predict: {"q": "A niche has fewer prospects. What usually goes up?", "options": ["Win rate and reuse between clients", "Your costs", "The number of competitors", "Nothing"], "answer": 0, "why": "Smaller pool, higher win rate and more reuse. The table shows the trade."},
       visual: { type: 'compare', cols: ['', 'Generalist', 'Niche'], rows: [
         ['Pool of prospects', 'Huge', 'Smaller'],
         ['Win rate', 'Lower', 'Higher'],
@@ -34,6 +35,7 @@ export default {
         why: 'Who (independent dental clinics), problem (empty chairs), how (reminders and recall). The others could mean anything.',
       } },
     { tag: 'biz', title: 'A niche can be a problem, not just an industry',
+      predict: {"q": "Is “speed-to-lead for home-service companies” a niche?", "options": ["Yes: a problem-based niche", "No, niches are industries only", "Only if it’s one city", "Only for big firms"], "answer": 0, "why": "Problem niches cross industries but keep the reuse."},
       body: [
         '“Speed-to-lead for home-service companies” or “document collection for small accounting firms” are niches too.',
         'Problem-based niches cross industries but keep the reuse. Next lesson scores options.',

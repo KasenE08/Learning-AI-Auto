@@ -20,18 +20,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Building proof from zero',
-      body: [
-        '**Demo builds** on fake data in your niche: record them working (your sandbox builds are a start).',
-        '**Teardown write-ups:** “How an HVAC company could answer every after-hours lead” with a diagram and ROI example.',
-        '**A pilot** with someone you know, at a discount, in exchange for a testimonial and permission to share results.',
-        '**Your own business:** automate your intake and follow-up, then show it.',
-      ] },
+      predict: {"q": "You have zero clients. Which proof is honest and convincing?", "options": ["A labeled demo recording of your build on fake data", "“Trusted by 50 businesses”", "A stock-photo testimonial", "Nothing until client #10"], "answer": 0, "why": "Show real work, clearly labeled."},
+      body: ["**Demo builds** on fake data, recorded, and **teardown write-ups** for your niche.", "A discounted **pilot** with written permission to share results.", "**Your own business**, automated, as a live example."] },
     { tag: 'try', title: 'Your turn: pilot terms',
       check: {
         type: 'mc', q: 'Best structure for a first pilot with a friend’s gym?', options: ['Discounted, one workflow, 30 days, written scope, permission to share results and a testimonial if it works', 'Free, unlimited scope, no paperwork', 'Full price, no discount', 'Free, and you promise results'], answer: 0,
         why: 'A discount (not free), tight scope, clear terms, and a proof agreement. Free and unlimited tends to produce neither respect nor results.',
       } },
     { tag: 'law', title: 'Honesty is also a legal line',
+      predict: {"q": "Can you share a pilot client’s results without asking?", "options": ["No, get written permission first", "Yes, results are yours", "Yes, if anonymous-ish", "Only good results"], "answer": 0, "why": "Permission first; and deceptive claims can break US consumer-protection law."},
       body: [
         'In the US, deceptive advertising (fake reviews, made-up results or client counts) can break consumer-protection law.',
         'Label demos as demos and test data as test data. Get written permission before naming a client or sharing their numbers.',

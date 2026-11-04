@@ -20,19 +20,15 @@ export default {
       },
     },
     { tag: 'how', title: 'The warm-outreach sequence',
-      body: [
-        '**List** 30+ people with a link to a small business. Include “who do they know?”',
-        '**Ask to learn:** 15 minutes about how they handle one specific thing.',
-        '**Listen** and map (Module 7). Share one idea if it fits.',
-        '**Offer a pilot** if there’s a clear problem (Module 8).',
-        '**Ask for an introduction** if not: “Who do you know who deals with this?”',
-      ] },
+      predict: {"q": "Your old coach has no problem you can solve right now. What do you ask for?", "options": ["An introduction to someone who might", "A discount", "Nothing; walk away", "A review"], "answer": 0, "why": "Warm networks spread through introductions."},
+      body: ["**List** 30+ people linked to small businesses; **ask to learn** about one specific thing.", "**Listen** and map; **offer a pilot** if there’s a clear problem.", "If not, **ask for an introduction**: “Who do you know who deals with this?”"] },
     { tag: 'try', title: 'Your turn: the intro ask',
       check: {
         type: 'mc', q: 'Your neighbor’s team doesn’t need anything right now. Best close to the conversation?', options: ['“Thanks! Do you know another agent or office that struggles with showing requests? I’d love an intro.”', '“OK, bye.”', '“Are you sure you don’t need it?”', '“I’ll check back next week.”'], answer: 0,
         why: 'Warm networks spread through introductions. A specific ask makes it easy to say yes.',
       } },
     { tag: 'warn', title: 'Mixing friends and business',
+      predict: {"q": "Your cousin wants your help with her salon. Paperwork?", "options": ["The same written scope and agreement as anyone", "None; family", "A handshake", "Only an invoice"], "answer": 0, "why": "Clarity protects relationships. Discount if you like, but never free and unlimited."},
       body: [
         'Use the same written scope and agreement with friends and family. It protects the relationship.',
         'Discount if you like, but don’t do it free with unlimited scope (Module 8, lesson 6).',

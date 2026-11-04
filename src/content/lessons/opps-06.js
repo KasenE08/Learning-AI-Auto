@@ -21,18 +21,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Impact, confidence, effort',
-      body: [
-        '**Impact:** monthly value from the ROI math (lesson 4).',
-        '**Confidence:** 0–1. How sure are you it will work and deliver that value? Data available? Apps have the right APIs?',
-        '**Effort:** days to build and test, including the client’s time (access, approvals).',
-        'Score = impact × confidence ÷ effort. It’s a conversation tool, not a law. Also flag **risk** (customer-facing, regulated data).',
-      ] },
+      predict: {"q": "Idea A: $1,500/month, 30% confident, 10 days. Idea B: $800/month, 80% confident, 3 days. Which first?", "options": ["B", "A", "Both at once", "Neither"], "answer": 0, "why": "Score = impact × confidence ÷ effort: A = 45, B ≈ 213. Quick, likely wins first."},
+      body: ["**Impact** (monthly value), **confidence** (0–1), **effort** (days, including the client’s).", "Score = impact × confidence ÷ effort. A conversation tool, not a law.", "Also flag **risk**: customer-facing or regulated data."] },
     { tag: 'try', title: 'Your turn: score it',
       check: {
         type: 'num', q: 'Impact $600/month, confidence 0.5, effort 4 days. Score?', answer: 75, tol: 0.01,
         why: '600 × 0.5 ÷ 4 = **75**.',
       } },
     { tag: 'biz', title: 'Roadmaps sell retainers',
+      predict: {"q": "Why show the client a ranked list instead of just one project?", "options": ["It turns one project into an ongoing relationship", "To look busy", "To charge for planning", "No reason"], "answer": 0, "why": "“Start with #1; next quarter #2 and #3.” Quick win first builds the trust for the rest."},
       body: [
         'Show the ranked list: “Start with #1. Next quarter, #2 and #3.” A roadmap turns one project into an ongoing relationship (Module 10, retainers).',
         'Quick win first, always. Trust is the real deliverable of project one.',

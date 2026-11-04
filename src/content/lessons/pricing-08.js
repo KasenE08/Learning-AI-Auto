@@ -34,6 +34,7 @@ export default {
         type: 'num', q: 'Pass-through AI costs were $180 this month. You bill at cost + 20%. Amount billed?', answer: 216, tol: 0, prefix: '$', why: '$180 × 1.2 = $216.',
       } },
     { tag: 'key', title: 'The pricing checklist',
+      visual: {"type": "sort", "cols": ["Pass", "Fail"], "items": [{"text": "Price is above your floor", "col": 0}, {"text": "Client gets 4× their money back in year one", "col": 0}, {"text": "AI usage is uncapped under a flat fee", "col": 1, "why": "Variable costs without a cap can eat your margin."}, {"text": "No written change process", "col": 1}, {"text": "Running costs are in the client’s accounts", "col": 0}, {"text": "Price is higher than the client’s value", "col": 1}], "prompt": "Does each fact pass the pricing checklist?"},
       body: [
         'Above your floor? Well under their value? Running costs covered or passed through? Usage capped? Scope and change process written down?',
         'If all five are yes, the price is defensible.',

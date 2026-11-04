@@ -37,12 +37,14 @@ export default {
       },
     },
     { tag: 'how', title: 'The change-request habit',
+      predict: {"q": "A client asks for something outside scope. When does work start?", "options": ["After they approve a short written quote", "Immediately", "After launch, free", "Never"], "answer": 0, "why": "Quote first. Small favors are fine if you say “this one’s on me”."},
       body: [
         'Your agreement defines what’s included (Module 8) and how changes work.',
         'For anything outside it: a short written quote (what, price, timeline). Work starts when they approve.',
         'Small favors are fine sometimes, but say “this one’s on me” so it’s visibly a gift, not the new normal.',
       ] },
     { tag: 'see', title: 'Raising prices',
+      predict: {"q": "Who sees a price increase first?", "options": ["New clients", "Your oldest client, tomorrow", "Everyone, overnight", "Nobody, ever"], "answer": 0, "why": "New proposals first; existing clients at an annual review with 30–60 days’ notice."},
       body: [
         'New clients first: raise prices for new proposals as demand and results grow.',
         'Existing clients: review once a year, give 30–60 days’ notice, and tie it to added value or results.',

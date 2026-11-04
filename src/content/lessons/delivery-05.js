@@ -21,19 +21,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Launch checklist',
-      body: [
-        'Test set passes; alerts and fallbacks tested by breaking things on purpose.',
-        'Client guide ready; runbook done.',
-        '**Soft launch:** real data, closely watched, with an easy way to pause.',
-        '**Train the users** (short, practical): what changes for them, what to do when they see X.',
-        'Book the 1-week check-in and the first results report before you leave.',
-      ] },
+      predict: {"q": "Before launch, how do you know your failure alerts work?", "options": ["Break things on purpose and see the alert arrive", "Assume they do", "Ask the client", "Wait for a real failure"], "answer": 0, "why": "Test the alarms, not just the happy path."},
+      body: ["Test set passes, alerts and fallbacks tested by breaking things, guide and runbook ready.", "**Soft launch** (watched, easy to pause) and short, practical **user training**.", "Book the 1-week check-in and first report before you leave."] },
     { tag: 'try', title: 'Your turn: training focus',
       check: {
         type: 'mc', q: 'What should a 20-minute training focus on?', options: ['What changes for them day to day and what to do when something looks off', 'How the AI model works', 'Every setting in the builder', 'Your other clients'], answer: 0,
         why: 'Users need their new routine and the exceptions, not the internals.',
       } },
     { tag: 'warn', title: 'Staff worries',
+      predict: {"q": "The office manager fears the system will replace her. What helps most?", "options": ["Show how it removes her busywork and keeps her in charge of judgment calls", "Ignore it", "Tell her not to worry", "Launch without telling her"], "answer": 0, "why": "Make her the hero of the launch, not its skeptic."},
       body: ['People fear being replaced. Show how the system removes their busywork and keeps them in charge of the judgment calls. Brenda as the hero of the launch beats Brenda as a skeptic.'] },
   ],
   quiz: [

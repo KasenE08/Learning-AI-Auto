@@ -20,13 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'What stays human',
-      body: [
-        '**Relationships:** reading tone, noticing unhappiness, calls that need empathy.',
-        '**Judgment and trade-offs:** which client to prioritize, whether to take a project, how to handle a mistake.',
-        '**Accountability:** contracts, promises, and fixing what broke are yours.',
-        '**Final say on anything external.**',
-        'And watch for **compounding errors**: one agent’s mistake becomes the next agent’s input.',
-      ] },
+      visual: {"type": "sort", "cols": ["Human", "Agent"], "items": [{"text": "Noticing a long-time client is quietly unhappy", "col": 0}, {"text": "Sorting 40 alerts by urgency", "col": 1}, {"text": "Deciding how to handle your own mistake", "col": 0}, {"text": "Drafting a report from the numbers", "col": 1}, {"text": "Signing the contract", "col": 0, "why": "Accountability stays with you."}, {"text": "Researching prospects’ websites", "col": 1}], "prompt": "Who should own each job?"},
+      body: ["**Relationships** and **judgment** stay human.", "**Accountability** and **final say on anything external** are yours.", "Watch for **compounding errors**: one agent’s mistake becomes the next one’s input."] },
     { tag: 'try', title: 'Your turn: where’s the limit?',
       check: {
         type: 'mc', scenario: 'You have 14 clients. Your weekly review takes 6 hours, and you’ve started approving drafts without reading them.',
@@ -34,6 +29,7 @@ export default {
         why: 'When the human checkpoint becomes a rubber stamp, the system is over capacity. At one-person scale, the levers are price, scope and client count.',
       } },
     { tag: 'key', title: 'One-person scale is a choice',
+      predict: {"q": "Your reviews have become rubber stamps. In this course’s solo model, what’s the fix?", "options": ["Fewer, better-paying clients and tighter packages", "Hire someone", "Remove reviews", "More agents"], "answer": 0, "why": "Protect the checkpoint by lowering load, not by dropping it."},
       body: ['This course stops at one person by design. When review quality slips, the answer here isn’t a hire. It’s fewer, better-paying clients and tighter packages (lessons 8 and 10).'] },
   ],
   quiz: [

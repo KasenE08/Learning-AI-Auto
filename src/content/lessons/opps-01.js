@@ -22,13 +22,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Signals of an automation opportunity',
-      body: [
-        '**Repetition:** the same steps, many times a week.',
-        '**Copying between apps:** typing what one system already knows into another.',
-        '**Waiting:** work that sits until someone checks (inboxes, voicemail, forms).',
-        '**Forgetting:** follow-ups, reminders, renewals that slip when it’s busy.',
-        '**Rules a person applies in their head:** “if it’s an emergency, call the owner”.',
-      ] },
+      visual: {"type": "sort", "cols": ["Repetition", "Copying", "Waiting", "Forgetting"], "items": [{"text": "“We send the same welcome email 30 times a week.”", "col": 0}, {"text": "“I retype every web lead into the job system.”", "col": 1}, {"text": "“Voicemails sit until Monday.”", "col": 2}, {"text": "“Quote follow-ups happen when I remember.”", "col": 3}, {"text": "“I copy invoice totals into the sheet.”", "col": 1, "why": "Typing what one system already knows into another is copying."}, {"text": "“Forms wait in the inbox until lunch.”", "col": 2}], "prompt": "Which signal is each owner quote?"},
+      body: ["**Repetition** and **copying between apps:** the same steps, again and again.", "**Waiting** and **forgetting:** work that sits, and follow-ups that slip when it’s busy.", "**Rules in someone’s head:** “if it’s an emergency, call the owner.”"] },
     { tag: 'try', title: 'Your turn: spot the leaks',
       check: {
         type: 'multi', q: 'A Nashville property manager says these things. Which hint at automation opportunities?',
@@ -36,6 +31,7 @@ export default {
         why: 'Re-typing, forgetting, and scattered intake are classic leaks. Vendor judgment is expertise; support it, don’t replace it.',
       } },
     { tag: 'biz', title: 'Listen for the words',
+      predict: {"q": "Which owner sentence most clearly signals an automation opportunity?", "options": ["“It falls through the cracks when we’re busy.”", "“We’re a family business.”", "“We’ve been open 20 years.”", "“Our logo is blue.”"], "answer": 0, "why": "“Falls through the cracks”, “every time”, “I forget to”: write those phrases down word for word."},
       body: [
         'Owners rarely say “I need an automation.” They say: “we always…”, “every single time…”, “I forget to…”, “it falls through the cracks”, “I spend my evenings on…”.',
         'Write those phrases down word for word. They become your proposal’s problem statement (Module 9).',

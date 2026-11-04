@@ -19,13 +19,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Red flags',
-      body: [
-        '**Unstable process:** fix and agree the process first; automating chaos makes faster chaos.',
-        '**Low volume:** small savings never repay the build and upkeep.',
-        '**High-stakes judgment:** medical, legal, hiring, credit decisions. Assist people; don’t replace their judgment.',
-        '**No data or no API:** nothing reliable to connect to.',
-        '**The real problem is elsewhere:** staffing, pricing, or a product issue that automation won’t fix.',
-      ] },
+      visual: {"type": "sort", "cols": ["Go", "Red flag"], "items": [{"text": "40 identical reminders a day", "col": 0}, {"text": "“We’re still figuring out our process.”", "col": 1, "why": "Automating chaos makes faster chaos."}, {"text": "60 web leads a day copied into the CRM", "col": 0}, {"text": "AI deciding who gets a loan", "col": 1}, {"text": "Automating 2 invoices a month", "col": 1}, {"text": "Daily digest of yesterday’s orders", "col": 0}], "prompt": "Go, or red flag?"},
+      body: ["Red flags: an unstable process, low volume, high-stakes judgment.", "No data or no API, or a real problem elsewhere (staffing, pricing).", "Green flags: stable, frequent, low-stakes, well-connected work."] },
     { tag: 'try', title: 'Your turn: go or no-go?',
       check: {
         type: 'multi', q: 'Which are reasonable to automate?',
@@ -33,6 +28,7 @@ export default {
         why: 'High-volume, stable, low-stakes tasks: yes. Automated denials and unsettled processes: no.',
       } },
     { tag: 'biz', title: 'Saying no is a sales skill',
+      predict: {"q": "A prospect asks for a build that won’t pay back. Best reply?", "options": ["“I could build it, but it won’t pay back. Here’s what would.”", "Build it anyway", "Ignore them", "Charge double"], "answer": 0, "why": "Redirecting shows you’re on their side, and trusted advisors get the projects that pay."},
       body: ['“I could build that, but it won’t pay back for you. Here’s what would.” turns a bad project into a better one, and shows you’re on their side.'] },
   ],
   quiz: [

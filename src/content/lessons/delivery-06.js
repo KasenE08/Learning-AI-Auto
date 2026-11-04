@@ -19,12 +19,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Support terms',
-      body: [
-        'Define categories with examples and response times. Response time ≠ fix time; say both expectations honestly.',
-        'One support channel (an email address or form), so nothing gets lost in texts and DMs.',
-        'Monitoring (Module 6) should tell you before the client does, most of the time.',
-        'Price urgent weekend coverage into the retainer, or exclude it clearly. Don’t promise what you can’t staff.',
-      ] },
+      predict: {"q": "Ideally, who notices a broken workflow first?", "options": ["Your monitoring", "The client", "The client’s customers", "Nobody"], "answer": 0, "why": "Monitoring should usually tell you before the client does."},
+      body: ["Define categories with examples and response times (response ≠ fix).", "One support channel, so nothing gets lost in texts and DMs.", "Price weekend coverage into the retainer or exclude it. Don’t promise what you can’t staff."] },
     { tag: 'try', title: 'Your turn: the first reply',
       check: {
         type: 'mc', q: 'Best first reply to an urgent issue?', options: ['“Got it. I’m on it now. First update by 8:45 pm. Leads in the meantime are saved; nothing is lost.”', '“Will look Monday.”', '“It works on my end.”', '“This is probably your fault.”'], answer: 0,

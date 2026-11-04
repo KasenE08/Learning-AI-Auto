@@ -21,18 +21,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Why retainers exist',
-      body: [
-        'Automations need care: apps change, connections expire, the business changes. Someone must watch them.',
-        'For the client: peace of mind and a person to call. For you: predictable income.',
-        'Price it on what it includes and the value of keeping things running, not on your hours alone.',
-        'Common terms: an initial term (e.g. 3–6 months), then month to month with 30 days’ notice.',
-      ] },
+      predict: {"q": "Nothing broke this month. What did the client’s retainer pay for?", "options": ["Monitoring, upkeep and someone watching", "Nothing", "A free new workflow", "Your vacation"], "answer": 0, "why": "Apps change and connections expire. Retainers pay for keeping it running and for peace of mind."},
+      body: ["Automations need care: apps change, connections expire, businesses change.", "Client gets peace of mind; you get predictable income. Price on what it includes.", "Common terms: 3–6 months, then month to month with notice."] },
     { tag: 'try', title: 'Your turn: monthly math',
       check: {
         type: 'num', q: 'You have 8 clients on a $350/month retainer, with $60/month of tool costs each. Monthly profit from retainers before your time?', answer: 2320, tol: 0, prefix: '$',
         why: '8 × ($350 − $60) = **$2,320** a month.',
       } },
     { tag: 'biz', title: 'Retainers are the business',
+      predict: {"q": "10 clients × $350/month retainer. Monthly recurring revenue?", "options": ["$3,500", "$350", "$35,000", "$10"], "answer": 0, "why": "Retainers stack; setup fees are lumpy. Reports earn renewals."},
       body: [
         'Setup fees are lumpy; retainers stack. Ten clients on modest retainers is a foundation (Module 12 does the capacity math).',
         'Earn renewals with reports that show value every month (Module 11).',

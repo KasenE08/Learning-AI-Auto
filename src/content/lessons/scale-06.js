@@ -22,19 +22,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Design rules for your own agent ops',
-      body: [
-        '**One briefing, one time:** batch agent output into a daily or weekly review, not a stream of pings.',
-        '**Structured outputs:** each agent returns fields you can scan (status, draft, confidence, source).',
-        '**Flags, not fixes:** agents flag anomalies (the 40% drop); you decide what to do.',
-        '**Limits and logs:** step and spend limits per run; every action logged (Module 6).',
-        '**Fallback:** if the briefing doesn’t arrive, that’s itself an alert (heartbeat).',
-      ] },
+      visual: {"type": "sort", "cols": ["Good design", "Bad design"], "items": [{"text": "One morning briefing with approve/edit buttons", "col": 0}, {"text": "A ping for every single agent result", "col": 1}, {"text": "Agents flag a 40% volume drop for you to decide", "col": 0}, {"text": "Agents email clients without review", "col": 1, "why": "Anything leaving your business passes through you."}, {"text": "Step and spend limits per run", "col": 0}, {"text": "No alert if the briefing never arrives", "col": 1}], "prompt": "Sort each agent-ops design choice."},
+      body: ["**One briefing, one time**, with structured outputs you can scan.", "**Flags, not fixes**; limits and logs on every run.", "If the briefing doesn’t arrive, that’s an alert too."] },
     { tag: 'try', title: 'Your turn: what the agent may do alone',
       check: {
         type: 'multi', q: 'Which actions can run without your approval?', options: ['Logging run statistics to your ops sheet', 'Sending a follow-up email to a prospect', 'Creating a task for you about a yellow flag', 'Emailing a client their monthly report'], answer: [0, 2],
         why: 'Internal, reversible actions can run alone. Anything sent to a client or prospect waits for you.',
       } },
     { tag: 'key', title: 'Your time budget',
+      predict: {"q": "You’re rewriting 80% of an agent’s drafts. What now?", "options": ["Improve its brief or take the task back", "Keep going", "Let it send unreviewed", "Add more agents"], "answer": 0, "why": "Review should take a fraction of doing the work yourself."},
       body: ['Aim for review time that’s a fraction of doing the work yourself. If you’re rewriting most drafts, fix the agent’s brief or take the task back.'] },
   ],
   quiz: [

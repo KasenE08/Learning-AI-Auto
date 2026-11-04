@@ -21,6 +21,7 @@ export default {
       },
     },
     { tag: 'how', title: 'Watch profit per client',
+      predict: {"q": "A client pays $400 a month and takes 9 hours. Effective rate?", "options": ["About $44/hour", "$400/hour", "$90/hour", "$4/hour"], "answer": 0, "why": "$400 ÷ 9 ≈ $44. Fix it with scope, tiers or a renewal price, or offboard kindly."},
       body: [
         'Track hours per client monthly. Compute each client’s effective rate.',
         'Fix low ones: enforce scope (Module 10), move to a higher tier, or raise the price at renewal.',
@@ -32,6 +33,7 @@ export default {
         why: 'Blaming everyone before you, discount-for-promises, and impossible timelines with fuzzy scope predict trouble. A mapped process is a great sign.',
       } },
     { tag: 'key', title: 'The solo business you’re building',
+      visual: {"type": "sort", "cols": ["Part of the model", "Not part of it"], "items": [{"text": "A focused niche", "col": 0}, {"text": "One productized offer", "col": 0}, {"text": "Agents prepare; you decide", "col": 0}, {"text": "Hiring a team of five", "col": 1, "why": "This course stops at one person by design."}, {"text": "Custom quotes for every client forever", "col": 1}, {"text": "Unlimited clients at any price", "col": 1}], "prompt": "Which belongs in the solo business model?"},
       body: [
         'A focused niche, one productized offer, a dozen or two well-paying retainer clients, agents doing the preparation, you doing the judgment.',
         'Profit grows through price and efficiency, not headcount. That’s the finish line of this module.',

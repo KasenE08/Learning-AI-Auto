@@ -37,12 +37,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Change requests during delivery',
-      body: [
-        'Keep a simple change log: request, date, in or out of scope, decision.',
-        'In scope: do it. Out of scope: “great idea, here’s a quote”, and say what it does to the timeline.',
-        'Never trade the launch date for unpaid extras without the client choosing that knowingly.',
-        'Good ideas you defer become your phase 2 pipeline.',
-      ] },
+      predict: {"q": "A good idea comes up mid-build that would delay launch. Where does it go?", "options": ["Phase 2, with a quote", "Into this build, free", "Nowhere", "Into the contract silently"], "answer": 0, "why": "Protect the launch; deferred ideas become your phase 2 pipeline."},
+      body: ["Keep a change log: request, date, in or out of scope, decision.", "In scope: do it. Out: “great idea, here’s a quote”, plus what it does to the timeline.", "Never trade the launch date for unpaid extras unless the client chooses that knowingly."] },
     { tag: 'try', title: 'Your turn: in or out?',
       check: {
         type: 'multi', q: 'The agreed scope is “lead intake + instant reply + follow-up sequence”. Which requests are in scope?',
@@ -50,6 +46,7 @@ export default {
         why: 'Tweaking agreed parts is in. A second form is arguably new intake (clarify), and quotes are clearly new work.',
       } },
     { tag: 'warn', title: 'Gray areas',
+      predict: {"q": "A request is ambiguous and tiny, and won’t affect launch. Best handling?", "options": ["Decide quickly, log it, lean generous", "Argue about it for a week", "Ignore it", "Charge double"], "answer": 0, "why": "Write the decision down either way."},
       body: ['Some requests are ambiguous (the second lead form). Decide quickly, write the decision in the change log, and lean generous on small items if it doesn’t threaten the launch.'] },
   ],
   quiz: [

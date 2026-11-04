@@ -94,15 +94,16 @@ function run(view, l, content, { startQuiz }) {
   function showStep() {
     dispose();
     const st = steps[S.i];
-    const pv = st.visual && st.visualFirst; // visual shown as context before the prediction
+    const gateSort = st.visual?.type === 'sort'; // sort first, then the explanation unlocks
+    const pv = st.visual && (st.visualFirst || gateSort); // visual shown before the bullets
     const art = el(html`<article class="step">
       <span class="kicker kicker--accent">${TAGS[st.tag] || st.tag}</span>
       <h2 class="h2">${st.title}</h2>
       ${pv ? html`<div class="step__vis"></div>` : ''}
       ${st.predict ? html`<div class="step__predict"><span class="kicker">Predict first · one tap</span></div>` : ''}
-      <div class="step__reveal" ${st.predict ? 'hidden' : ''}>
+      <div class="step__reveal" ${st.predict || gateSort ? 'hidden' : ''}>
         ${st.body?.length ? html`<ul class="bullets">${st.body.map((b) => html`<li>${rich(b)}</li>`)}</ul>` : ''}
-        ${st.visual && !st.visualFirst ? html`<div class="step__vis"></div>` : ''}
+        ${st.visual && !pv ? html`<div class="step__vis"></div>` : ''}
         <div class="step__check"></div>
         ${st.build ? buildLink(st.build) : ''}
         <div class="step__outside"></div>
@@ -115,8 +116,11 @@ function run(view, l, content, { startQuiz }) {
     if (st.outside) art.querySelector('.step__outside').append(outsideBuild(st.outside, l.id));
     currentCheck = null;
     let predicted = !st.predict;
+    let sorted = !gateSort;
+    const reveal = () => { if (predicted && sorted) art.querySelector('.step__reveal').hidden = false; };
     const gate = () => {
       if (!predicted) return setNext('Make your guess', { disabled: true, icon: '' });
+      if (!sorted) return setNext('Sort them to continue', { disabled: true, icon: '' });
       if (currentCheck && !currentCheck.isDone()) return setNext('Answer to continue', { disabled: true, icon: '' });
       setNext(stepLabel());
     };
@@ -124,11 +128,12 @@ function run(view, l, content, { startQuiz }) {
       // A guess, not a test: one try, then the answer and the explanation unlock.
       const p = renderQuestion({ type: 'mc', ...st.predict }, { seed: seed + 50 + S.i, mode: 'quiz', onDone: () => {
         predicted = true;
-        art.querySelector('.step__reveal').hidden = false;
+        reveal();
         gate();
       } });
       art.querySelector('.step__predict').append(p.el);
     }
+    if (gateSort) art.addEventListener('vis-done', () => { sorted = true; reveal(); gate(); });
     if (st.check) {
       const box = art.querySelector('.step__check');
       currentCheck = renderQuestion(st.check, { seed: seed + S.i, mode: 'try', onDone: () => { gate(); box.querySelector('.stuck-btn')?.remove(); } });

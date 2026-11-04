@@ -21,13 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'What to standardize',
-      body: [
-        '**Intake:** one form that captures everything discovery needs.',
-        '**Build:** a template workflow + a configuration sheet per client (names, numbers, wording).',
-        '**Pricing:** fixed tiers (Module 10).',
-        '**Docs and reports:** templates with client details filled in.',
-        '**Onboarding and offboarding:** checklists and automated emails.',
-      ] },
+      predict: {"q": "Which one change cuts build time the most for client #8?", "options": ["A template workflow + a config sheet", "Typing faster", "A bigger AI model", "Skipping tests"], "answer": 0, "why": "Template + config turns a rebuild into filling in details."},
+      body: ["**Intake** form and **template build + config sheet** per client.", "**Fixed pricing** tiers and **doc/report templates**.", "**Onboarding and offboarding** as checklists and automated emails."] },
     { tag: 'try', title: 'Your turn: what stays custom?',
       check: {
         type: 'multi', q: 'In a productized offer, which should still be customized per client?',
@@ -35,6 +30,7 @@ export default {
         why: 'Configure details within the template. Testing is never optional, and redesigning the core each time defeats the purpose.',
       } },
     { tag: 'biz', title: 'Productize after 2–3 custom builds',
+      predict: {"q": "When should you freeze a build into a template?", "options": ["After 2–3 custom builds of the same thing", "Before the first client", "After 50", "Never"], "answer": 0, "why": "The first few teach you what really varies."},
       body: ['Do the first couple custom (you learn what really varies). Then freeze the core into a template and stop saying yes to things outside it, or price them as custom work.'] },
   ],
   quiz: [

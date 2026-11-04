@@ -22,13 +22,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Proposal rules',
-      body: [
-        '**One or two pages.** Situation, what you’ll do, what changes, timeline, investment, next step.',
-        '**Two or three options**, not one. People choose between options instead of deciding yes/no. Put your recommended option in the middle or mark it clearly.',
-        '**Numbers from discovery:** their volume, their cost, your conservative ROI (Module 7).',
-        '**Walk through it live** (a short call) rather than just emailing it.',
-        'Scope details and terms go in the agreement (Module 13).',
-      ] },
+      predict: {"q": "Why offer two or three options instead of one price?", "options": ["The choice becomes “which one” instead of “yes or no”", "To confuse them", "To charge more for the same", "It looks longer"], "answer": 0, "why": "Options also fit budgets without you discounting."},
+      body: ["**One or two pages**, using their numbers and a conservative ROI.", "**Two or three options**, with your recommendation clear.", "**Walk through it live**; detailed terms go in the agreement."] },
     { tag: 'try', title: 'Your turn: options',
       check: {
         type: 'mc', q: 'Why offer two or three options?', options: ['The choice becomes “which one” instead of “yes or no”', 'To confuse the client', 'To charge more for the same thing', 'It looks bigger'], answer: 0,

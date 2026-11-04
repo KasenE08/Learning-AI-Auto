@@ -20,19 +20,15 @@ export default {
       },
     },
     { tag: 'how', title: 'How to price on value',
-      body: [
-        '**You need the numbers:** discovery must uncover the cost of the problem (Module 9).',
-        '**Anchor to value in the proposal:** “This problem costs about $4,000 a month.”',
-        '**Price as a share of value:** e.g. setup = a fraction of one month’s or a quarter’s value; client keeps the rest.',
-        '**Offer options** at different value levels (lesson 6).',
-        'Stay within a sensible band for your niche. Wildly different prices for the same package erode trust if clients compare notes.',
-      ] },
+      predict: {"q": "Where does the value number go in a proposal?", "options": ["Before the price", "After the price", "In the contract only", "Nowhere"], "answer": 0, "why": "Anchoring: “this costs you $4,000 a month” makes the price feel small."},
+      body: ["You need the problem’s cost from discovery; anchor to it before the price.", "Price as a share of value, with options at different levels.", "Stay within a sensible band for your niche so prices stay trustworthy."] },
     { tag: 'try', title: 'Your turn: anchor first',
       check: {
         type: 'mc', q: 'Where should the value number appear in a proposal?', options: ['Before the price', 'After the price', 'Nowhere', 'In the contract only'], answer: 0,
         why: '“This costs you $4,000 a month” makes “$3,500 setup” feel small. Price first, and $3,500 feels big.',
       } },
     { tag: 'warn', title: 'Value pricing needs honest value',
+      predict: {"q": "You inflate the value in a proposal. When does it backfire?", "options": ["When the results report comes", "Never", "Before signing", "Only with lawyers"], "answer": 0, "why": "Use conservative numbers the client gave you, and cite them."},
       body: ['Inflated value claims backfire when the results report comes. Use conservative numbers the client gave you, and say where they came from.'] },
   ],
   quiz: [

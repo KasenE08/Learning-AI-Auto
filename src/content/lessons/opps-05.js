@@ -18,14 +18,9 @@ export default {
       },
     },
     { tag: 'how', title: 'Five kinds of value',
-      visual: { type: 'compare', cols: ['Value', 'Example', 'How to measure'], rows: [
-        ['Time saved', 'No retyping leads', 'Hours × loaded cost'],
-        ['Speed', 'Reply in 1 minute, not 1 day', 'Response time before vs after; win rate'],
-        ['Revenue recovered', 'Failed payments retried, quotes followed up', 'Dollars recovered per month'],
-        ['Errors avoided', 'No wrong phone numbers, no missed appointments', 'Error count × cost of each error'],
-        ['Capacity', 'Owner handles 20% more jobs without hiring', 'Jobs per week; hire avoided'],
-      ] },
-      body: ['Lead with the one that matters most to this owner; support it with the others.'] },
+      visual: {"type": "sort", "cols": ["Time saved", "Speed", "Revenue recovered", "Errors avoided", "Capacity"], "items": [{"text": "No retyping leads", "col": 0}, {"text": "Reply in 1 minute, not 1 day", "col": 1}, {"text": "Failed payments retried", "col": 2}, {"text": "No wrong phone numbers", "col": 3}, {"text": "20% more jobs without hiring", "col": 4}, {"text": "Unanswered quotes followed up and won", "col": 2, "why": "Money that was slipping away and now comes in."}], "prompt": "Which kind of value is each result?"},
+      
+      body: ["Lead with the value that matters most to this owner, usually money in or risk avoided.", "Support it with the others."] },
     { tag: 'try', title: 'Your turn: name the value',
       check: {
         type: 'mc', scenario: 'A dental clinic’s reminder texts cut no-shows from 12 a month to 5. Each empty slot costs them about $150.',
@@ -33,6 +28,7 @@ export default {
         why: 'Seven fewer empty slots × $150. That number will matter more to the owner than the minutes saved sending reminders by hand.',
       } },
     { tag: 'warn', title: 'Don’t overclaim',
+      predict: {"q": "Which is safe to promise?", "options": ["“Every lead gets a reply within a minute.”", "“Your sales will rise 50%.”", "“Zero no-shows.”", "“Double revenue in 90 days.”"], "answer": 0, "why": "Promise what you control; report outcomes once you’ve measured them."},
       body: [
         'Speed improves win rates, but you can’t promise a specific lift. Say “faster replies usually win more of these”, then measure after launch.',
         'Promise what you control (response time, reminders sent). Report what you measure (jobs won, no-shows) once you have data.',

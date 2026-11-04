@@ -21,13 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'The five checks',
-      body: [
-        '**Value:** ROI works at conservative numbers for a typical client.',
-        '**Delivery:** you can build it in the promised time, mostly from reusable parts.',
-        '**Support:** you can run it for several clients at once without drowning (Module 12).',
-        '**Clarity:** owners get it in one sentence.',
-        '**Failure:** you know the worst realistic failure and have a fallback.',
-      ] },
+      visual: {"type": "sort", "cols": ["Value", "Delivery", "Support", "Clarity", "Failure"], "items": [{"text": "ROI works at conservative numbers", "col": 0}, {"text": "Built in 3 weeks from reusable parts", "col": 1}, {"text": "You can run it for 10 clients at once", "col": 2}, {"text": "Owners get it in one sentence", "col": 3}, {"text": "A missed emergency call has a fallback", "col": 4}, {"text": "3 owners understood it on first hearing", "col": 3, "why": "That’s the one-sentence test."}], "prompt": "Which check does each finding pass?"},
+      body: ["**Value** and **delivery**: it pays back, and you can deliver it on time.", "**Support** and **clarity**: you can run many, and owners get it.", "**Failure:** you know the worst case and have a fallback."] },
     { tag: 'try', title: 'Your turn: who to test with',
       check: {
         type: 'mc', q: 'Who gives the most useful feedback on your offer?', options: ['Owners in the niche, asked about their problem before hearing your pitch', 'Friends who aren’t in the niche', 'Other automation freelancers', 'Nobody; just launch'], answer: 0,

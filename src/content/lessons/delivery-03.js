@@ -19,18 +19,15 @@ export default {
       },
     },
     { tag: 'how', title: 'A simple delivery rhythm',
-      body: [
-        'Split the build into weekly pieces, each ending in something the client can see.',
-        'One short update per week: done, next, anything you need from them.',
-        'Test with your own contact details before anything touches real customers (Module 6).',
-        'Use the safe-change routine for every change after launch.',
-      ] },
+      predict: {"q": "Why end each week with something the client can see?", "options": ["They see progress and catch misunderstandings early", "To fill time", "For billing", "It’s required"], "answer": 0, "why": "Early feedback is cheap; late surprises are expensive."},
+      body: ["Weekly pieces, each ending in something visible, with a short update: done, next, need.", "Test with your own contact details before real customers.", "After launch, every change uses the safe-change routine."] },
     { tag: 'try', title: 'Your turn: the weekly update',
       check: {
         type: 'mc', q: 'Best weekly update?', options: ['“Done: instant reply works on test leads (video). Next: follow-up sequence. Need: Brenda’s preferred wording by Thursday.”', '“Making progress!”', '“The API returned a 429 so I implemented exponential backoff.”', 'No update until launch'], answer: 0,
         why: 'Done, next, need. Plain words, a video, and a clear ask with a date.',
       } },
     { tag: 'warn', title: 'Waiting on the client',
+      predict: {"q": "You’re blocked waiting for CRM access. Best move?", "options": ["Ask with a date, follow up once, say what slips", "Wait silently", "Guess their password", "Build in your own account"], "answer": 0, "why": "Most delays are waiting on the client. Make the consequence visible, and write it down."},
       body: ['Most delays are waiting for access or answers. Ask with a date, follow up once, and say what slips if it doesn’t arrive. Write it down.'] },
   ],
   quiz: [

@@ -21,13 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'A one-page monthly report',
-      body: [
-        '**2–4 measures** tied to the outcome you sold, compared to the baseline.',
-        '**Issues** and what you did about them.',
-        '**One suggestion** for next month (an upsell or an improvement).',
-        'Automate the numbers (a digest workflow, Module 3), and write the 3-line summary yourself.',
-        'Send it the same day every month.',
-      ] },
+      visual: {"type": "sort", "cols": ["Include", "Leave out"], "items": [{"text": "Median reply time vs the baseline", "col": 0}, {"text": "Number of API calls", "col": 1, "why": "Means nothing to the client."}, {"text": "One issue and how you fixed it", "col": 0}, {"text": "Your full build notes", "col": 1}, {"text": "One suggestion for next month", "col": 0}, {"text": "Every log line from the month", "col": 1}], "prompt": "What goes in a monthly report?"},
+      body: ["**2–4 measures** vs the baseline, **issues** and fixes, and **one suggestion**.", "Automate the numbers; write the 3-line summary yourself.", "Same day every month."] },
     { tag: 'try', title: 'Your turn: pick the measures',
       check: {
         type: 'multi', q: 'You sold “cut no-shows” to a dental clinic. Which measures belong in the report?',
@@ -35,6 +30,7 @@ export default {
         why: 'Measures tied to the promised outcome. API calls mean nothing to the clinic.',
       } },
     { tag: 'biz', title: 'Reports drive renewals',
+      predict: {"q": "Everything works, but the client hears nothing for months. Renewal risk?", "options": ["High: they wonder what they’re paying for", "None", "Low", "It doesn’t matter"], "answer": 0, "why": "Visible value every month is what renews."},
       body: ['A client who sees “1 minute vs 14 hours” every month renews. A client who hears nothing wonders what they’re paying for, even if everything works.'] },
   ],
   quiz: [

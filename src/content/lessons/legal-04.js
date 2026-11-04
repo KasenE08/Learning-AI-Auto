@@ -19,6 +19,7 @@ export default {
       },
     },
     { tag: 'law', title: 'What to know (US concepts)',
+      predict: {"q": "Your client wants an AI voice to cold-call people from a purchased list. Under the FCC’s 2024 ruling, what’s the issue?", "options": ["AI voices count as artificial voices, so those calls need prior consent", "No issue", "Only texts are covered", "AI calls are always legal"], "answer": 0, "why": "Same consent rules as other prerecorded or artificial-voice calls. Disclose AI, and don’t overclaim."},
       body: [
         '**Disclose AI** in chat and voice: “virtual assistant”, “AI assistant”. It’s the safe default everywhere, and some states require disclosure in certain situations.',
         '**AI voices on outbound calls:** in February 2024 the FCC ruled that AI-generated voices count as “artificial” voices under the TCPA. Outbound calls using them need the same prior consent as other prerecorded or artificial-voice calls.',
@@ -30,6 +31,7 @@ export default {
         why: 'Disclose and offer a human. AI cold calls without consent and impersonation are off-limits.',
       } },
     { tag: 'biz', title: 'Disclosure doesn’t hurt results',
+      predict: {"q": "What do callers care about most?", "options": ["Getting helped quickly", "Whether the voice has a human name", "Background music", "The model brand"], "answer": 0, "why": "A clear, capable assistant that hands off well beats a fake human."},
       body: ['People mostly care whether they got helped quickly. A clear, capable assistant that hands off well (Module 5) beats a fake human every time.'] },
   ],
   quiz: [

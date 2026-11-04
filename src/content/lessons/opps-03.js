@@ -19,13 +19,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Five numbers to collect',
-      body: [
-        '**Volume:** how many per week (normal and busy).',
-        '**Time per item:** minutes of hands-on work.',
-        '**Delay:** how long items wait before anyone acts.',
-        '**Error or drop rate:** how many get mistyped, lost, or never followed up.',
-        '**Value per item:** what one lead, job, or invoice is worth to them (average job value, profit margin if they know it).',
-      ] },
+      visual: {"type": "sort", "cols": ["Volume", "Time", "Delay", "Error rate", "Value"], "items": [{"text": "“About 15 leads a day”", "col": 0}, {"text": "“4 minutes to copy each one”", "col": 1}, {"text": "“They wait until Monday”", "col": 2}, {"text": "“Maybe 1 in 10 has a typo”", "col": 3}, {"text": "“An install is worth about $8,000”", "col": 4}, {"text": "“Busy weeks: 25 a day”", "col": 0, "why": "How many is volume, even on busy weeks."}], "prompt": "Which number is each answer?"},
+      body: ["**Volume** and **time per item**.", "**Delay** and **error or drop rate**.", "**Value per item:** what one lead, job or invoice is worth (profit if they know it)."] },
     { tag: 'try', title: 'Your turn: estimate honestly',
       body: ['The owner says “we lose a ton of leads”. You need a number.'],
       check: {
@@ -33,6 +28,7 @@ export default {
         why: 'Their own records beat guesses and borrowed statistics. If records don’t exist, track for one or two weeks.',
       } },
     { tag: 'warn', title: 'Be conservative',
+      predict: {"q": "Your estimate ranges from 2 to 6 extra jobs a month. Which number goes in the proposal?", "options": ["2", "6", "4", "10, to impress"], "answer": 0, "why": "The low end. A modest number the client believes beats a big one they doubt."},
       body: [
         'Use the lower end of every estimate. A modest number the client believes beats a big one they doubt.',
         'Write down where each number came from (“owner, from last month’s job list”). It protects you later.',

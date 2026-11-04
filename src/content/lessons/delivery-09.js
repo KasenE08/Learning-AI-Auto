@@ -20,18 +20,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Getting a testimonial and a case study',
-      body: [
-        'Ask after a visible win (Module 9, referrals).',
-        'Make it easy: draft 2–3 sentences from what they’ve said, and let them edit.',
-        'Get **written permission** for their name, logo, numbers, and quote. Some will allow an anonymous version only.',
-        'Use the reports’ numbers. Never round up or invent.',
-      ] },
+      predict: {"q": "Easiest way to get a testimonial from a busy owner?", "options": ["Draft it from their own words and let them edit", "Wait for them to write one", "Write it and publish", "Pay for it"], "answer": 0, "why": "Remove the effort; keep it theirs; get written permission."},
+      body: ["Ask after a visible win; draft 2–3 sentences from what they said and let them edit.", "Get **written permission** for name, logo, numbers and quote.", "Use the reports’ numbers exactly."] },
     { tag: 'try', title: 'Your turn: honest numbers',
       check: {
         type: 'mc', q: 'Bookings went from 22% to 31%. Which claim is honest?', options: ['“Booked visits rose from 22% to 31% in three months.”', '“Bookings up 50%!”', '“Doubled their business.”', '“Unlimited leads.”'], answer: 0,
         why: 'State exactly what was measured, over what period. (22% → 31% is a 9-point rise, about 41% relative. Either way, say which you mean.)',
       } },
     { tag: 'law', title: 'Permission and accuracy',
+      predict: {"q": "Can you put a client’s logo on your website because you built their system?", "options": ["Only with written permission", "Yes, automatically", "Yes, if small", "Only if they’re happy"], "answer": 0, "why": "Permission first, and testimonials must reflect real, honest opinions."},
       body: ['Use client names, logos, and results only with written permission. Testimonials must reflect real, honest opinions; misleading endorsements can break US consumer-protection rules.'] },
   ],
   quiz: [

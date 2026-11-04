@@ -22,17 +22,14 @@ export default {
       },
     },
     { tag: 'how', title: 'Rules for your stack',
-      body: [
-        'Few tools, well connected. Every extra tool is another login, bill, and failure point.',
-        'Automate your own pipeline first: it’s a live demo of what you sell.',
-        'Keep client systems in client accounts; keep your business in yours (Module 1, lesson 8).',
-        'Review costs quarterly. Small subscriptions add up.',
-      ] },
+      predict: {"q": "Each extra tool in your stack adds…", "options": ["Another login, bill, and failure point", "Free speed", "Nothing", "More clients"], "answer": 0, "why": "Few tools, well connected. Review costs quarterly."},
+      body: ["Few tools, well connected; review costs quarterly.", "Automate your own pipeline first: a live demo of what you sell.", "Client systems in client accounts; your business in yours."] },
     { tag: 'try', title: 'Your turn: automate yourself',
       check: {
         type: 'order', q: 'Order your own client-onboarding automation.', items: ['Proposal accepted (e-signature)', 'Invoice for 50% setup sent', 'Payment received', 'Welcome email + access checklist', 'Kickoff call booked'], why: 'The same pipeline pattern you sell, applied to yourself.',
       } },
     { tag: 'warn', title: 'Back up your own business',
+      predict: {"q": "Your CRM provider shuts down tomorrow. What saves you?", "options": ["Regular exports and your build notes", "Hope", "Their support team", "Nothing could"], "answer": 0, "why": "Scheduled exports are a digest workflow you already know how to build."},
       body: [
         'Export your CRM, template library and client config sheets on a schedule (a monthly digest-style workflow can do it).',
         'Keep your password manager’s recovery details somewhere safe and offline.',

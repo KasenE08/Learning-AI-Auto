@@ -18,18 +18,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Content that brings clients',
-      body: [
-        '**Teardowns:** “how a dental office could cut no-shows: the 4-step system”, with a diagram.',
-        '**Small experiments:** honest observations from your niche (calls, response times), framed helpfully, never shaming a named business.',
-        '**Before/after demos:** labeled demos of your builds (Module 8).',
-        'Post where your niche is: local business groups, trade associations, the platforms owners actually use.',
-      ] },
+      visual: {"type": "sort", "cols": ["Attracts buyers", "Attracts peers only"], "items": [{"text": "“How a dental office could cut no-shows: the 4-step system”", "col": 0}, {"text": "“5 ways AI is transforming business”", "col": 1}, {"text": "A labeled demo of your HVAC lead build", "col": 0}, {"text": "A comparison of AI model benchmarks", "col": 1, "why": "Interesting to other builders, not to owners."}, {"text": "“I called 20 HVAC companies at 7 pm. Here’s what I found.”", "col": 0}, {"text": "“Why I love automation”", "col": 1}], "prompt": "Sort each post idea."},
+      body: ["**Teardowns** and honest **small experiments** in your niche (never shaming a named business).", "**Before/after demos** of your builds, labeled as demos.", "Post where owners actually are: local groups, trade associations."] },
     { tag: 'try', title: 'Your turn: pick the post',
       check: {
         type: 'mc', q: 'Your niche is small accounting firms. Best post?', options: ['“The 3 emails every tax client ignores, and the reminder sequence that gets documents in on time.”', '“Why I love automation.”', '“AI will replace accountants.”', '“Hire me.”'], answer: 0,
         why: 'Specific, useful to them today, and it shows how you think. The “replace accountants” post insults your buyers.',
       } },
     { tag: 'biz', title: 'Inbound is slow; outreach is fast',
+      predict: {"q": "You need your first client in 60 days. Content or outreach?", "options": ["Outreach, with content alongside", "Content only", "Neither", "Wait for inbound"], "answer": 0, "why": "Content builds trust over months; outreach starts conversations this week. Reuse posts in outreach."},
       body: ['Content takes months to build trust. Do it alongside outreach, not instead of it. One useful post a week, reused in your outreach (“wrote this for HVAC owners, thought of you”).'] },
   ],
   quiz: [

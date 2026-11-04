@@ -20,6 +20,7 @@ export default {
       },
     },
     { tag: 'how', title: 'I help [who] get [outcome] by [how] without [pain or alternative]',
+      predict: {"q": "You say your statement to an owner and they ask “how?”. What does that mean?", "options": ["It worked: they’re curious", "It failed", "They’re confused", "They want a discount"], "answer": 0, "why": "“How?” is curiosity. “What does that mean?” means simplify."},
       body: [
         'Use it as your intro on calls, your profile headline, and the first line of outreach.',
         'Test it: say it to someone in the niche. If they ask “how?”, it worked. If they ask “what does that mean?”, simplify.',

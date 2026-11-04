@@ -29,14 +29,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Six criteria',
-      body: [
-        '**Pain:** the problem costs real money or stress, often.',
-        '**Ability to pay:** healthy margins; a few thousand dollars is a normal purchase for them.',
-        '**Reach:** you can find and talk to them (associations, local groups, people you know).',
-        '**Repeatability:** many businesses have the same problem with similar tools.',
-        '**You:** interest, background, or connections that give you an edge.',
-        '**Risk:** heavy regulation or sensitive data raises the bar (Module 13).',
-      ] },
+      visual: {"type": "sort", "cols": ["Pain", "Ability to pay", "Reach", "Repeatability", "You", "Risk"], "items": [{"text": "“Missed calls cost them installs every summer”", "col": 0}, {"text": "Healthy margins; $3,000 is a normal purchase", "col": 1}, {"text": "You know three owners through a local group", "col": 2}, {"text": "Most use the same two booking tools", "col": 3}, {"text": "Your uncle runs one of these businesses", "col": 4}, {"text": "They handle patient health data", "col": 5, "why": "Regulated data raises the bar."}], "prompt": "Which criterion does each fact speak to?"},
+      body: ["**Pain** and **ability to pay** come first.", "**Reach** and **repeatability** decide how fast you can grow in it.", "**You** (edge, interest) and **risk** (regulation, sensitive data) round it out."] },
     { tag: 'try', title: 'Your turn: compare two',
       check: {
         type: 'mc', scenario: 'Niche A scores 78: home-service companies (HVAC, plumbing) near you. Niche B scores 61: hospitals.',
@@ -44,6 +38,7 @@ export default {
         why: 'Big budgets don’t help if you can’t reach the buyer or meet the compliance bar. Solo consultants usually start with owner-run businesses.',
       } },
     { tag: 'biz', title: 'Score three, test one',
+      predict: {"q": "After scoring three niches, what do you do?", "options": ["Test the top one for 60–90 days, then re-score", "Pursue all three at once", "Keep scoring forever", "Pick the lowest"], "answer": 0, "why": "Focus, learn from real conversations, adjust."},
       body: [
         'Score three candidate niches. Pick the top one for 60–90 days of focused outreach (Module 9).',
         'Then re-score with what you learned in real conversations. The scoring is a starting point, not a verdict.',

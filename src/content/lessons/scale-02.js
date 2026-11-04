@@ -21,19 +21,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Writing a useful SOP',
-      body: [
-        'Write it while doing the task, not from memory.',
-        'Each step: what, who (you, an automation, an agent), when, and what “done” looks like.',
-        'Link templates and checklists right in the step.',
-        'Mark the steps that need your judgment. Those stay human.',
-        'Update it whenever you change how you work.',
-      ] },
+      predict: {"q": "When is the best time to write an SOP?", "options": ["While doing the task", "From memory a year later", "Only when hiring", "Never"], "answer": 0, "why": "Capture the real steps as they happen."},
+      body: ["Write it while doing the task; each step says what, who, when, and what “done” looks like.", "Link templates and checklists in the step; mark the judgment steps that stay human.", "Update it whenever your way of working changes."] },
     { tag: 'try', title: 'Your turn: which processes first?',
       check: {
         type: 'multi', q: 'Which of your own processes deserve an SOP first?', options: ['Client onboarding', 'Monthly reporting', 'Responding to an urgent support issue', 'Choosing a logo color'], answer: [0, 1, 2],
         why: 'Frequent, important, or high-stress processes. A logo is a one-off.',
       } },
     { tag: 'key', title: 'SOP → automation → agent',
+      visual: {"type": "sort", "cols": ["Automation (rules)", "AI agent (drafting)", "You (judgment)"], "items": [{"text": "Send the welcome email when payment lands", "col": 0}, {"text": "Draft the monthly report summary", "col": 1}, {"text": "Decide whether to take on a new client", "col": 2}, {"text": "Create the client folder from a template", "col": 0}, {"text": "Draft first lines for 20 prospects", "col": 1}, {"text": "Handle an upset client call", "col": 2, "why": "Relationships stay human."}], "prompt": "Who should do each SOP step?"},
       body: ['Once a step is written clearly, you can automate it (rules) or give it to an AI agent (judgment-light drafting), with you reviewing. Lessons 5–6.'] },
   ],
   quiz: [

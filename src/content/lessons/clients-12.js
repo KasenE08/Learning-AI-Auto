@@ -20,18 +20,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Follow-up rules',
-      body: [
-        '2–3 follow-ups, spaced wider each time, then stop.',
-        'Each one adds value (a demo, a relevant idea) or asks an easy question.',
-        'Give permission to say no. A clear “not now” is better than silence: it frees your time.',
-        'Track everything in your own CRM with a next-action date. You’ll automate this in Module 12.',
-      ] },
+      predict: {"q": "Which follow-up is most likely to get a reply?", "options": ["“Should I keep this open, or is now not the right time? Either is fine.”", "“Just checking in!”", "“Did you get my email?”", "“Why haven’t you replied?”"], "answer": 0, "why": "Permission to say no often gets a reply. Add value or ask an easy question, then stop."},
+      body: ["2–3 follow-ups, spaced wider each time, then stop.", "Each adds value or asks an easy question; give permission to say no.", "Track every prospect in your CRM with a next-action date."] },
     { tag: 'try', title: 'Your turn: pick the follow-up',
       check: {
         type: 'mc', q: 'Best second follow-up after no reply?', options: ['“Thought of you: here’s how a similar practice handles recall reminders (2-min read).”', '“Just checking in!”', '“Did you get my last email?”', '“Why haven’t you replied?”'], answer: 0,
         why: 'Adds value and stays relevant without guilt-tripping.',
       } },
     { tag: 'key', title: 'Practice what you sell',
+      predict: {"q": "Your own follow-up is a sequence with a stop condition. What does that show prospects?", "options": ["That you can build theirs", "Nothing", "That you’re pushy", "That you use AI"], "answer": 0, "why": "Organized follow-up is proof of your skill."},
       body: ['Your own follow-up is a sequence with a stop condition (Module 3, lesson 6). Prospects notice when your follow-up is organized; it’s proof you can build theirs.'] },
   ],
   quiz: [

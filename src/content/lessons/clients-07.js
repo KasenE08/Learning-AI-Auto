@@ -54,13 +54,8 @@ export default {
       },
     },
     { tag: 'how', title: 'A five-part structure (about 20 minutes)',
-      body: [
-        '**1. Open (1 min):** thanks, purpose, “OK if I ask some questions first?”',
-        '**2. Current process (5 min):** “walk me through the last one” (Module 7).',
-        '**3. Pain and cost (7 min):** what goes wrong, how often, what it costs, how they feel about it.',
-        '**4. Decision (3 min):** who else decides, budget range, timing.',
-        '**5. Summary + next step (3 min):** their problem in their words, and a specific next meeting.',
-      ] },
+      predict: {"q": "Which part of a discovery call should take the most time?", "options": ["Pain and its cost", "The opening", "Your pitch", "Small talk"], "answer": 0, "why": "About 7 of 20 minutes go to what goes wrong and what it costs."},
+      body: ["**Open** (ask permission to ask questions), then **current process**: “walk me through the last one.”", "**Pain and cost** (the longest part), then **decision**: who decides, budget, timing.", "**Summary + next step:** their problem in their words, and a specific next meeting."] },
     { tag: 'try', title: 'Your turn: order the call',
       check: {
         type: 'order', q: 'Order the parts of a discovery call.',
@@ -68,6 +63,7 @@ export default {
         why: 'Context, then pain, then the practical buying questions, then a clear next step.',
       } },
     { tag: 'warn', title: 'Talk less',
+      predict: {"q": "Roughly how much of a discovery call should you be talking?", "options": ["Less than a third", "Most of it", "Exactly half", "None"], "answer": 0, "why": "If you’re explaining technology, you’ve drifted. Bring it back with a question."},
       body: ['Aim to speak less than a third of the time. If you’re explaining technology, you’ve drifted. Bring it back with a question.'] },
   ],
   quiz: [

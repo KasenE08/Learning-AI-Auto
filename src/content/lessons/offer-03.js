@@ -18,18 +18,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Problem → outcome → mechanism',
-      body: [
-        '**Problem** in their words: “after-hours calls go to voicemail and customers call the next company”.',
-        '**Outcome** they can picture: “every call answered and booked, even at 2 am”.',
-        '**Mechanism** (briefly): “a phone assistant connected to your schedule”. Only as much detail as they need to believe it.',
-        'Proof (Module 8, lesson 6) and price come after they care.',
-      ] },
+      visual: {"type": "sort", "cols": ["Problem", "Outcome", "Mechanism"], "items": [{"text": "“After-hours calls go to voicemail.”", "col": 0}, {"text": "“Every call answered and booked, even at 2 am.”", "col": 1}, {"text": "“A phone assistant connected to your schedule.”", "col": 2}, {"text": "“Quotes never get followed up.”", "col": 0}, {"text": "“Every quote gets two friendly follow-ups.”", "col": 1}, {"text": "“An email sequence that stops when they reply.”", "col": 2, "why": "How it works, briefly, is the mechanism."}], "prompt": "Sort each line of an offer."},
+      body: ["**Problem** in their words, then the **outcome** they can picture.", "**Mechanism** briefly: just enough to believe it.", "Proof and price come after they care."] },
     { tag: 'try', title: 'Your turn: rewrite the line',
       check: {
         type: 'mc', q: 'Best problem-first line for a gym?', options: ['“New leads hear from you within a minute and get booked for a trial, even on weekends.”', '“We use GPT-class models in a multi-agent workflow.”', '“AI-powered lead management solution.”', '“Automation for fitness.”'], answer: 0,
         why: 'A specific outcome the owner can picture. The others are jargon or vague.',
       } },
     { tag: 'warn', title: 'Jargon check',
+      predict: {"q": "Cross out “AI, agent, LLM, API” from your offer. What should be left?", "options": ["A sentence the owner still understands and wants", "Nothing", "More jargon", "Your price"], "answer": 0, "why": "If it still makes sense to the owner without the jargon, it’s ready."},
       body: ['Before any call, reread your offer and cross out: AI, agent, LLM, workflow, integration, API. If the sentence still makes sense to the owner, it’s ready. Use those words only if they ask.'] },
   ],
   quiz: [

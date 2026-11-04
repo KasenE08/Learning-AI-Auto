@@ -20,18 +20,15 @@ export default {
       },
     },
     { tag: 'how', title: 'The map (concepts)',
-      body: [
-        '**Sector laws:** HIPAA (health), financial-privacy rules (banks, lenders, tax preparers), COPPA (children under 13 online), and others.',
-        '**State comprehensive laws:** several states have broad consumer-privacy laws. Tennessee’s (TIPA, in effect since July 1, 2025) applies only to businesses over $25 million in revenue that also handle data on large numbers of Tennessee consumers. Most small clients, and you, fall below it.',
-        '**Other states’ laws** can reach a business with customers there, depending on thresholds. Outside the US, the EU’s GDPR can apply to EU residents’ data.',
-        'Small isn’t exempt from everything: sector laws, contracts, and good practice still apply.',
-      ] },
+      predict: {"q": "A small Knoxville dental clinic: does HIPAA apply even though it’s small?", "options": ["Yes, sector laws apply by type of data", "No, it’s small", "Only in California", "Only if it has 50 staff"], "answer": 0, "why": "Health data triggers HIPAA regardless of size. Tennessee’s broad privacy law (TIPA) targets only much larger businesses."},
+      body: ["**Sector laws** apply by data type: HIPAA (health), financial privacy, COPPA (kids under 13).", "**State laws:** Tennessee’s TIPA (since July 1, 2025) covers only businesses over $25M revenue meeting data thresholds; other states’ laws may reach customers there.", "GDPR can apply to EU residents’ data. Small isn’t exempt from everything."] },
     { tag: 'try', title: 'Your turn: your role',
       check: {
         type: 'mc', q: 'When you build automations that handle a client’s customer data, what are you usually?', options: ['A vendor (service provider) processing data on the client’s behalf', 'The owner of that data', 'A government agency', 'Not involved'], answer: 0,
         why: 'You process data for the client. Agreements often include a data-protection section saying what you may do with it (lesson 1).',
       } },
     { tag: 'key', title: 'Habits that hold up under most laws',
+      predict: {"q": "A client works in a regulated sector. What do you do first?", "options": ["Ask what rules they follow and involve their compliance person or lawyer", "Guess", "Ignore it", "Avoid all data"], "answer": 0, "why": "Minimize, restrict, delete on schedule, vet vendors, document, and bring in their experts."},
       body: [
         'Collect and copy only what’s needed (minimization), restrict access, delete on schedule, use vendors with suitable terms, and write down what you did (Module 6).',
         'When a client is in a regulated sector, ask what rules they follow and involve their compliance person or lawyer.',

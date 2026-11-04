@@ -19,18 +19,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Layers of protection (concepts)',
-      body: [
-        '**Contract:** no promises about outcomes you don’t control; a liability cap; third-party disclaimer (lesson 1).',
-        '**Professional liability insurance** (also called errors and omissions, E&O) covers claims that your work caused a loss. Many clients ask for it.',
-        '**General liability** and sometimes **cyber insurance**, depending on the data you touch.',
-        '**Business structure:** an LLC can help separate personal and business assets if you keep finances separate. It also changes taxes (Module 12). Ask a Tennessee lawyer and CPA.',
-      ] },
+      visual: {"type": "sort", "cols": ["Contract", "Insurance", "Structure"], "items": [{"text": "A liability cap tied to fees paid", "col": 0}, {"text": "Errors & omissions (E&O) coverage", "col": 1}, {"text": "An LLC with separate finances", "col": 2}, {"text": "No promises about revenue", "col": 0}, {"text": "Cyber insurance for sensitive data work", "col": 1}, {"text": "Keeping business and personal money apart", "col": 2, "why": "Structure only protects if you run it properly."}], "prompt": "Which protection layer is each?"},
+      body: ["**Contract:** no outcome promises, a liability cap, a third-party disclaimer.", "**Insurance:** professional liability (E&O), general liability, sometimes cyber.", "**Structure:** an LLC can separate assets if run properly; it also changes taxes. Ask a Tennessee lawyer and CPA."] },
     { tag: 'try', title: 'Your turn: the risky promise',
       check: {
         type: 'mc', q: 'Which sentence should never appear in your proposals?', options: ['“This will increase your revenue by 40%.”', '“Leads will receive a reply within 1 minute.”', '“Launch within 3 weeks of access.”', '“Monthly report on the 1st.”'], answer: 0,
         why: 'Revenue depends on many things you don’t control. Promise your delivery; report outcomes (Module 7).',
       } },
     { tag: 'key', title: 'Good practice is also protection',
+      predict: {"q": "A client claims your system lost them business. What helps most?", "options": ["Logs showing exactly what happened", "Your memory", "An apology only", "Deleting the logs"], "answer": 0, "why": "Testing, monitoring, logs and honest reports prevent problems and provide evidence."},
       body: ['Testing, monitoring, logs, safe changes, runbooks, and honest reporting (Module 6, Module 11) prevent most problems and give you evidence when questions come up.'] },
   ],
   quiz: [

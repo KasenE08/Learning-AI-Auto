@@ -19,6 +19,7 @@ export default {
       },
     },
     { tag: 'see', title: 'Patterns by type',
+      predict: {"q": "An accounting firm chases clients for tax documents every spring. Which pattern fits?", "options": ["Document collection + reminders", "Order-status answers", "Showing scheduling", "Low-stock alerts"], "answer": 0, "why": "Collecting the same items from every client is the professional-firm pattern. The table lists the rest."},
       visual: { type: 'compare', cols: ['Type', 'Common wins'], rows: [
         ['Online stores', 'Support triage, order-status answers, low-stock alerts, review follow-ups, returns intake'],
         ['Property (sales, rentals)', 'Lead routing, showing scheduling, application intake, maintenance requests, rent reminders'],
@@ -31,6 +32,7 @@ export default {
         why: 'Collecting the same items from every new client is document collection, the professional-firm pattern.',
       } },
     { tag: 'warn', title: 'Professional firms have extra duties',
+      predict: {"q": "A law firm wants AI to answer clients’ legal questions on its own. Your position?", "options": ["AI drafts, organizes and reminds; lawyers give the advice", "Build it", "Refuse law firms entirely", "Use AI with no review"], "answer": 0, "why": "Professional duties stay with professionals. Check confidentiality and data rules first."},
       body: [
         'Law, accounting, and healthcare firms owe clients confidentiality and often have strict data rules. Check what can go into AI tools and where data is stored before proposing anything.',
         'Keep AI out of the advice itself: it drafts, organizes, and reminds; professionals decide.',

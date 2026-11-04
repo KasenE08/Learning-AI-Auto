@@ -21,18 +21,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Designing tiers',
-      body: [
-        'Each tier adds **outcomes**, not just features: “+ every after-hours call answered”.',
-        'Make the middle tier your best fit for most clients.',
-        'The entry tier should still deliver a real win (no crippled versions).',
-        'Keep it to three. More choices slow decisions.',
-      ] },
+      predict: {"q": "What should make one tier better than the one below it?", "options": ["An extra outcome, like after-hours calls answered", "Better testing", "A nicer name", "Faster email replies from you"], "answer": 0, "why": "Tiers differ by outcomes. Every tier gets proper testing."},
+      body: ["Each tier adds **outcomes**; the middle tier fits most clients.", "The entry tier still delivers a real win.", "Keep it to three."] },
     { tag: 'try', title: 'Your turn: what goes up a tier?',
       check: {
         type: 'mc', q: 'Which upgrade belongs in a higher tier?', options: ['A new outcome, like after-hours calls answered', 'The same thing with a nicer name', 'Fixing bugs in the lower tier', 'Basic testing'], answer: 0,
         why: 'Tiers differ by outcomes. Testing and bug fixes belong to every tier.',
       } },
     { tag: 'biz', title: 'Tiers make upgrades natural',
+      predict: {"q": "A Starter client is getting great results. What’s the natural upsell?", "options": ["Move up to Standard", "A brand-new custom project", "A discount", "Nothing"], "answer": 0, "why": "Tiers turn upsells into a simple step up."},
       body: ['A Starter client who sees results has an obvious next step. Upsells become “move to Standard”, not a new sales process (Module 11).'] },
   ],
   quiz: [

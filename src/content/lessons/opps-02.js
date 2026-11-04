@@ -18,13 +18,8 @@ export default {
       },
     },
     { tag: 'how', title: 'The mapping interview',
-      body: [
-        'Pick **one** process. Ask for the last real example, then “what happened next?” until it’s done.',
-        'For each step note: who, which tool, how long, what goes wrong (Module 3, lesson 1).',
-        'Ask about exceptions: “what happens when…?” (no answer, wrong info, weekend, the owner’s away).',
-        'Ask about volume: “how many of these a week? A busy week?”',
-        'Read the map back. Owners correct it, and they feel heard, which helps later.',
-      ] },
+      predict: {"q": "Mid-interview the owner says “we call leads back quickly.” Best next question?", "options": ["“When did the last lead come in, and when was it called back?”", "“Great, what software do you use?”", "“Want an AI agent?”", "“That sounds efficient.”"], "answer": 0, "why": "A real recent case reveals the real timing."},
+      body: ["Pick **one** process; ask for the last real example and “what happened next?” until done.", "Note who, tool, time and problems; ask about exceptions and volume.", "Read the map back: owners correct it and feel heard."] },
     { tag: 'try', title: 'Your turn: the next question',
       body: ['Owner: “When a lead comes in, my office manager puts it in the job system.”'],
       check: {

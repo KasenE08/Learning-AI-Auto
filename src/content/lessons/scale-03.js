@@ -19,19 +19,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Making builds reusable',
-      body: [
-        '**Template workflows** per package, kept in your own library.',
-        '**Config per client:** a sheet or table the workflow reads (no hard-coded names or numbers).',
-        '**Shared sub-workflows** for common pieces: alerts, logging, formatting (Module 3).',
-        '**A standard test set** per template, plus each client’s own edge cases.',
-        '**Naming conventions:** `[Client] – [Package] – [Workflow] – v3`.',
-      ] },
+      predict: {"q": "Where should a client’s phone number live in a reusable build?", "options": ["In their config record", "Hard-coded in each step", "In your email", "In the template for everyone"], "answer": 0, "why": "Logic in the template, details in config."},
+      body: ["**Template workflows** per package, plus a **config record** per client.", "**Shared sub-workflows** (alerts, logging) and a **standard test set** per template.", "**Naming conventions** so you can find anything fast."] },
     { tag: 'try', title: 'Your turn: fix the template',
       check: {
         type: 'mc', q: 'You find a bug in the shared alert sub-workflow. What now?', options: ['Fix it once, re-run test sets for every client using it, roll out with the safe-change routine', 'Fix it only for the client who noticed', 'Leave it', 'Rebuild all clients from scratch'], answer: 0,
         why: 'Shared pieces mean shared fixes, and shared risk. Test everywhere it’s used (Module 6).',
       } },
     { tag: 'warn', title: 'Who owns the template?',
+      predict: {"q": "Who usually owns what, in a solo consultant’s agreement?", "options": ["Client owns their configured system; you keep reusable templates and know-how", "You own everything", "Client owns your templates", "Nobody"], "answer": 0, "why": "Write it down so both sides know (Module 13)."},
       body: ['Your agreement should say the client owns their configured system, while you keep the right to reuse your general templates and know-how with other clients (Module 13).'] },
   ],
   quiz: [

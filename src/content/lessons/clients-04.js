@@ -26,6 +26,7 @@ export default {
         why: 'Small, specific, easy to say yes or no to.',
       } },
     { tag: 'see', title: 'Personalize at scale, honestly',
+      predict: {"q": "An AI drafted your first line: “Loved your Nashville location!” The business is in Memphis. What happens if you send it?", "options": ["The conversation ends before it starts", "Nothing", "They correct you kindly", "They reply faster"], "answer": 0, "why": "Use AI to draft, then check and edit every message yourself."},
       body: [
         'You can use automation and AI for your own outreach: research a business’s site, draft a first line, then **you** check and edit every message.',
         'Never send AI first lines unchecked. One wrong fact (“loved your Nashville location” when they’re in Memphis) ends the conversation.',

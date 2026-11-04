@@ -19,6 +19,7 @@ Finish line: knows exactly how to land a first paying client and grow it into a 
   the first time with a `[[glossary-id]]` link (add the term to the module's glossary file).
 - **Example first, then explanation.** Step 1 has tag `example` and a `check`: the reader tries before
   anything is explained.
+- **Active learning only.** Every step must give the reader something to do: a `predict` (one-tap guess before the bullets), a `check`, a `sort` exercise, an interactive diagram (flow, record, exchange, calc, roleplay), a sandbox `build`, or an `outside` task. A plain comparison table alone doesn’t count. **Max 3 bullets per step.** Tests enforce both.
 - Lessons take **3–7 minutes** (match `min` in src/content/course.js): **4–8 steps**, 1–4 bullets each.
   Builds (`build`, `outside`) don't count toward the minutes.
 
@@ -40,7 +41,12 @@ export default {
 };
 ```
 Step tags: `example`, `try`, `how`, `see`, `metaphor`, `key`, `why`, `math`, `biz`, `warn`, `law`, `build`, `outside`.
-Optional step fields: `visual`, `visualFirst`, `check`, `stuck` (needs a `check`), `note`.
+Optional step fields: `visual`, `visualFirst`, `predict`, `check`, `stuck` (needs a `check`), `note`.
+
+### `predict` (one-tap guess before the explanation)
+`predict: { q, options, answer, why, wrong? }` is shown under the title; the bullets and any non-`visualFirst` visual stay hidden
+until the reader guesses. It’s one try, not scored: the answer and `why` are shown either way. Use it to make the reader commit
+to an idea before reading about it. Sort steps behave the same way: sort first, then the bullets unlock.
 
 ### Inline markup
 `**bold**` · `` `mono` `` · `[[glossary-id]]` or `[[glossary-id|shown text]]` · `~~muted aside~~` · `[label](#/builder/first-flow)`
@@ -67,6 +73,8 @@ Metaphor and picture first, then a worked answer to work backward from:
   Step-through of apps talking (API calls, webhooks, auth).
 - `calc` `{ inputs: [{ key, label, min, max, step?, value, prefix?, unit? }], outputs: [{ label, f: (v) => n, fmt: 'money'|'hours'|'months'|'pct'|'num', big? }] }`
 - `compare` `{ cols: [label?, a, b], rows: [[label, a, b]], pick? }` (stacks into cards on phones)
+- `sort` `{ prompt?, cols: [..], items: [{ text, col, why? }] }` Tap each item into a column; wrong picks bounce back with `why`.
+  Every column needs at least one item. Next stays locked until everything is sorted.
 - `roleplay` `{ title?, persona: { name, role }, start, nodes: { id: { say, choices: [{ text, score: 0|1|2, why, next }] } | { say, end: true } } }`
   A branching practice conversation with a simulated prospect. Every choice is scored instantly with a reason.
   Each decision node needs at least one score-2 choice; every path must reach an `end` node.

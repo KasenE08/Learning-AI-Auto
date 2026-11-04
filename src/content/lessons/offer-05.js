@@ -19,18 +19,15 @@ export default {
       },
     },
     { tag: 'how', title: 'Ways to lower the client’s risk',
-      body: [
-        '**Performance guarantee** on what you control: response time, launch date, uptime.',
-        '**Paid pilot:** a small, short first phase (one workflow, 30 days) before the full project.',
-        '**Milestone payments:** part up front, part at launch, so they don’t pay everything before seeing it work.',
-        '**Easy exit:** month-to-month retainers after the first term, with clear handover (Module 11).',
-      ] },
+      visual: {"type": "sort", "cols": ["Guarantee", "Paid pilot", "Milestone payments", "Easy exit"], "items": [{"text": "“Response time under 5 minutes or next month is free”", "col": 0}, {"text": "One workflow, 30 days, discounted", "col": 1}, {"text": "50% to start, 50% at launch", "col": 2}, {"text": "Month-to-month after the first 3 months", "col": 3}, {"text": "“Live within 21 days of access or setup refunded”", "col": 0, "why": "A promise about delivery you control."}, {"text": "A small paid process audit first", "col": 1}], "prompt": "Which risk reducer is each term?"},
+      body: ["**Guarantees** on what you control; a **paid pilot** before the full project.", "**Milestone payments** so they don’t pay everything up front.", "**Easy exit** after the first term, with a clean handover."] },
     { tag: 'try', title: 'Your turn: write it safely',
       check: {
         type: 'mc', q: 'Which guarantee is safest for you and still attractive?', options: ['“Live within 21 days of getting access, or we refund the setup fee.”', '“You’ll get 10 new clients a month.”', '“Your staff will love it.”', '“100% uptime forever.”'], answer: 0,
         why: 'Specific, measurable, and in your control (as long as the client provides access, which is why that condition is written in).',
       } },
     { tag: 'warn', title: 'Write the conditions',
+      predict: {"q": "Your “live in 21 days” guarantee: what condition does it need?", "options": ["The client provides access on time", "None", "The weather is good", "You feel like it"], "answer": 0, "why": "Guarantees depend on the client doing their part. Write it into the contract."},
       body: [
         'Guarantees need conditions: the client provides access and data on time, uses the system as agreed, and the metric is measured a stated way.',
         'Put the exact wording in the contract (Module 13).',

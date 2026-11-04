@@ -20,13 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'The onboarding checklist',
-      body: [
-        '**Same-day welcome:** kickoff date, what you need, the timeline.',
-        '**Access checklist:** which apps, which permission level, added as a user (never shared passwords; Module 6).',
-        '**Contacts:** one decision-maker, one day-to-day contact, and how fast each replies.',
-        '**Baseline:** the key number(s) today.',
-        '**Kickoff call:** confirm scope, map details, success measure, and launch date.',
-      ] },
+      visual: {"type": "sort", "cols": ["Welcome", "Access", "Contacts", "Baseline", "Kickoff"], "items": [{"text": "Email with kickoff date and timeline, sent the day they sign", "col": 0}, {"text": "Client adds you as a user to their CRM", "col": 1}, {"text": "Dale decides; Brenda handles day to day", "col": 2}, {"text": "“Leads currently wait about 14 hours for a reply”", "col": 3}, {"text": "Call to confirm scope and the launch date", "col": 4}, {"text": "Checklist of apps and permission levels", "col": 1, "why": "Which apps and what level of access you need."}], "prompt": "Which onboarding item is each?"},
+      body: ["**Same-day welcome** with the timeline, and an **access checklist** (added as a user, never shared passwords).", "**Named contacts** and a **baseline** number recorded before anything changes.", "**Kickoff call:** confirm scope, success measure and launch date."] },
     { tag: 'try', title: 'Your turn: order the first week',
       check: {
         type: 'order', q: 'Order a clean onboarding.',
@@ -34,6 +29,7 @@ export default {
         why: 'Paperwork, clear expectations, access, alignment, then work.',
       } },
     { tag: 'biz', title: 'Automate your own onboarding',
+      predict: {"q": "What should trigger your own onboarding automation?", "options": ["The signed agreement", "Your memory", "The first support request", "The launch"], "answer": 0, "why": "Signed → welcome email → access checklist → kickoff link → reminders. The pipeline pattern again."},
       body: ['Signed agreement → welcome email → access checklist → kickoff booking link → reminders until access is done. You already know how to build this (Modules 3–4).'] },
   ],
   quiz: [
