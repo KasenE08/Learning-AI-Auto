@@ -21,6 +21,7 @@ export default {
       },
     },
     { tag: 'how', title: 'A process map in five columns',
+      predict: {"q": "Where in a process do delays and mistakes usually hide?", "options": ["Decisions and hand-offs", "The first step", "Steps done in the CRM", "The last step"], "answer": 0, "why": "Waiting for someone to decide or pass work on is where things stall. Mark those on the map."},
       visual: { type: 'compare', cols: ['Step', 'Who', 'Tool', 'Time', 'Problems'], rows: [
         ['Read new request', 'Front desk', 'Inbox', '1 min', 'Only checked 3× a day'],
         ['Copy to CRM', 'Front desk', 'CRM', '3 min', 'Typos, duplicates'],
@@ -39,11 +40,8 @@ export default {
         why: 'The real order, including the weak spot at the end. “When they remember” is a follow-up sequence waiting to be built.',
       } },
     { tag: 'key', title: 'Design on the map, then build',
-      body: [
-        'Mark each step: **automate**, **AI-assist**, **keep human**, or **remove**. Some steps shouldn’t exist at all.',
-        'Draw the new flow before opening any builder: trigger, steps, branches, and what happens when something fails.',
-        'The map becomes part of your proposal (Module 9) and your handover docs (Module 11).',
-      ] },
+      visual: {"type": "sort", "cols": ["Automate", "AI-assist", "Keep human", "Remove"], "items": [{"text": "Copy each request into the CRM", "col": 0}, {"text": "Draft a reply to an unusual complaint", "col": 1}, {"text": "Decide if a patient needs the dentist today", "col": 2}, {"text": "Print every email and file it", "col": 3, "why": "A step that adds nothing can simply go."}, {"text": "Send the appointment reminder", "col": 0}, {"text": "Summarize a long voicemail for the owner", "col": 1}], "prompt": "Label each step of a dental office’s process."},
+      body: ["Mark each step: **automate**, **AI-assist**, **keep human**, or **remove**.", "Draw the new flow before opening any builder, including what happens when something fails.", "The map becomes part of your proposal (Module 9) and handover docs (Module 11)."] },
   ],
   quiz: [
     { type: 'multi', q: 'What should a process map record for each step?', options: ['Who does it', 'Which tool', 'How long it takes', 'What goes wrong', 'The employee’s salary'], answer: [0, 1, 2, 3], why: 'Salary comes later in ROI math (Module 7), at the role level, not per step.' },

@@ -19,13 +19,8 @@ export default {
       },
     },
     { tag: 'how', title: 'When to hand off',
-      body: [
-        '**Out of scope:** medical, legal, refunds, complaints about staff.',
-        '**Can’t answer:** the documents don’t cover it, or the agent isn’t confident.',
-        '**Emotion:** frustration, urgency, “I want a person”. Always honor that request.',
-        '**Loops:** the same question twice, or no progress after a few turns.',
-        '**High value:** a big order or a hot lead may deserve a human fast.',
-      ] },
+      visual: {"type": "sort", "cols": ["Hand off", "Keep answering"], "items": [{"text": "“Can I talk to a real person?”", "col": 0}, {"text": "“What time does the 6 pm class end?”", "col": 1}, {"text": "“I was charged twice and I’m furious”", "col": 0}, {"text": "“Do you have showers?”", "col": 1}, {"text": "Same question asked a third time", "col": 0, "why": "Loops mean the agent isn’t helping; pass it on."}, {"text": "“Do you take cards?”", "col": 1}], "prompt": "A gym chat agent: what happens next?"},
+      body: ["Hand off when it’s out of scope, the agent can’t answer, or emotions run high.", "Always honor “I want a person”, and watch for loops.", "High-value moments (a big order, a hot lead) may deserve a human fast."] },
     { tag: 'try', title: 'Your turn: hand off or keep going?',
       check: {
         type: 'multi', q: 'In a gym chat, which should trigger a handoff?',
@@ -33,11 +28,8 @@ export default {
         why: 'Explicit request, billing anger, and a loop. Class times and showers are easy answers.',
       } },
     { tag: 'see', title: 'What the handoff package contains',
-      body: [
-        'Who: name and verified contact.', 'What: a 1–2 line AI summary plus a link to the full transcript.',
-        'Why: the reason for the handoff (out of scope, upset, high value).', 'When: the promise made to the customer (“by 4 pm”), so staff can keep it.',
-        'Where: to a queue someone actually watches (the CRM task list, a specific chat channel), with an alert if it goes unanswered.',
-      ] },
+      predict: {"q": "Handoffs go to a shared inbox nobody checks on weekends. What’s missing?", "options": ["A watched queue with an alert if items wait too long", "A friendlier bot", "More documents", "Nothing"], "answer": 0, "why": "A handoff nobody receives is just a dead end."},
+      body: ["Who (verified contact) and what (a short summary + transcript link).", "Why it was handed off, and the promise made to the customer (“by 4 pm”).", "Where: a queue someone watches, with an alert if it waits too long."] },
   ],
   quiz: [
     { type: 'mc', q: 'A customer types “I want to speak to a human.” What should the agent do?', options: ['Hand off, every time', 'Try two more answers first', 'Explain why the bot is better', 'End the chat'], answer: 0, why: 'Always honor it.' },

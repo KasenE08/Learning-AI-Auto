@@ -20,12 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'What a database adds',
-      body: [
-        '**Tables** for each kind of thing (customers, jobs, invoices), with **typed fields** (number, date, choice, email) that reject bad values.',
-        '[[linked-record|Linked records]] connect tables, so data lives in one place.',
-        'Views, filters and permissions: techs see today’s jobs; the owner sees money.',
-        'No-code databases look like spreadsheets but behave like databases, and usually have strong automation triggers (“record updated”).',
-      ] },
+      predict: {"q": "Someone types “TBD” into a number field in a database. What happens?", "options": ["It’s rejected", "It’s saved as text", "The database deletes the row", "Nothing"], "answer": 0, "why": "Typed fields reject bad values at entry, so workflows get what they expect."},
+      body: ["**Tables** with **typed fields** that reject bad values.", "[[linked-record|Linked records]] connect tables so data lives in one place.", "Views, permissions, and record-level triggers (“record updated”)."] },
     { tag: 'try', title: 'Your turn: design the tables',
       check: {
         type: 'multi', q: 'A dog groomer: owners, dogs, appointments. Which links make sense?',
@@ -33,6 +29,7 @@ export default {
         why: 'Link, don’t copy. Appointment dates belong in the appointments table, reachable through the dog.',
       } },
     { tag: 'biz', title: 'A real offer in itself',
+      visual: {"type": "sort", "cols": ["Do first", "Do last"], "items": [{"text": "Clean duplicates and bad values", "col": 0}, {"text": "Design tables and typed fields", "col": 0}, {"text": "Import into a test copy and check", "col": 0}, {"text": "Switch the workflows to the database", "col": 1, "why": "Switch only after a tested copy works."}, {"text": "Retire the old sheet", "col": 1}], "prompt": "Sheet-to-database migration: what comes first?"},
       body: [
         'Moving a small business off a messy sheet onto a clean, linked database, with automations on top, is a common first project.',
         'Plan the migration: clean duplicates first, map columns to typed fields, test with a copy, then switch.',

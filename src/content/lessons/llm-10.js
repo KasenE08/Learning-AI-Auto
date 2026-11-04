@@ -24,6 +24,7 @@ export default {
       },
     },
     { tag: 'how', title: 'What drives cost and speed',
+      predict: {"q": "Which usually costs more per token?", "options": ["Output (what the model writes)", "Input (what you send)", "They’re always equal", "Neither; it’s per run"], "answer": 0, "why": "Most providers price output tokens higher. Long prompts × many runs add up too."},
       body: [
         'You pay per token, usually with output tokens priced higher than input. Long prompts × many runs add up.',
         'Bigger models: better at hard reasoning and writing, slower, pricier. Smaller models: fast and cheap, great at simple classify/extract jobs.',
@@ -36,12 +37,14 @@ export default {
         why: 'Simple, high-volume, fixed-choice jobs suit small models. Long, nuanced work earns a bigger model.',
       } },
     { tag: 'biz', title: 'Pass-through costs in your offer',
+      predict: {"q": "What’s the cleanest way to handle a client’s AI usage costs?", "options": ["The client pays the provider from their own account", "You pay forever", "Hide it in your setup fee", "Ignore it"], "answer": 0, "why": "Client-owned accounts keep costs transparent. Otherwise bill usage with a margin."},
       body: [
         'AI usage is a running cost, like the automation tool’s plan. Decide who pays: client’s own account (cleanest), or you bill it with a margin.',
         'Estimate with real numbers: runs × (tokens in, out) × the provider’s current prices. Add headroom.',
         'Cut cost without hurting quality: shorter prompts, a filter before the AI step, small models for simple steps.',
       ] },
     { tag: 'key', title: 'Pick the smallest model that passes your test set',
+      predict: {"q": "A small model gets 49 of 50 test cases right; the miss doesn’t matter to the client. What do you use?", "options": ["The small model", "The biggest model available", "Both, every time", "No model"], "answer": 0, "why": "Pick the smallest model that passes the cases that matter. Re-check when prices or models change."},
       body: ['Start with your test set (lesson 3). Try a small model. Move up only if it fails cases that matter. Re-check when prices or models change.'] },
   ],
   quiz: [

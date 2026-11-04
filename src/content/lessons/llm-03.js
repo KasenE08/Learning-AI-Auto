@@ -19,6 +19,7 @@ export default {
       },
     },
     { tag: 'how', title: 'Few-shot prompting',
+      predict: {"q": "Which examples help a classifier most?", "options": ["The borderline cases it was getting wrong", "The most obvious cases", "Random emails", "Examples from another business"], "answer": 0, "why": "Examples show where the line is. Put the edges in, not just the easy wins."},
       body: [
         'Putting worked examples in the prompt is called [[few-shot|few-shot]] prompting. Zero examples is “zero-shot”.',
         'Examples teach **format** and **judgment** at the same time: what the answer looks like and where the edges are.',
@@ -32,12 +33,14 @@ export default {
         why: 'Add an example of the exact case that’s failing. The others are easy cases the model already gets right.',
       } },
     { tag: 'warn', title: 'Examples can backfire',
+      predict: {"q": "All four examples in a reply prompt are one sentence long. What happens to replies?", "options": ["They get short too", "Nothing", "They get longer", "The model ignores examples"], "answer": 0, "why": "Models copy examples closely. Vary length and topic on purpose."},
       body: [
         'Models copy examples closely. If all three examples are about cakes, a review of bread may get confused.',
         'If every example is short, answers get short. Vary length and topic on purpose.',
         'Never put real customer data in examples you share or store in templates. Write fake ones.',
       ] },
     { tag: 'biz', title: 'Your edge as a consultant',
+      predict: {"q": "What makes your AI steps more reliable than a quick DIY prompt?", "options": ["Testing against 20–50 real (anonymized) client examples", "A fancier model", "A longer prompt", "Luck"], "answer": 0, "why": "A test set from the client’s real cases is your edge, and you re-run it when anything changes."},
       body: [
         'Collecting 20–50 real past examples from the client (anonymized) and testing against them is what makes your AI steps reliable.',
         'Keep them as a **test set**. When the model or prompt changes, re-run the set and compare (Module 6).',

@@ -20,13 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'The safe-change routine',
-      body: [
-        '**Copy** the workflow (or use the tool’s version history). Work on the copy.',
-        '**Test** with the test set; compare to expected outcomes.',
-        '**Switch** at a quiet, watched time. Keep the old version off but saved.',
-        '**Watch** the first real runs. Roll back fast if anything looks wrong.',
-        '**Write it down:** a change log line: date, what, why, who approved.',
-      ] },
+      predict: {"q": "You want to change a live workflow’s AI categories. Where do you make the edit?", "options": ["On a copy, tested before switching", "On the live workflow", "Friday at 5 pm, live", "In the client’s email"], "answer": 0, "why": "Copy, test, switch at a watched time, watch, and log it."},
+      body: ["**Copy** the workflow; change and **test** the copy.", "**Switch** at a quiet, watched time and keep the old version for a fast [[rollback]].", "**Watch** the first runs and **log** the change."] },
     { tag: 'try', title: 'Your turn: order the routine',
       check: {
         type: 'order', q: 'Order a safe change.',
@@ -34,6 +29,7 @@ export default {
         why: 'Never edit live first; always keep a way back.',
       } },
     { tag: 'warn', title: 'Changes you don’t make still happen',
+      predict: {"q": "Nobody touched a workflow, but it starts misbehaving. Possible causes?", "options": ["An app API update, a model update, or a renamed field", "Nothing can change it", "Bad luck only", "The weather"], "answer": 0, "why": "Systems around you change. Monitoring and test sets catch it."},
       body: [
         'Apps update their APIs, AI providers update models, clients rename fields. Your workflow changes without you touching it.',
         'That’s why monitoring (lesson 4) and re-running test sets (Module 2) matter even when “nothing changed”.',

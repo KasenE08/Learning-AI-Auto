@@ -21,6 +21,7 @@ export default {
       },
     },
     { tag: 'how', title: 'Loops and aggregators',
+      predict: {"q": "A loop runs over 50 items with 3 counted steps inside. How many counted steps?", "options": ["150", "3", "50", "53"], "answer": 0, "why": "50 × 3 = 150. Loops multiply task counts."},
       body: [
         'A [[loop]] (also “iterator” or “for each”) takes a list and runs the next steps once per item.',
         'An [[aggregator]] does the opposite: gathers many items back into one (a list, a total, a text block) for one step.',

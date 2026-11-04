@@ -15,6 +15,7 @@ export default {
       },
     },
     { tag: 'see', title: 'The failures to design for',
+      predict: {"q": "A model invents a phone number that wasn’t in the email. Which failure is that?", "options": ["Hallucination", "Prompt injection", "Format drift", "A model update"], "answer": 0, "why": "Confident, made-up facts are hallucinations. The table shows each failure and its main defense."},
       visual: { type: 'compare', cols: ['Failure', 'Looks like', 'Main defense'], rows: [
         ['Hallucination', 'Confident, made-up facts', 'Facts in the prompt; “say if unsure”; leave-empty rules'],
         ['Format drift', 'Wrong labels, extra words', 'Structured output + fallback path'],
@@ -24,6 +25,7 @@ export default {
         ['Leaking data', 'Private info in an answer', 'Don’t give it data it shouldn’t repeat'],
       ] } },
     { tag: 'how', title: 'Defense in layers',
+      predict: {"q": "Which combination is the riskiest?", "options": ["Untrusted input + a model + a tool that can send or pay", "A model that summarizes your own notes", "A spam filter", "A read-only lookup"], "answer": 0, "why": "Break that chain with an approval step. No single prompt rule stops every failure."},
       body: [
         'No single prompt rule stops every failure. Layer defenses: prompt rules, structured output, workflow limits, human checks.',
         'Assume any text from outside (emails, forms, web pages, documents) might contain instructions. Wrap it clearly as data.',
@@ -37,6 +39,7 @@ export default {
         why: 'If the capability doesn’t exist, no trick can use it. Prompt rules help but can be talked around.',
       } },
     { tag: 'key', title: 'Your promise to clients',
+      predict: {"q": "What should you promise a client about AI mistakes?", "options": ["A system that catches, limits and reports them", "Zero mistakes", "Nothing at all", "A refund for every error"], "answer": 0, "why": "Mistakes happen. The system around the model is what you can promise."},
       body: [
         'Never promise “the AI won’t make mistakes”. Promise a **system** that catches, limits and reports mistakes.',
         'That’s what Module 6 (reliability) turns into concrete steps.',

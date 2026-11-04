@@ -19,12 +19,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Match keys and upserts',
-      body: [
-        'A [[unique-key|match key]] is the field that identifies the same thing across systems: email for people, order ID for orders, invoice number for invoices.',
-        '**Normalize** before matching: lowercase emails, trim spaces, digits-only phones. Run 3 above only fails because of capital letters.',
-        'Use upsert (find-or-create) wherever the same thing can arrive more than once.',
-        'When syncing two apps, store the other app’s ID on each record. IDs never change; names and emails can.',
-      ] },
+      predict: {"q": "Which field should you match orders on when syncing two apps?", "options": ["The order ID", "The customer’s first name", "The order total", "The date"], "answer": 0, "why": "Match keys must be unique and stable. Names, totals and dates repeat."},
+      body: ["A [[unique-key|match key]] identifies the same thing across systems: email for people, IDs for orders and invoices.", "**Normalize** before matching: lowercase emails, trim spaces, digits-only phones.", "Use upsert (find-or-create) wherever the same thing can arrive twice; store the other app’s ID on each record."] },
     { tag: 'try', title: 'Your turn: pick the match key',
       check: {
         type: 'mc', q: 'Syncing paid invoices from the invoicing app into a job sheet. What should you match on?',

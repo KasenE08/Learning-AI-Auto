@@ -21,12 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Three building blocks of almost every CRM',
-      body: [
-        '**Contacts** (and often **companies**): who. One per person, matched by email (Module 3, lesson 7).',
-        '**Deals** (or opportunities): a possible sale, with a value, linked to a contact, sitting in a stage of a [[deal-pipeline|pipeline]].',
-        '**Activities**: notes, emails, calls, tasks on a contact or deal. The history.',
-        'Plus **custom fields** and **tags** the business adds (lead source, goal, membership type).',
-      ] },
+      visual: {"type": "sort", "cols": ["Contact", "Deal", "Activity"], "items": [{"text": "Grace Holt, grace.holt@example.com", "col": 0}, {"text": "Bathroom remodel, $4,200, “Proposal sent”", "col": 1}, {"text": "Call logged: “left voicemail”", "col": 2}, {"text": "Jordan Bell, lead source: Instagram", "col": 0}, {"text": "Annual membership, stage “Trial booked”", "col": 1}, {"text": "Email sent: welcome", "col": 2, "why": "History of what happened is an activity."}], "prompt": "Sort each CRM item."},
+      body: ["**Contacts** (who), matched by email.", "**Deals:** possible sales with a value, moving through a [[deal-pipeline|pipeline]].", "**Activities:** notes, emails, calls, tasks. Plus custom fields and tags the business adds."] },
     { tag: 'try', title: 'Your turn: which object?',
       check: {
         type: 'multi', q: 'A new plumbing quote request comes in from a known customer. What should the workflow create or update?',
@@ -34,13 +30,10 @@ export default {
         why: 'Same person, new possible sale, plus a record of the email. Never a duplicate contact.',
       } },
     { tag: 'biz', title: 'CRM automations clients pay for',
-      body: [
-        'Every lead lands in the CRM within seconds, with its source.',
-        'Stage changes trigger work: “Trial booked → send directions”, “Lost → ask why, 30 days later re-engage”.',
-        'Stale deals get flagged: “no activity in 7 days” → task for the owner.',
-        'Weekly pipeline digest: value per stage, what moved, what’s stuck.',
-      ] },
+      predict: {"q": "Deals sit in “Proposal sent” for weeks. Which automation fits?", "options": ["No activity for 7 days → task for the owner", "Delete old deals", "Move them to Won", "Email every contact weekly"], "answer": 0, "why": "Flag stale deals. Moving them to Won would misreport the pipeline."},
+      body: ["Every lead lands in the CRM within seconds, with its source.", "Stage changes trigger work: “Trial booked → send directions”.", "Stale deals get flagged, and a weekly digest shows what moved and what’s stuck."] },
     { tag: 'warn', title: 'Agree on the stages first',
+      predict: {"q": "Two staff members use “Contacted” to mean different things. What happens to stage-based automations?", "options": ["They fire at the wrong times", "Nothing", "They fix the meaning", "The CRM decides"], "answer": 0, "why": "Write one sentence per stage with the client before building."},
       body: [
         'Automations depend on stages meaning the same thing to everyone. Write one sentence per stage with the client before building.',
         'Required fields (email, source) at entry keep the data clean for everything downstream.',

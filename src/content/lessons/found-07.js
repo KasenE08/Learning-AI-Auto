@@ -20,12 +20,14 @@ export default {
       },
     },
     { tag: 'how', title: 'Polling vs webhooks',
+      predict: {"q": "A trigger’s description says “checks every 15 minutes”. Which kind is it?", "options": ["Polling", "Webhook", "Manual", "Schedule only"], "answer": 0, "why": "A check interval means polling. Webhook triggers are usually labeled “instant”."},
       body: [
         '[[polling|Polling]]: your workflow asks an app “anything new?” on a timer. Simple, works with almost any app, but slower and uses checks even when nothing’s new.',
         '[[webhook|Webhook]]: the app sends data to your workflow’s unique web address the moment something happens. Fast and efficient, but the app must support it.',
         'In a builder you usually just pick a trigger. Its description often says “instant” (webhook) or names a check interval (polling).',
       ] },
     { tag: 'see', title: 'Side by side',
+      predict: {"q": "Which one needs the other app to support it?", "options": ["Webhooks", "Polling", "Both equally", "Neither"], "answer": 0, "why": "The other app has to send the webhook. Polling only needs an API you can ask."},
       visual: { type: 'compare', cols: ['', 'Polling', 'Webhook'], rows: [
         ['Who starts the conversation', 'Your workflow asks', 'The other app tells'],
         ['Speed', 'Up to one interval late', 'About instant'],
@@ -41,6 +43,7 @@ export default {
         why: 'Leads go cold fast, emergencies can’t wait, and missed callers often call the next business. Reports and archiving don’t care about minutes.',
       } },
     { tag: 'warn', title: 'A webhook address is a secret door',
+      predict: {"q": "Someone finds your workflow’s webhook address in a public forum post. What can they do?", "options": ["Send fake data into the workflow", "Nothing", "Read your email", "Delete the app"], "answer": 0, "why": "The address is the door. Anyone with it can knock, so keep it private and treat incoming data as untrusted."},
       body: [
         'Anyone who knows the address can send data to it. Don’t paste it in public places, and treat incoming data as untrusted.',
         'If the receiving workflow is off or broken, some senders retry for a while, others give up. Monitoring (Module 6) catches this.',

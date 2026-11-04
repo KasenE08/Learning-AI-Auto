@@ -20,12 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Three kinds of trigger',
-      body: [
-        '**Event trigger:** something happened in an app. A form was submitted, an email arrived, a payment went through, a row was added.',
-        '**Schedule trigger:** the clock says so. Every hour, every weekday at 8:00, the 1st of the month. It starts with no record of its own.',
-        '**Manual trigger:** a person starts it on purpose, with a button, a chat command, or a link.',
-        'Most client work starts with event triggers, because businesses want things handled **as they happen**.',
-      ] },
+      visual: {"type": "sort", "cols": ["Event", "Schedule", "Manual"], "items": [{"text": "A payment goes through", "col": 0}, {"text": "Every weekday at 8:00 am", "col": 1}, {"text": "The owner taps “Run now”", "col": 2}, {"text": "A row is added to a sheet", "col": 0}, {"text": "The 1st of every month", "col": 1}, {"text": "Someone types /report in team chat", "col": 2, "why": "A person chose to start it, so it’s manual."}], "prompt": "Sort each start into its trigger type."},
+      body: ["**Event:** something happened in an app. **Schedule:** the clock says so. **Manual:** a person starts it on purpose.", "Schedule triggers start with no record of their own; event triggers bring one.", "Most client work uses event triggers, because businesses want things handled **as they happen**."] },
     { tag: 'try', title: 'Your turn: name the trigger',
       body: ['Rivera Plumbing wants a message to every customer the day after their job is marked “done”.'],
       check: {
@@ -40,6 +36,7 @@ export default {
       },
     },
     { tag: 'see', title: 'What a trigger hands over',
+      predict: {"q": "A workflow runs every Monday at 8:00. What data does it start with?", "options": ["Just the time", "Last week’s orders", "Every record in every app", "Whatever the last run had"], "answer": 0, "why": "A schedule only brings the time. The next step has to go fetch the records it needs."},
       visual: { type: 'compare', cols: ['Trigger', 'Gives the workflow…'], rows: [
         ['New form entry', 'One record: every answer on the form'],
         ['New email', 'Sender, subject, body, attachments'],
@@ -51,11 +48,8 @@ export default {
         'Schedule triggers bring nothing but the time, so the next step is usually “get the rows / emails / jobs from the last week”.',
       ] },
     { tag: 'warn', title: 'Pick the trigger closest to the real event',
-      body: [
-        'If a client says “when a customer books”, find where the booking actually happens (the booking tool), not a later echo of it (the confirmation email in someone’s inbox).',
-        'Triggering on an echo adds delay and breaks when the echo’s wording changes.',
-        'One workflow, one trigger. If two different events should do the same thing, that’s two workflows (or one workflow called by both, Module 3).',
-      ] },
+      predict: {"q": "A client says “when a customer books”. Bookings happen in their booking tool, which then emails the front desk. Where do you trigger?", "options": ["On the booking in the booking tool", "On the email in the front-desk inbox", "Every hour, check the inbox", "Ask staff to forward each email"], "answer": 0, "why": "Trigger on the real event, not a later echo of it. The echo adds delay and breaks when its wording changes."},
+      body: ["Find where the event actually happens, not a later echo (like a notification email).", "Echo triggers add delay and break when the wording of the echo changes.", "One workflow, one trigger. Two different events doing the same thing = two workflows (or one shared sub-workflow, Module 3)."] },
   ],
   quiz: [
     { type: 'multi', q: 'Which of these are **event** triggers?', options: ['A new row is added to a sheet', 'Every Friday at 5:00 pm', 'A payment fails', 'Someone clicks “Run now”', 'A calendar event is cancelled'], answer: [0, 2, 4],

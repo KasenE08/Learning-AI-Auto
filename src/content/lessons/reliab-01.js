@@ -20,12 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'A good test set',
-      body: [
-        '[[test-data|Test data]]: 10–30 fake records modeled on the client’s real ones (ask for anonymized samples).',
-        'Include: typical cases, every category or path, blanks, odd characters, duplicates, very long text, wrong formats.',
-        'Write the expected outcome for each record before running. Then compare.',
-        'Test in a safe place: test copies of sheets, a test CRM pipeline, your own email as recipient. Never real customers.',
-      ] },
+      predict: {"q": "What should you write down before running your tests?", "options": ["The expected outcome for each record", "Nothing", "The client’s password", "A press release"], "answer": 0, "why": "Without expected outcomes, anything that runs looks “fine”."},
+      body: ["[[test-data|Test data]]: 10–30 fake records modeled on the real ones, including blanks, duplicates, odd characters, wrong formats.", "Write the expected outcome for each before running.", "Test in safe places (test copies, your own email). Never real customers."] },
     { tag: 'try', title: 'Your turn: what’s missing?',
       check: {
         type: 'multi', q: 'Your test set for a plumber’s inbox has 5 normal job emails. What should you add?',
@@ -33,6 +29,7 @@ export default {
         why: 'More of the same tests nothing new. Add the cases that take different paths or break things.',
       } },
     { tag: 'key', title: 'The sandbox is practice for this',
+      predict: {"q": "Why does every sandbox business have messy records on purpose?", "options": ["Real client data is messy, and your tests must be too", "Bugs in the app", "To make it harder for no reason", "They aren’t on purpose"], "answer": 0, "why": "In client work you build that messy test data yourself. It’s part of the job."},
       body: [
         'Every sandbox business in this app has traps built into its test data on purpose: duplicates, a bad email, a missing phone.',
         'In client work, you build that data yourself. It’s part of the job, and part of what you’re paid for.',

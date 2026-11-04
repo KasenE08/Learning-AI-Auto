@@ -20,12 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Scope first, then everything else',
-      body: [
-        '**Scope:** the jobs it does (answer menu, hours, prices; take order inquiries) and the jobs it never does (medical/legal claims, discounts, anything about other customers).',
-        '**Sources:** where answers come from (the bakery’s documents, Module 2 RAG) and “if it’s not there, say so”.',
-        '**Guardrails:** hard rules (“never claim allergy safety”), topics it refuses, and limits on tools.',
-        '**Hand-off:** when and how a person takes over (lesson 3).',
-      ] },
+      visual: {"type": "sort", "cols": ["In scope", "Out of scope"], "items": [{"text": "Opening hours", "col": 0}, {"text": "Is this cake safe for a nut allergy?", "col": 1, "why": "Safety and medical claims are out of scope; hand off."}, {"text": "Price of the sourdough", "col": 0}, {"text": "A 20% discount", "col": 1}, {"text": "Custom-cake lead time", "col": 0}, {"text": "Another customer’s order", "col": 1}], "prompt": "A bakery chat agent: sort each request."},
+      body: ["**Scope:** what it does and what it never does. **Sources:** where answers come from, and “if it’s not there, say so”.", "**Guardrails:** hard rules, refused topics, limits on tools.", "**Hand-off:** when and how a person takes over (lesson 3)."] },
     { tag: 'try', title: 'Your turn: in or out of scope?',
       check: {
         type: 'multi', q: 'A dental clinic’s website chat agent. Which are in scope?',
@@ -33,11 +29,13 @@ export default {
         why: 'Facts from the clinic’s documents and booking are fine. Medical advice and other patients’ data are out.',
       } },
     { tag: 'see', title: 'Persona is the last thing to design',
+      predict: {"q": "Which is worse: a plain bot that’s accurate, or a charming bot that makes claims it shouldn’t?", "options": ["The charming bot that makes claims", "The plain accurate bot", "They’re equal", "Neither matters"], "answer": 0, "why": "Scope and accuracy come first. And say clearly that it’s an AI assistant."},
       body: [
         'Tone and name matter less than scope and accuracy. A warm bot that makes claims is worse than a plain one that doesn’t.',
         'State clearly that it’s an AI assistant. Some places require that by law (Module 13); it also sets fair expectations.',
       ] },
     { tag: 'warn', title: 'Guardrails live in more than the prompt',
+      predict: {"q": "A clever customer talks the bot into “ignoring the discount rule”. What stops a discount anyway?", "options": ["The bot has no discount tool", "A bold prompt rule", "The customer’s honesty", "Nothing"], "answer": 0, "why": "Capability you don’t give can’t be misused. Back prompt rules with design."},
       body: [
         'Prompt rules can be talked around (Module 2, lesson 9). Back them with design: no discount tool, no access to other customers’ data.',
         'Watch the transcripts after launch. The questions people actually ask will surprise you.',

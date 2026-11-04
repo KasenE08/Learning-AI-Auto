@@ -21,13 +21,10 @@ export default {
       },
     },
     { tag: 'how', title: 'The voice stack',
-      body: [
-        '[[stt|Speech-to-text]] turns audio into words. [[tts|Text-to-speech]] turns the reply into a voice.',
-        'In between, a language model with tools, same as chat agents.',
-        'Some systems use speech-to-speech models that skip the text steps, often to cut delay.',
-        'A phone connection (a number, call routing) links it to the real phone network. Voice platforms bundle these pieces; you configure, not code.',
-      ] },
+      predict: {"q": "A caller spells their email and the agent books “example.calm”. Which part failed?", "options": ["Speech-to-text", "Text-to-speech", "The calendar", "The phone line"], "answer": 0, "why": "The words were misheard. Design around it: spell back, or text a link to type it."},
+      body: ["[[stt|Speech-to-text]] → a model with tools → [[tts|text-to-speech]]. Some systems go speech-to-speech to cut delay.", "A phone connection links it to real phone numbers.", "Voice platforms bundle these pieces; you configure, not code."] },
     { tag: 'see', title: 'What’s harder on voice than chat',
+      predict: {"q": "Which is harder on a phone call than in a chat?", "options": ["Getting an email address right", "Being polite", "Saying hello", "Having a system prompt"], "answer": 0, "why": "Names, emails and numbers get misheard. The table shows the other voice-specific challenges."},
       visual: { type: 'compare', cols: ['', 'Chat', 'Voice'], rows: [
         ['Delay tolerance', 'Seconds are fine', 'Long pauses feel broken; aim for about a second or less'],
         ['Mishearing', 'Rare (they type)', 'Names, emails, numbers get misheard'],

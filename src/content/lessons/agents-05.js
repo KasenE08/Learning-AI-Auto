@@ -19,13 +19,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Voice design rules',
-      body: [
-        '**Short turns:** one idea per reply, one question at a time.',
-        '**Confirm what matters:** read back names, dates, numbers. Spell emails; offer to text a link instead.',
-        '**Handle interruptions** ([[barge-in]]): when the caller talks, stop speaking and listen.',
-        '**Handle silence:** a gentle prompt after a few seconds, then a polite exit or transfer.',
-        '**Always offer a way out:** “or I can connect you to the team” and voicemail after hours.',
-      ] },
+      visual: {"type": "sort", "cols": ["Sounds right", "Sounds wrong"], "items": [{"text": "“I have Tuesday afternoon or Thursday morning. Which suits you?”", "col": 0}, {"text": "Reading out 9 available time slots", "col": 1}, {"text": "“So that’s Tuesday at 4:30 under Dana Reyes. Right?”", "col": 0}, {"text": "Keeps talking when the caller interrupts", "col": 1, "why": "Stop and listen: that’s barge-in handling."}, {"text": "“Or I can connect you to the team.”", "col": 0}, {"text": "A 25-second welcome speech", "col": 1}], "prompt": "Sort each voice-agent behavior."},
+      body: ["**Short turns**, one question at a time; **confirm** names, dates and numbers.", "**Handle interruptions** ([[barge-in]]) and silence gracefully.", "**Always offer a way out:** a person, or voicemail after hours."] },
     { tag: 'try', title: 'Your turn: fix the line',
       check: {
         type: 'mc', q: 'Which is the best opening line for an after-hours clinic phone agent?',
@@ -33,6 +28,7 @@ export default {
         why: 'Says it’s an assistant, what it can do, and invites the caller in. Short and clear.',
       } },
     { tag: 'warn', title: 'Test with real voices',
+      predict: {"q": "Which test caller is most likely to break a voice agent?", "options": ["A fast talker on speakerphone in a noisy truck", "A calm caller in a quiet room", "You, reading the script", "Nobody"], "answer": 0, "why": "Test with accents, noise, speakerphone and “um, actually, wait”."},
       body: [
         'Test with accents, background noise, speakerphone, fast talkers, and people who say “um, actually, wait”.',
         'Listen to recordings of test calls (with consent) and fix the script where people stumble.',

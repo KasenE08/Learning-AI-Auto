@@ -22,12 +22,14 @@ export default {
       },
     },
     { tag: 'how', title: 'Anatomy of an action',
+      predict: {"q": "An action “Create CRM contact” finishes. What does it usually hand to the next step?", "options": ["The new contact’s ID", "Nothing at all", "The whole CRM", "A copy of the workflow"], "answer": 0, "why": "Most actions return an output, like a new ID or row number, that later steps can use."},
       body: [
         'Every [[action]] has three parts: **which app**, **what to do** (create, update, find, send, delete), and **inputs** (the fields you fill in).',
         'You fill inputs with fixed text, with [[field|fields]] from earlier steps, or a mix: “Hi [Name], thanks for…”.',
         'It returns an **output**: the new record’s ID, the row number, the found contact. That output is a new set of fields for later steps.',
       ] },
     { tag: 'see', title: 'Common action verbs',
+      predict: {"q": "A repeat customer emails again. Which verb avoids a duplicate contact?", "options": ["Find or create", "Create", "Delete", "Send"], "answer": 0, "why": "Find or create looks the person up first. Plain Create adds a new record every time."},
       visual: { type: 'compare', cols: ['Verb', 'What it does', 'Watch out'], rows: [
         ['Create', 'Adds a new record', 'Runs twice = two records'],
         ['Find', 'Looks one up by a field', 'Can find nothing, or several'],
@@ -51,6 +53,7 @@ export default {
       },
     },
     { tag: 'warn', title: 'Sends can’t be undone',
+      predict: {"q": "Which mistake is hardest to fix?", "options": ["A wrong email sent to 300 customers", "A wrong spreadsheet row", "A typo in a CRM note", "A misnamed step"], "answer": 0, "why": "Rows and notes can be edited. An email, once sent, stays sent."},
       body: [
         'A wrong spreadsheet row is easy to delete. A wrong email to 300 customers is not.',
         'Put “send” actions **after** the steps that could fail, and test with fake data before anything reaches real people.',

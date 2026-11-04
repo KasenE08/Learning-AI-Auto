@@ -21,12 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Qualify → decide → act → confirm',
-      body: [
-        'Ask only questions that change the outcome: urgency, location (in the service area?), job type, timing, budget where it matters.',
-        'Decide with clear rules written by the client: emergency criteria, service area, minimum job size.',
-        'Act through tools: book a slot, create the job, or transfer a true emergency to the on-call phone.',
-        'Confirm twice: read it back on the call, then send a text or email (with consent) the caller can check.',
-      ] },
+      predict: {"q": "Which question earns its place in a plumbing voice agent?", "options": ["“Is water leaking right now?”", "“What’s your favorite color?”", "“How did you hear about us?” first thing", "“Can you spell your street twice?” before anything else"], "answer": 0, "why": "Ask only questions that change what happens next. Leak or no leak decides the path."},
+      body: ["Ask only questions that change the outcome; decide with the client’s written rules.", "Act through tools: book, create the job, or transfer a true emergency.", "Confirm twice: read it back, then send a text or email (with consent)."] },
     { tag: 'try', title: 'Your turn: pick the qualifying questions',
       check: {
         type: 'multi', q: 'A gym’s voice agent books free trials. Which questions earn their place?',
@@ -34,6 +30,7 @@ export default {
         why: 'Location and time decide the booking, injuries change who runs the trial, and source feeds marketing. Color changes nothing.',
       } },
     { tag: 'biz', title: 'Missed-call recovery sells itself',
+      predict: {"q": "Which number best shows a voice agent’s value at renewal?", "options": ["After-hours calls answered and booked", "Number of AI tokens used", "How friendly it sounds", "Its voice name"], "answer": 0, "why": "Measure what the client feels: calls answered, bookings, emergencies routed."},
       body: [
         'Small businesses miss many calls during jobs and after hours. A voice agent (or even a missed-call text-back) turns some of those into bookings.',
         'Measure it: calls answered after hours, bookings made, emergencies routed. Those numbers drive renewals (Module 11).',

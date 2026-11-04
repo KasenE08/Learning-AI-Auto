@@ -21,13 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'What goes in a runbook',
-      body: [
-        '**Overview:** what each workflow does, in one line, and where it lives.',
-        '**Accounts and owners:** which systems, whose accounts, who to call.',
-        '**Common problems:** symptom → check → fix or contain → who to tell.',
-        '**Safe mode:** how to pause or switch to a manual fallback without breaking anything.',
-        '**Change log** and the test set location.',
-      ] },
+      predict: {"q": "An alert fires at 2 am and the office manager opens the runbook. What does she need most?", "options": ["Symptom → what to check → what to do → who to tell", "How APIs work", "Your life story", "All the passwords"], "answer": 0, "why": "A runbook turns “something’s wrong” into steps someone else can follow."},
+      body: ["**Overview** of each workflow, and **accounts and owners**.", "**Common problems:** symptom → check → fix or contain → who to tell.", "**Safe mode** (how to pause) plus the change log and test set location."] },
     { tag: 'try', title: 'Your turn: write the row',
       check: {
         type: 'mc', q: 'Which runbook row is best for “confirmation emails stopped”?',
@@ -35,6 +30,7 @@ export default {
         why: 'Symptom, check, fix per error type, and who to tell.',
       } },
     { tag: 'biz', title: 'Runbooks make you more valuable, not less',
+      predict: {"q": "Does writing a runbook make a client need you less?", "options": ["They call less at 2 am and trust you more, which helps renewals", "Yes, they’ll fire you", "It doesn’t matter", "Runbooks are secret"], "answer": 0, "why": "Maintaining the system and the runbook is part of what the retainer pays for."},
       body: [
         'A client who can handle the small stuff calls you less at 2 am and trusts you more.',
         'Runbooks are part of delivery and handover (Module 11), and they make retainers easier to justify: you maintain the system and the runbook.',

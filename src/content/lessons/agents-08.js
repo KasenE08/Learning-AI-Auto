@@ -21,12 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Making orchestration reliable',
-      body: [
-        '**Clear task briefs:** each worker gets exactly the inputs it needs and a defined output shape (structured output, Module 2).',
-        '**Checkpoints:** the orchestrator validates each result before using it (has sources? right fields?).',
-        '**Limits:** max worker calls, time, and spend per job.',
-        '**Human checkpoints** before anything leaves your business: sending, paying, publishing.',
-      ] },
+      predict: {"q": "A research worker returns “facts” with no sources, and the draft quotes them. What should have caught it?", "options": ["An orchestrator checkpoint rejecting results without sources", "A bigger model", "The prospect", "Nothing"], "answer": 0, "why": "Validate each worker’s output before building on it."},
+      body: ["**Clear briefs** with a defined output shape for each worker.", "**Checkpoints** that validate results, plus **limits** on calls, time and spend.", "**Human approval** before anything leaves your business."] },
     { tag: 'try', title: 'Your turn: where is the checkpoint?',
       check: {
         type: 'order', q: 'Order an orchestrated weekly client-report job.',
@@ -34,6 +30,7 @@ export default {
         why: 'Plan, get data, check it before writing on top of it, draft, human approval before it leaves.',
       } },
     { tag: 'biz', title: 'This is how you run ops solo',
+      predict: {"q": "In your own agent-run business, what always goes through you?", "options": ["Anything sent to a client or prospect", "Nothing", "Only invoices", "Only research"], "answer": 0, "why": "Agents prepare; you approve at the exits. Module 12 builds on this."},
       body: [
         'Module 12 uses this exact pattern for your own business: agents prepare reports, drafts and research; you approve.',
         'Know where it breaks: vague briefs, unchecked results, and no human at the exits.',

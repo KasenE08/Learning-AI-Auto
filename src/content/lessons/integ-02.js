@@ -19,12 +19,14 @@ export default {
       },
     },
     { tag: 'how', title: 'Two kinds of email, two sets of rules',
+      visual: {"type": "sort", "cols": ["Transactional", "Marketing"], "items": [{"text": "Order receipt", "col": 0}, {"text": "Monthly newsletter", "col": 1}, {"text": "Appointment confirmation", "col": 0}, {"text": "Holiday promotion", "col": 1}, {"text": "Password reset", "col": 0}, {"text": "Cold outreach to a business", "col": 1, "why": "Unrequested commercial email is marketing, with its own rules."}], "prompt": "Sort each email."},
       body: [
         '**Transactional:** triggered by something the person did: receipts, confirmations, password resets. Expected, one-to-one.',
         '**Marketing:** newsletters, promotions, cold outreach. Needs consent and a working unsubscribe (Module 13).',
         'Keep them apart. Many businesses send marketing from a separate address or subdomain so a bad campaign can’t sink the receipts.',
       ] },
     { tag: 'see', title: 'Deliverability basics',
+      predict: {"q": "Receipts from a new automation land in spam. What most likely fixes it?", "options": ["Setting up SPF, DKIM and DMARC on the client’s domain", "Better subject lines", "More images", "Sending at night"], "answer": 0, "why": "Inbox providers check that mail claiming to come from a domain is authorized by it."},
       body: [
         '[[deliverability|Deliverability]] = landing in the inbox, not spam. It’s earned by authentication, low complaint rates, and sending things people expect.',
         'Since 2024, Gmail and Yahoo require bulk senders to authenticate with SPF, DKIM and DMARC, offer one-click unsubscribe, and keep spam complaints low (their stated ceiling is 0.3%).',
@@ -38,6 +40,7 @@ export default {
         why: 'Varying layouts break fixed rules. AI extraction handles variety; validate the result (is it a number? is a date present?) before using it.',
       } },
     { tag: 'warn', title: 'Email traps',
+      predict: {"q": "An auto-reply answers another auto-reply, which answers back… What is this?", "options": ["A mail loop", "A digest", "A sequence", "Spam filtering"], "answer": 0, "why": "Filter out your own address and no-reply senders to prevent loops."},
       body: [
         'Mail loops: an auto-reply that answers auto-replies. Filter out messages from your own address and “no-reply” senders.',
         'Threading: replies should keep the subject (Re: …) so the conversation stays together.',

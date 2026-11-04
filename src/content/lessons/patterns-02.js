@@ -21,6 +21,7 @@ export default {
       },
     },
     { tag: 'how', title: 'The pipeline pattern',
+      predict: {"q": "Where should a pipeline clean and check the data?", "options": ["Right after the trigger", "At the end", "Inside every step", "Nowhere"], "answer": 0, "why": "Validate early, once, so bad records stop before they touch other systems."},
       body: [
         'A [[pipeline]]: trigger → **validate/clean** → **enrich** (look up extra data) → **act** → **record/report**. No branches.',
         'Validate early: stop or flag bad records before they touch other systems.',
@@ -33,6 +34,7 @@ export default {
         why: 'Trigger, validate/clean, enrich, act (billing before the welcome), then record.',
       } },
     { tag: 'warn', title: 'Keep steps small and named',
+      predict: {"q": "Which step name will help most when reading logs in six months?", "options": ["Format name to first name", "Formatter 3", "Step", "Do stuff"], "answer": 0, "why": "Clear names make logs readable. One job per step makes them testable."},
       body: [
         'Give each step a clear name (“Format name”, not “Formatter 3”). Future you, and the client, will read the logs.',
         'One job per step. A step that does three things is hard to test and hard to fix.',

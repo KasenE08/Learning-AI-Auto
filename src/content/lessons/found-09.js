@@ -20,12 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Filters stop; routers choose',
-      body: [
-        'A [[filter]] (“Only continue if…”) checks a [[condition]]. True: carry on. False: the run stops quietly. It is **not** an error.',
-        'A [[router]] (“Split into paths”) checks conditions top to bottom and sends the record down the **first** path that matches.',
-        'An **Otherwise** path catches anything no other path matched. Without one, those records are dropped silently.',
-        'A condition = a field + a comparison + a value: “Phone · is empty”, “Category · is exactly · urgent”.',
-      ] },
+      predict: {"q": "A filter’s condition is false. What happens to the run?", "options": ["It stops quietly; not an error", "It fails with an error", "It skips one step and continues", "It retries"], "answer": 0, "why": "Filters end the run on purpose. Routers pick a path instead of stopping."},
+      body: ["A [[filter]] checks a [[condition]]: true, carry on; false, the run stops quietly.", "A [[router]] checks paths top to bottom and sends the record down the **first** match. An **Otherwise** path catches the rest.", "A condition = a field + a comparison + a value: “Phone · is empty”."] },
     { tag: 'try', title: 'Your turn: filter or router?',
       check: {
         type: 'multi', q: 'Which of these call for a **router** (different actions per case), not a filter?',
@@ -33,6 +29,7 @@ export default {
         why: 'Different actions per case = router. “Only these, else nothing” = filter.',
       } },
     { tag: 'warn', title: 'Conditions are literal',
+      predict: {"q": "A path checks “Category is exactly urgent”. The value is “Urgent!”. Does it match?", "options": ["No", "Yes", "Only on weekdays", "Only if the AI is confident"], "answer": 0, "why": "Exact means exact. Standardize values first; Module 2 shows how AI can return fixed labels."},
       body: [
         '“is exactly urgent” does not match “Urgent!”, “urgent - pain”, or “URGENT ” in some tools. Clean or standardize values first (Module 2 shows how AI can return fixed labels).',
         'Order matters in a router: put the most specific path first. A path for “contains urgent” above “contains very urgent” catches both.',

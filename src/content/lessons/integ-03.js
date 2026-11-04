@@ -21,12 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'What booking automations handle',
-      body: [
-        'Availability: working hours, existing events, **buffers** between appointments, and lead time (no bookings in the next 2 hours).',
-        '[[time-zone|Time zones]]: store and compare times with their zone. “2:30” means nothing without one.',
-        'Confirmations and reminders (24 h and 2 h before) cut no-shows. Reschedule/cancel links keep the calendar honest.',
-        'Dedicated scheduling tools already handle much of this. Often the automation is connecting them to the CRM, reminders, and the team.',
-      ] },
+      predict: {"q": "A booking says “2:30”. What else must be stored with it?", "options": ["The time zone", "The weather", "The patient’s age", "Nothing"], "answer": 0, "why": "“2:30” means nothing without a zone, especially around daylight saving."},
+      body: ["Availability: working hours, existing events, **buffers**, and lead time.", "[[time-zone|Time zones]]: always store them with times. Reminders at 24 h and 2 h with reschedule links cut no-shows.", "Scheduling tools handle much of this; automation often connects them to the CRM, reminders and the team."] },
     { tag: 'try', title: 'Your turn: which reminder setup?',
       check: {
         type: 'multi', q: 'A clinic loses money to no-shows. Which automations help?',
@@ -34,6 +30,7 @@ export default {
         why: 'Timely reminders, an easy way to reschedule, and consent for texts. Sharing everyone’s schedule is a privacy problem.',
       } },
     { tag: 'warn', title: 'Calendar gotchas',
+      predict: {"q": "A reminder workflow only needs to know when the dentist is busy. What access should it ask for?", "options": ["Free/busy only", "Read and edit every event", "Full admin", "None"], "answer": 0, "why": "Least access: don’t read every event if free/busy is enough."},
       body: [
         'Daylight-saving changes shift “same time every week” events if the zone isn’t stored.',
         'Free/busy vs details: automations often only need free/busy. Don’t request access to read every event (least access, Module 1).',

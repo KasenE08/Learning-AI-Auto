@@ -15,6 +15,7 @@ export default {
       },
     },
     { tag: 'how', title: 'Classify vs extract',
+      visual: {"type": "sort", "cols": ["Classify", "Extract"], "items": [{"text": "Is this email spam?", "col": 0}, {"text": "What’s the order number?", "col": 1}, {"text": "Which department should handle it?", "col": 0}, {"text": "What address did they give?", "col": 1}, {"text": "Is the review positive, negative or mixed?", "col": 0}, {"text": "Which date do they want?", "col": 1, "why": "Copying a fact out of the text is extraction."}], "prompt": "Which AI job is each question?"},
       body: [
         '[[classification|Classify]]: pick one label from a fixed list. Urgent/routine, intent, sentiment, language, spam or not.',
         '[[extraction|Extract]]: copy specific facts out of messy text into fields. Address, date, order number, product.',

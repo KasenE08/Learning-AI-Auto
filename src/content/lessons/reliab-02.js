@@ -15,15 +15,8 @@ export default {
       },
     },
     { tag: 'see', title: 'The usual suspects',
-      visual: { type: 'compare', cols: ['Edge case', 'Handle it by'], rows: [
-        ['Empty or missing field', 'Branch, default value, or ask a person'],
-        ['Extra spaces, odd capitals', 'Format step early (trim, case)'],
-        ['Duplicates / repeats', 'Upsert by a match key; idempotent steps'],
-        ['Wrong format (text in a number field)', 'Validate; route bad records to review'],
-        ['Very long text', 'Truncate for chat/SMS; summarize'],
-        ['Time zones and midnight', 'Store zones; convert before date logic'],
-        ['Empty lists (an order with no items)', 'Check list length before looping'],
-      ] } },
+      visual: {"type": "sort", "cols": ["Format early", "Branch or default", "Match and dedupe"], "items": [{"text": "“  KIM nguyen  ”", "col": 0}, {"text": "Phone left blank", "col": 1}, {"text": "Same patient books twice", "col": 2}, {"text": "Email in mixed case", "col": 0}, {"text": "No ad source on a lead", "col": 1, "why": "Fill a default like “unknown” or branch on it."}, {"text": "A webhook delivered twice", "col": 2}], "prompt": "How do you handle each edge case?"},
+       },
     { tag: 'try', title: 'Your turn: pick the handling',
       check: {
         type: 'mc', scenario: 'A form’s “Company” field is optional. A later step sends “Thanks for reaching out from [Company]!”',
@@ -31,6 +24,7 @@ export default {
         why: '“from !” looks broken. Branch on empty, or write the sentence so a blank reads naturally. Making it required costs signups.',
       } },
     { tag: 'key', title: 'Handle it once, early',
+      predict: {"q": "Where should name formatting and email validation go?", "options": ["Right after the trigger, once", "In each step separately", "At the end", "Nowhere"], "answer": 0, "why": "Clean once, early, and every later step gets predictable data."},
       body: ['Put cleaning and validation right after the trigger (Module 3, pipeline). Every later step then gets predictable data.'] },
   ],
   quiz: [

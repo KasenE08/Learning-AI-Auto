@@ -94,33 +94,51 @@ function run(view, l, content, { startQuiz }) {
   function showStep() {
     dispose();
     const st = steps[S.i];
+    const pv = st.visual && st.visualFirst; // visual shown as context before the prediction
     const art = el(html`<article class="step">
       <span class="kicker kicker--accent">${TAGS[st.tag] || st.tag}</span>
       <h2 class="h2">${st.title}</h2>
-      ${st.visual && st.visualFirst ? html`<div class="step__vis"></div>` : ''}
-      ${st.body?.length ? html`<ul class="bullets">${st.body.map((b) => html`<li>${rich(b)}</li>`)}</ul>` : ''}
-      ${st.visual && !st.visualFirst ? html`<div class="step__vis"></div>` : ''}
-      <div class="step__check"></div>
-      ${st.build ? buildLink(st.build) : ''}
-      <div class="step__outside"></div>
-      ${st.note ? html`<p class="step__note">${rich(st.note)}</p>` : ''}
+      ${pv ? html`<div class="step__vis"></div>` : ''}
+      ${st.predict ? html`<div class="step__predict"><span class="kicker">Predict first · one tap</span></div>` : ''}
+      <div class="step__reveal" ${st.predict ? 'hidden' : ''}>
+        ${st.body?.length ? html`<ul class="bullets">${st.body.map((b) => html`<li>${rich(b)}</li>`)}</ul>` : ''}
+        ${st.visual && !st.visualFirst ? html`<div class="step__vis"></div>` : ''}
+        <div class="step__check"></div>
+        ${st.build ? buildLink(st.build) : ''}
+        <div class="step__outside"></div>
+        ${st.note ? html`<p class="step__note">${rich(st.note)}</p>` : ''}
+      </div>
     </article>`);
     body.replaceChildren(art);
     const disposers = [];
     if (st.visual) disposers.push(mountVisual(art.querySelector('.step__vis'), st.visual).destroy);
     if (st.outside) art.querySelector('.step__outside').append(outsideBuild(st.outside, l.id));
     currentCheck = null;
+    let predicted = !st.predict;
+    const gate = () => {
+      if (!predicted) return setNext('Make your guess', { disabled: true, icon: '' });
+      if (currentCheck && !currentCheck.isDone()) return setNext('Answer to continue', { disabled: true, icon: '' });
+      setNext(stepLabel());
+    };
+    if (st.predict) {
+      // A guess, not a test: one try, then the answer and the explanation unlock.
+      const p = renderQuestion({ type: 'mc', ...st.predict }, { seed: seed + 50 + S.i, mode: 'quiz', onDone: () => {
+        predicted = true;
+        art.querySelector('.step__reveal').hidden = false;
+        gate();
+      } });
+      art.querySelector('.step__predict').append(p.el);
+    }
     if (st.check) {
       const box = art.querySelector('.step__check');
-      currentCheck = renderQuestion(st.check, { seed: seed + S.i, mode: 'try', onDone: () => { setNext(stepLabel()); box.querySelector('.stuck-btn')?.remove(); } });
+      currentCheck = renderQuestion(st.check, { seed: seed + S.i, mode: 'try', onDone: () => { gate(); box.querySelector('.stuck-btn')?.remove(); } });
       box.append(currentCheck.el);
       if (st.stuck) box.append(stuckButton(st.stuck, () => currentCheck.reveal(), disposers));
     }
     dispose = () => disposers.forEach((d) => d());
     count.textContent = `${S.i + 1}/${steps.length}`;
     back.disabled = S.i === 0;
-    if (currentCheck && !currentCheck.isDone()) setNext('Answer to continue', { disabled: true, icon: '' });
-    else setNext(stepLabel());
+    gate();
     paint();
     window.scrollTo(0, 0);
   }

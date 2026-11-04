@@ -37,12 +37,14 @@ export default {
         why: 'If the right chunk isn’t retrieved, the model can’t use it. Fixes: clearer documents (one topic per heading, use the words patients use), better chunking, or testing common questions.',
       } },
     { tag: 'biz', title: 'Most RAG problems are document problems',
+      predict: {"q": "A bot quotes last year’s prices. Most likely cause?", "options": ["The old price list is still in its documents", "The model is too small", "Customers asked wrong", "RAG is broken"], "answer": 0, "why": "Outdated or contradictory documents give outdated answers. Cleaning up knowledge is part of the job."},
       body: [
         'Outdated, contradictory, or scattered documents give outdated, contradictory answers.',
         'A big part of a RAG project is cleaning up the client’s knowledge: one current FAQ, clear headings, dated policies.',
         'Write a list of the 30 questions customers really ask, and test every one before launch.',
       ] },
     { tag: 'warn', title: 'Rules for trustworthy answers',
+      predict: {"q": "The documents don’t cover a question. What should the bot do?", "options": ["Say so and offer a person", "Guess from general knowledge", "Make up a policy", "End the chat"], "answer": 0, "why": "“Answer only from the passages; otherwise say so” is how you avoid confident wrong answers."},
       body: [
         'Instruct: “Answer only from the provided passages. If they don’t cover it, say so and offer a person.”',
         'Show sources where possible, so staff can check answers.',

@@ -21,12 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Rules for money workflows',
-      body: [
-        'Trigger on the payment app’s **events** (webhooks), not on a “paid” email in someone’s inbox.',
-        'Webhooks can arrive twice or out of order. Match on the payment ID and make steps [[idempotency|idempotent]] (Module 3).',
-        'Never handle card numbers yourself. The payment app holds them; your workflow only sees IDs, amounts, and status.',
-        'Automate records and messages. Keep refunds and price changes behind approval.',
-      ] },
+      predict: {"q": "A payment webhook arrives twice for the same payment. What prevents two receipts?", "options": ["Checking the payment ID was already handled", "Turning off webhooks", "Sending receipts weekly", "Hoping"], "answer": 0, "why": "Match on the payment ID and make steps idempotent."},
+      body: ["Trigger on the payment app’s events, and match on the payment ID (webhooks can repeat).", "Never handle card numbers; your workflow sees IDs, amounts and status.", "Automate records and messages; keep refunds and price changes behind approval."] },
     { tag: 'try', title: 'Your turn: dunning',
       body: ['Recovering failed payments with a series of reminders is called [[dunning]].'],
       check: {
@@ -35,6 +31,7 @@ export default {
         why: 'Event, friendly notice, wait-and-check, second channel, then a human. Stop the moment it’s paid.',
       } },
     { tag: 'biz', title: 'Easy ROI to show',
+      predict: {"q": "A client loses $3,000 a month to failed payments; your dunning sequence recovers 40%. Monthly value?", "options": ["$1,200", "$3,000", "$400", "$40"], "answer": 0, "why": "$3,000 × 40% = $1,200. Easy to measure, easy to report."},
       body: [
         'Failed-payment recovery is one of the clearest wins: every recovered payment is money the client would have lost.',
         'Track it: “recovered $1,240 this month” is a case-study line (Module 11).',

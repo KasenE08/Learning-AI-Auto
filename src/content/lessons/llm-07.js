@@ -22,20 +22,16 @@ export default {
       },
     },
     { tag: 'how', title: 'The agent loop',
+      predict: {"q": "What stops an agent that’s confused and keeps trying?", "options": ["A limit you set: max steps, time, or cost", "Nothing", "The customer", "It always stops itself"], "answer": 0, "why": "Agents loop until the goal, a hand-off, or a limit. Always set the limit."},
       body: [
         'An agent = a model + tools + a goal + a loop. Each turn: decide, call a tool, read the result, repeat.',
         'It stops when it meets the goal, needs a human, or hits a limit you set (max steps, max time, max cost).',
         'Agents shine when the path varies a lot from case to case. When the path is the same every time, a plain workflow is cheaper, faster and easier to test.',
       ] },
     { tag: 'see', title: 'Workflow or agent?',
-      visual: { type: 'compare', cols: ['', 'Workflow', 'Agent'], rows: [
-        ['Path', 'Drawn in advance', 'Decided at run time'],
-        ['Predictability', 'High', 'Lower'],
-        ['Testing', 'Check each path', 'Need many scripted test cases'],
-        ['Cost per run', 'Fixed, low', 'Varies; can loop'],
-        ['Best for', 'Repeatable processes', 'Messy, varied requests'],
-      ], pick: 0 },
-      body: ['Most paying client work is workflows with a few AI steps inside. Agents are a tool, not the default.'] },
+      visual: {"type": "sort", "cols": ["Workflow", "Agent"], "items": [{"text": "Every new invoice → add a row → email the accountant", "col": 0}, {"text": "A website chat that answers questions and books calls", "col": 1}, {"text": "Monday: email last week’s sales total", "col": 0}, {"text": "Research a lead across several sources and summarize", "col": 1}, {"text": "New order → copy to the shipping app", "col": 0, "why": "Same path every time: a workflow is cheaper and easier to test."}], "prompt": "Sort each job."},
+      
+      body: ["Same path every time → workflow. Path varies a lot → agent.", "Most paying client work is workflows with a few AI steps inside."] },
     { tag: 'try', title: 'Your turn: pick the design',
       check: {
         type: 'multi', q: 'Which jobs need an **agent** rather than a workflow?',
@@ -43,12 +39,8 @@ export default {
         why: 'Chat and open-ended research vary every time. Invoices and the Monday report follow the same path every time.',
       } },
     { tag: 'warn', title: 'Guardrails every agent needs',
-      body: [
-        '**Limits:** max steps and spend per run, so a confused agent can’t loop forever.',
-        '**Narrow tools:** only what this agent’s job requires (lesson 6).',
-        '**Hand-off:** a clear point where it stops and passes to a person (Module 5).',
-        '**Logs:** every tool call recorded, so you can see what it did and why (Module 6).',
-      ] },
+      predict: {"q": "An agent has a refund tool, a CRM tool, and an email tool, but its job is only answering FAQs. What’s wrong?", "options": ["It has tools its job doesn’t need", "Nothing", "It needs more tools", "It should be a chatbot instead"], "answer": 0, "why": "Narrow tools are a guardrail: only what this agent’s job requires."},
+      body: ["**Limits** (max steps and spend) and **narrow tools** (only what the job needs).", "**Hand-off:** a clear point where it stops and passes to a person.", "**Logs:** every tool call recorded, so you can see what it did."] },
   ],
   quiz: [
     { type: 'mc', q: 'What defines an agent?', options: ['A model in a loop that picks its own next step using tools', 'Any workflow with an AI step', 'A chatbot with a name', 'A workflow with many steps'], answer: 0, why: 'The loop and run-time decisions make it an agent.' },

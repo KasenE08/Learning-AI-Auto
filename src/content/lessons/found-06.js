@@ -20,22 +20,12 @@ export default {
       },
     },
     { tag: 'how', title: 'An API is a menu of requests',
-      body: [
-        'An [[api]] is the list of things an app lets other software ask for: find a contact, create an invoice, send a message.',
-        'Each request goes to an [[endpoint]] (an address like `/contacts`) with a **method**: GET (read), POST (create or send), PATCH/PUT (update), DELETE (remove).',
-        'The app answers with a [[status-code]] and usually some JSON.',
-        'No-code builders wrap all this in friendly blocks. You pick “Find contact”; the builder writes the request.',
-      ] },
+      predict: {"q": "Your workflow wants to change a contact’s phone number. Which request method fits?", "options": ["PATCH (update)", "GET (read)", "DELETE (remove)", "POST (create)"], "answer": 0, "why": "Updates use PATCH or PUT. GET reads, POST creates, DELETE removes."},
+      body: ["An [[api]] is the list of things an app lets other software ask for: find, create, update, send.", "Each request goes to an [[endpoint]] with a method: GET (read), POST (create), PATCH/PUT (update), DELETE (remove). The app answers with a [[status-code]].", "No-code builders wrap all this in friendly blocks: you pick “Find contact”, the builder writes the request."] },
     { tag: 'see', title: 'Status codes you’ll see in logs',
-      visual: { type: 'compare', cols: ['Code', 'Means', 'Usually you…'], rows: [
-        ['200 / 201', 'OK / created', 'Carry on'],
-        ['400', 'Bad request: something you sent is wrong', 'Check the mapped fields'],
-        ['401 / 403', 'Not logged in / not allowed', 'Reconnect the account or fix permissions'],
-        ['404', 'Not found', 'The record or address doesn’t exist'],
-        ['429', 'Too many requests', 'Slow down; retry later'],
-        ['500+', 'The other app broke', 'Retry later; not your fault'],
-      ] },
-      body: ['2xx = worked. 4xx = the request has a problem. 5xx = the other side has a problem.'] },
+      visual: {"type": "sort", "cols": ["Retry later", "Fix the request", "Fix the connection"], "items": [{"text": "429 Too many requests", "col": 0}, {"text": "500 Server error", "col": 0}, {"text": "400 “amount must be a number”", "col": 1}, {"text": "404 Not found", "col": 1, "why": "The record or address doesn’t exist; retrying won’t create it."}, {"text": "401 Unauthorized", "col": 2}, {"text": "403 Forbidden", "col": 2}], "prompt": "What should you do about each error?"},
+      
+      body: ["2xx = worked. 4xx = your request has a problem. 5xx = the other side has a problem.", "429 and 5xx are usually temporary; 400 and 404 fail the same way until you change something.", "401 and 403 mean the login or permissions need fixing."] },
     { tag: 'try', title: 'Your turn: read the error',
       body: ['A workflow log says: **“Create invoice failed: 400. Field ‘amount’ must be a number.”**'],
       check: {
@@ -44,6 +34,7 @@ export default {
         wrong: { 1: 'Waiting helps with 429 and 5xx. A 400 will fail the same way every time.', 2: 'That’s the fix for 401/403.' },
       } },
     { tag: 'biz', title: 'Why this matters for your business',
+      predict: {"q": "A website says an app “integrates with your CRM”. What should you check before quoting?", "options": ["That it supports the exact action you need, like updating a deal", "Nothing; integrates means everything works", "Its logo", "How many users it has"], "answer": 0, "why": "“Integrates” can mean one tiny action. Check the specific verb you need."},
       body: [
         'Before quoting a job, check that each app has an API (or a ready-made block in your builder) for the exact action you need.',
         '“It integrates with X” on a website can mean one tiny action. Look for the specific verb: can it **update** a deal, not just create one?',

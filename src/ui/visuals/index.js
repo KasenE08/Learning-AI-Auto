@@ -6,8 +6,9 @@ import { mountExchange } from './exchange.js';
 import { mountCalc } from './calc.js';
 import { mountCompare } from './compare.js';
 import { mountRoleplay } from './roleplay.js';
+import { mountSort } from './sort.js';
 
-export const VISUALS = { flow: mountFlow, record: mountRecord, exchange: mountExchange, calc: mountCalc, compare: mountCompare, roleplay: mountRoleplay };
+export const VISUALS = { flow: mountFlow, record: mountRecord, exchange: mountExchange, calc: mountCalc, compare: mountCompare, roleplay: mountRoleplay, sort: mountSort };
 
 export function mountVisual(container, spec) {
   const m = VISUALS[spec.type];

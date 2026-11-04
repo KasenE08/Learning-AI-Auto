@@ -32,12 +32,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Every automation is a trigger plus actions',
-      body: [
-        'A [[workflow]] is a list of steps a computer runs for you. Tools call it an automation, a flow, or their own brand name.',
-        'It always starts with exactly one [[trigger]]: the event that wakes it up. A form arrives, an email lands, it turns 8:00 am.',
-        'Then come [[action|actions]]: things done in apps. Save a contact, send an email, add a row.',
-        'Each time the trigger fires, the whole list runs once for that one [[record]]. One pass is called a [[run]].',
-      ] },
+      predict: {"q": "A form gets 30 submissions today. How many times does the workflow run?", "options": ["30 times, once per submission", "Once, for all 30", "Only when someone opens it", "30 times per step"], "answer": 0, "why": "Each trigger event starts one full pass, called a run. 30 submissions, 30 runs."},
+      body: ["A [[workflow]] is a list of steps a computer runs for you. It starts with exactly one [[trigger]]: the event that wakes it up.", "Then come [[action|actions]]: things done in apps. Save a contact, send an email, add a row.", "Each trigger event runs the whole list once for that one [[record]]. One pass is a [[run]]."] },
     { tag: 'try', title: 'Your turn: put a plumber’s workflow in order',
       body: ['Rivera Plumbing wants new job emails handled while the owner is out on calls.'],
       check: {

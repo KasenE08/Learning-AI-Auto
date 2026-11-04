@@ -18,6 +18,7 @@ export default {
       },
     },
     { tag: 'how', title: 'Texting is more regulated than email',
+      predict: {"q": "A patient’s number is in the CRM, but they ticked “don’t text me”. Can the workflow text them a promotion?", "options": ["No", "Yes, the number is there", "Once", "Only on weekdays"], "answer": 0, "why": "Consent decides, not having the number. Store consent and check it every time."},
       body: [
         'In the US, marketing texts generally need the person’s prior written consent, and every texting program must honor opt-out words like **STOP**. Module 13 covers the legal side; treat this as a design rule now.',
         'US carriers also require businesses texting from regular 10-digit numbers through software to register first ([[a2p-10dlc|A2P 10DLC]]). Unregistered texts can be filtered or blocked.',
@@ -30,12 +31,8 @@ export default {
         why: 'Consent given, or a reply to their own message. A blast to everyone and anyone who said STOP are off-limits.',
       } },
     { tag: 'see', title: 'Good SMS habits',
-      body: [
-        'Short, says who it’s from (“Bright Smile: …”), and one clear action.',
-        'Daytime only, in the recipient’s time zone.',
-        'Two-way: replies should reach a person or the CRM, not vanish.',
-        'Other channels (WhatsApp, social messaging) have their own rules and approved-template systems. Check before promising them.',
-      ] },
+      visual: {"type": "sort", "cols": ["Good habit", "Bad habit"], "items": [{"text": "“Bright Smile: your cleaning is Tue 4:30. Reply R to reschedule.”", "col": 0}, {"text": "A reminder sent at 3:00 am", "col": 1}, {"text": "Replies go to the front desk inbox", "col": 0}, {"text": "A 400-character text with three links", "col": 1}, {"text": "Texting a WhatsApp number without checking that channel’s rules", "col": 1, "why": "Other channels have their own rules and approved templates."}, {"text": "Sending in the recipient’s daytime", "col": 0}], "prompt": "Sort each texting practice."},
+      body: ["Short, says who it’s from, one clear action, daytime only.", "Two-way: replies reach a person or the CRM.", "Other channels (WhatsApp, social) have their own rules. Check before promising them."] },
     { tag: 'build', title: 'Build it: text only with consent', build: { challenge: 'sms-consent' },
       body: ['Split on consent, text or email, and alert the team when a confirmation can’t go out.'] },
   ],

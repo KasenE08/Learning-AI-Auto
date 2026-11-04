@@ -20,12 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Four shapes cover almost everything',
-      body: [
-        '**Field:** one name and one value. `paid: true`, `total: 86.5`.',
-        '**Record** (an [[json-object|object]]): a group of fields that belong together, like the whole order, or `customer` inside it.',
-        '**List** ([[json-array|array]]): several items of the same kind, in order. `items` is a list of records.',
-        '**Nesting:** shapes inside shapes. The order holds a customer record and a list of item records.',
-      ] },
+      visual: {"type": "sort", "cols": ["Field", "Record", "List"], "items": [{"text": "paid: true", "col": 0}, {"text": "The customer: name + email together", "col": 1}, {"text": "items: 3 line items", "col": 2}, {"text": "total: 86.5", "col": 0}, {"text": "One whole order", "col": 1}, {"text": "The attachments on an email", "col": 2, "why": "Attachments can repeat, so they’re a list."}], "prompt": "Sort each piece of the bakery order."},
+      body: ["**Field:** one name, one value. **Record** ([[json-object|object]]): fields that belong together.", "**List** ([[json-array|array]]): several items of the same kind, in order.", "**Nesting:** shapes inside shapes, like an order holding a customer record and a list of items."] },
     { tag: 'see', title: 'Reading JSON without writing it',
       body: [
         '[[json]] is how apps send data to each other. You’ll read it in logs and test results; builders let you click fields instead of typing it.',
@@ -38,6 +34,7 @@ export default {
         wrong: { 1: 'There’s no email at the top level of this order. It’s nested inside customer.' },
       } },
     { tag: 'why', title: 'Why lists change your workflow',
+      predict: {"q": "An order has 3 items. Your “send email” step isn’t set to loop. How many emails go out?", "options": ["One", "Three", "None", "It depends on the weather"], "answer": 0, "why": "Without a loop, a step runs once per record. To act once per item, you loop (Module 3)."},
       body: [
         'A step that sends one email handles one record. Give it a list of three items and it needs to know: one email total, or one per item?',
         'Builders handle lists by **looping**: run these steps once per item. Module 3 covers loops; for now, notice when data is a list.',

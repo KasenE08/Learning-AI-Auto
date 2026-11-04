@@ -23,12 +23,8 @@ export default {
       },
     },
     { tag: 'how', title: 'The classify-and-route pattern',
-      body: [
-        'Step 1: one decision step (AI or a rule) that outputs a **single category** from a fixed list.',
-        'Step 2: a router with one path per category, plus Otherwise.',
-        'Keep the categories few and meaningful: each path should do something actually different.',
-        'Write the categories down with the client. They’re business decisions, not technical ones.',
-      ] },
+      predict: {"q": "Who should decide the categories for a client’s router?", "options": ["The client, with you", "You alone", "The AI model", "Nobody; use defaults"], "answer": 0, "why": "Categories are business decisions: each path should do something actually different."},
+      body: ["Step 1: one decision step (AI or rule) outputs a **single category** from a fixed list.", "Step 2: a router with one path per category, plus Otherwise.", "Keep categories few and meaningful, and agree them with the client."] },
     { tag: 'try', title: 'Your turn: how many paths?',
       check: {
         type: 'mc', scenario: 'A bakery wants: wedding cake inquiries → owner; custom birthday cakes → order form link; complaints → manager; everything else → standard auto-reply.',

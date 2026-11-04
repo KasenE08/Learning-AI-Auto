@@ -19,12 +19,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Three tools for failure',
-      body: [
-        '[[retry|Retry]] temporary errors, waiting longer each time (1 min, 5 min, 30 min). Stop after a few tries.',
-        '[[fallback|Fallback]]: a plan B path. Primary tool down? Queue it. AI unsure? Human review.',
-        '**Alert** a person when it can’t be fixed automatically: who, what failed, why, and what to do.',
-        'Never let a run **fail silently**. A silent failure is a promise to a customer broken with nobody aware.',
-      ] },
+      predict: {"q": "A step fails because a patient’s email is invalid. Retry it?", "options": ["No: alert a person, it will fail the same way", "Yes, ten times", "Yes, forever", "Ignore it"], "answer": 0, "why": "Retry temporary errors only. Permanent ones need a person or a different path."},
+      body: ["[[retry|Retry]] temporary errors with growing waits, then stop. [[fallback|Fallback]]: a plan B path.", "**Alert** a person when it can’t be fixed automatically: who, what, why, what to do.", "Never let a run **fail silently**."] },
     { tag: 'try', title: 'Your turn: classify the error',
       check: {
         type: 'multi', q: 'Which errors are worth an automatic retry?',

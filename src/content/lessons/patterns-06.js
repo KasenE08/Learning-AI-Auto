@@ -21,12 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Sequences: wait, check, act',
-      body: [
-        'A [[sequence]] is a series of timed touches: act → wait → check → act → wait…',
-        'Every wait is followed by a check against the goal (replied, booked, paid). Stop as soon as it’s met.',
-        'Set an end: after 2–3 touches, stop or hand off to a person. Endless sequences annoy people and hurt email reputation.',
-        'Long waits (days) are a strength of automation: no human has to remember.',
-      ] },
+      predict: {"q": "A lead booked yesterday. Today the sequence is about to send “Ready to book?”. What should happen?", "options": ["A check sees they booked and stops the sequence", "Send it anyway", "Send it twice", "Wait a week"], "answer": 0, "why": "Every wait is followed by a check against the goal. Stop as soon as it’s met."},
+      body: ["A [[sequence]]: act → wait → check the goal → act again if needed.", "Stop as soon as the goal is met, and set a clear end after 2–3 touches.", "Long waits are automation’s strength: no human has to remember."] },
     { tag: 'try', title: 'Your turn: order the sequence',
       check: {
         type: 'order', q: 'A gym lead sequence. Put it in order.',
@@ -34,6 +30,7 @@ export default {
         why: 'Immediate touch, wait, check the goal, act only if needed, and a clear end.',
       } },
     { tag: 'warn', title: 'Timing details that matter',
+      predict: {"q": "A lead replies “STOP” to a text. What happens to their other sequences?", "options": ["All of them end for that person", "Only the text one ends", "Nothing", "They restart next week"], "answer": 0, "why": "Opt-outs end every sequence for that person, immediately."},
       body: [
         'Send in the customer’s daytime. A 3:00 am reminder feels robotic.',
         'If the lead’s info changes mid-sequence (they booked by phone), the check must look at **current** data, not what was true when it started.',

@@ -19,17 +19,15 @@ export default {
       },
     },
     { tag: 'how', title: 'When more agents help',
+      predict: {"q": "A one-agent FAQ bot passes 98% of its tests. Split it into five agents?", "options": ["No; split only when one agent struggles", "Yes, more is better", "Yes, for the case study", "Only on weekends"], "answer": 0, "why": "Splitting adds hand-offs, cost and testing. Do it for a real reason."},
       body: [
         'A [[multi-agent]] system splits work across agents with different roles, instructions and tools.',
         'Helps when jobs are clearly different (booking vs billing), need different permissions, or one prompt is overloaded.',
         'Hurts when you split for its own sake: more hand-offs, more cost, harder to test. Start with one agent; split when it struggles.',
       ] },
     { tag: 'see', title: 'Common team shapes',
-      visual: { type: 'compare', cols: ['Shape', 'How it works', 'Example'], rows: [
-        ['Router + specialists', 'A front agent decides who handles it', 'Clinic: Booking, Billing, FAQ'],
-        ['Pipeline', 'Each agent does one stage, passes on', 'Research → draft → review'],
-        ['Maker + checker', 'One produces, another reviews against rules', 'Proposal drafter + compliance checker'],
-      ] } },
+      visual: {"type": "sort", "cols": ["Router + specialists", "Pipeline", "Maker + checker"], "items": [{"text": "A front agent sends booking to one agent and billing to another", "col": 0}, {"text": "Research → draft → review, in order", "col": 1}, {"text": "One agent drafts a proposal; another checks it against pricing rules", "col": 2}, {"text": "Clinic: Booking, Billing, FAQ agents behind one chat", "col": 0}, {"text": "Transcribe → summarize → file", "col": 1, "why": "Each agent does one stage and passes it on."}, {"text": "A writer agent plus a fact-checker agent", "col": 2}], "prompt": "Match each setup to its team shape."},
+       },
     { tag: 'try', title: 'Your turn: split or not?',
       check: {
         type: 'multi', q: 'Which situations justify a second agent?',

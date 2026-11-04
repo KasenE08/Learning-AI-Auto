@@ -18,13 +18,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Five parts of a solid prompt',
-      body: [
-        '**Role:** who it’s working as. “You answer emails for Rivera Plumbing.”',
-        '**Task:** the one job. “Write a reply.”',
-        '**Context:** facts it needs: hours, prices it may quote, the customer’s record. Facts in the prompt beat facts it has to remember.',
-        '**Rules:** limits and must-nots. Length, tone, “never quote prices”, “if unsure, say a person will follow up”.',
-        '**Output format:** exactly what to return. “Only the reply text, no subject line.”',
-      ] },
+      visual: {"type": "sort", "cols": ["Role", "Task", "Context", "Rules", "Output format"], "items": [{"text": "“You answer emails for Rivera Plumbing.”", "col": 0}, {"text": "“Write a reply to this email.”", "col": 1}, {"text": "“Our emergency line is 555-310-0001.”", "col": 2}, {"text": "“Never quote prices.”", "col": 3}, {"text": "“Return only the reply text, under 80 words.”", "col": 4}, {"text": "“Business hours: Mon–Fri 8–5.”", "col": 2, "why": "A fact the model needs is context."}], "prompt": "Sort each line of a prompt into its part."},
+      body: ["**Role** and **task:** who it’s working as and the one job.", "**Context:** facts it needs. Facts in the prompt beat facts it has to remember.", "**Rules** (limits, must-nots) and **output format** (exactly what to return)."] },
     { tag: 'try', title: 'Your turn: find the missing part',
       body: ['Prompt: **“You are the assistant for Ironside Fitness. Summarize this lead for the sales team. Lead: [lead data]”**'],
       check: {
@@ -32,12 +27,14 @@ export default {
         why: 'Role, task and data are there. Without a format, one summary is a paragraph and the next is five bullets. Say e.g. “One line: name, goal, best time to call.”',
       } },
     { tag: 'see', title: 'System prompt vs the message',
+      predict: {"q": "Where do standing rules like “never quote prices” belong?", "options": ["The system prompt, the same every run", "The message, retyped each run", "A separate workflow", "Nowhere"], "answer": 0, "why": "The system prompt holds standing instructions; the message holds this run’s data."},
       body: [
         'Many AI steps have two boxes. The [[system-prompt]] holds standing instructions (role, rules, format). The **message** holds this run’s data.',
         'Keep rules in the system prompt and map the record into the message. Same instructions every run; only the data changes.',
         'Mark where data starts and ends (“Email: <<< … >>>”). It helps the model tell your instructions from the customer’s words (lesson 9 shows why).',
       ] },
     { tag: 'warn', title: 'Prompts are tested, not written once',
+      predict: {"q": "You fix a prompt so one bad output is now right. What next?", "options": ["Re-run all your examples", "Ship it", "Test only that one case again", "Delete the other examples"], "answer": 0, "why": "A fix for one case can break another. Re-run the whole set."},
       body: [
         'Run a prompt on 10–20 real-looking examples, including the weird ones, before trusting it.',
         'When one output is wrong, add a rule or an example that fixes it, then re-run **all** examples. A fix for one case can break another.',

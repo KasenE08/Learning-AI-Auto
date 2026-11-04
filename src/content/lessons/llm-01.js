@@ -20,19 +20,16 @@ export default {
       },
     },
     { tag: 'how', title: 'Tokens, context, and no memory',
+      predict: {"q": "You ask an AI step a question today. Tomorrow a new run asks a follow-up. Does the model remember today’s run?", "options": ["No, unless you send that history again", "Yes, always", "Only on paid plans", "Only if it was important"], "answer": 0, "why": "Each call starts fresh. Chat apps feel like they remember because they resend the conversation each time."},
       body: [
         'Models read and write in [[token|tokens]]: chunks of text, roughly ¾ of an English word each on average.',
         'The [[context-window]] is how much text the model can consider at once: your instructions, the data, and its answer. Different models have different limits.',
         'Each call starts fresh. The model only knows what you send **in that call** plus what it learned in training. Chat apps feel like they remember because they resend the conversation each time.',
       ] },
     { tag: 'see', title: 'Good at, bad at',
-      visual: { type: 'compare', cols: ['', 'Strong', 'Weak'], rows: [
-        ['Language', 'Reading messy text, rewriting, summarizing, drafting', 'Guaranteeing exact wording every time'],
-        ['Sorting', 'Classifying intent, urgency, sentiment', 'Rules with hard edges (use a filter instead)'],
-        ['Facts', 'Facts **you put in the prompt**', 'Facts it has to recall (it can make them up)'],
-        ['Math', 'Explaining a calculation', 'Doing exact arithmetic reliably (use a formatter or sheet)'],
-      ] },
-      body: ['In automation, use the model for the fuzzy language parts and ordinary steps for the exact parts.'] },
+      visual: {"type": "sort", "cols": ["AI step", "Ordinary step"], "items": [{"text": "Decide if an email sounds angry", "col": 0}, {"text": "Add 8% tax to a total", "col": 1}, {"text": "Pull the address out of a rambling message", "col": 0}, {"text": "Check if a field is empty", "col": 1}, {"text": "Draft a friendly reply", "col": 0}, {"text": "Compare a date to today", "col": 1, "why": "Exact rule, exact answer: an ordinary step does it perfectly."}], "prompt": "Which tool fits each job?"},
+      
+      body: ["Models are strong at messy language: reading, sorting by meaning, rewriting, drafting.", "They’re weak at exact rules and arithmetic, and at recalling facts you didn’t give them.", "Use AI for the fuzzy parts and ordinary steps for the exact parts."] },
     { tag: 'try', title: 'Your turn: AI or ordinary step?',
       check: {
         type: 'multi', q: 'Which jobs are a good fit for an AI step?',
@@ -40,6 +37,7 @@ export default {
         why: 'Judging tone, pulling facts from messy text, and drafting are language jobs. Tax math and empty checks are exact rules; use ordinary steps.',
       } },
     { tag: 'key', title: 'The mental model to keep',
+      predict: {"q": "Your AI step gives a vague answer. What usually improves it most?", "options": ["Clearer instructions and better data in", "Running it twice", "A longer wait", "Nothing can"], "answer": 0, "why": "Instructions + data in → predicted text out. Improve the inputs and the output follows."},
       body: [
         'Every AI step is: **instructions + data in → predicted text out.**',
         'Better instructions and better data in = better text out. That is most of this module.',

@@ -17,13 +17,8 @@ export default {
       },
     },
     { tag: 'how', title: 'What to monitor',
-      body: [
-        '**Failures:** any run that errors (alerts, from lesson 3).',
-        '**Silence:** no runs in a period when there should be some (“no leads in 24 hours on a weekday”). A [[heartbeat]] check.',
-        '**Volume shifts:** runs or a category spiking or dropping (half the emails suddenly “spam”).',
-        '**Connections:** expired logins and revoked keys (401s) before they pile up.',
-        '**Cost:** task usage and AI spend against the plan.',
-      ] },
+      visual: {"type": "sort", "cols": ["Failure", "Silence", "Volume shift", "Connection"], "items": [{"text": "A run errors at the CRM step", "col": 0}, {"text": "No leads at all on a Tuesday", "col": 1}, {"text": "60% of emails suddenly “spam”", "col": 2}, {"text": "401 errors after a password change", "col": 3}, {"text": "No runs since the ad form changed", "col": 1, "why": "Nothing failed; nothing ran. That’s silence."}, {"text": "Bookings double overnight", "col": 2}], "prompt": "Which monitor catches each problem?"},
+      body: ["**Failures** and **silence** (a [[heartbeat]] check for “no runs when there should be”).", "**Volume shifts** and **connections** (expired logins).", "**Cost:** task and AI usage against the plan."] },
     { tag: 'try', title: 'Your turn: set the heartbeat',
       check: {
         type: 'mc', scenario: 'A dental clinic gets 5–15 booking requests every weekday, rarely any on Sundays.',

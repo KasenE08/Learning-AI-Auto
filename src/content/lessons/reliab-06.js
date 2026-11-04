@@ -15,13 +15,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Security habits for a solo builder',
-      body: [
-        '**Secrets** (keys, tokens, passwords) live only in the builder’s connection settings or a password manager. Never in docs, chats, screenshots, or AI chats.',
-        '[[least-privilege|Least privilege]]: each connection gets only the scopes it needs (Module 1, lesson 8).',
-        '**Client-owned accounts**, with you added as a removable user. Use 2-factor sign-in everywhere.',
-        '**Offboarding:** when a project ends, the client removes your access; you confirm in writing.',
-        '**Webhook URLs** and form endpoints are secrets too; validate what comes in.',
-      ] },
+      visual: {"type": "sort", "cols": ["Safe", "Unsafe"], "items": [{"text": "API key stored in a password manager", "col": 0}, {"text": "Key pasted into an AI chat to debug", "col": 1, "why": "Keys never go into chats, including AI chats."}, {"text": "2-factor sign-in on the automation tool", "col": 0}, {"text": "One shared admin login for the whole team", "col": 1}, {"text": "Client adds you as a removable user", "col": 0}, {"text": "Webhook URL posted in a public forum", "col": 1}], "prompt": "Sort each practice."},
+      body: ["**Secrets** live only in connection settings or a password manager. [[least-privilege|Least privilege]] for every connection.", "**Client-owned accounts** with you as a removable user; 2-factor everywhere.", "**Offboarding:** the client removes your access; you confirm in writing."] },
     { tag: 'try', title: 'Your turn: safe or not?',
       check: {
         type: 'multi', q: 'Which practices are safe?',
@@ -29,6 +24,7 @@ export default {
         why: 'Keys never go into chats (including AI chats). Shared admin logins remove accountability. Use individual accounts.',
       } },
     { tag: 'biz', title: 'Security is part of what you sell',
+      predict: {"q": "A cautious owner worries about giving you access. What helps most?", "options": ["A one-page security note: where secrets live, what access, how it’s removed", "Promising you’re trustworthy", "Asking for their password", "Avoiding the topic"], "answer": 0, "why": "Clear, written answers to their worry build trust and close deals."},
       body: [
         'Clients worry about “giving an outsider access”. A one-page security note (where secrets live, what access you need, how it’s removed) builds trust and closes deals.',
         'Keep a simple access register per client: which systems, which scopes, granted when, removed when.',

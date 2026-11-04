@@ -20,6 +20,7 @@ export default {
       },
     },
     { tag: 'how', title: 'When a sheet is fine, and when it isn’t',
+      predict: {"q": "Five people edit linked customers, jobs and invoices in one sheet. Fine, or time to upgrade?", "options": ["Time to upgrade", "Fine", "Add more tabs", "Ban editing"], "answer": 0, "why": "Linked data, many editors and real stakes point to a database. The table shows the line."},
       visual: { type: 'compare', cols: ['', 'Sheet is fine', 'Time to upgrade'], rows: [
         ['Rows', 'Hundreds to low thousands', 'Growing fast, many tabs'],
         ['Who edits', 'One or two people + the workflow', 'Whole team, at the same time'],
@@ -34,12 +35,8 @@ export default {
         why: 'Row numbers shift when people sort or insert. IDs, protected headers, validation and a workflow-only tab keep things stable.',
       } },
     { tag: 'key', title: 'Defensive sheet rules',
-      body: [
-        'Every row gets an ID; never rely on row position.',
-        'Lock headers; add validation to typed columns.',
-        'Let the workflow own its own tab. People read it or use filtered views.',
-        'Plan the move to a real database (next lesson) before it’s urgent.',
-      ] },
+      predict: {"q": "How should a workflow find “its” row in a shared sheet?", "options": ["By a unique ID column", "By row number", "By color", "By the first name"], "answer": 0, "why": "Row numbers shift when people sort or insert. IDs don’t."},
+      body: ["Every row gets an ID; never rely on row position.", "Lock headers and validate typed columns; let the workflow own its tab.", "Plan the move to a real database before it’s urgent."] },
   ],
   quiz: [
     { type: 'mc', q: 'Why not match rows by row number?', options: ['Sorting or inserting rows changes the numbers', 'Row numbers are secret', 'Sheets don’t have row numbers', 'It uses more tasks'], answer: 0, why: 'Positions move; IDs don’t.' },

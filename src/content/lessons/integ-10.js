@@ -21,12 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Design alerts that get read',
-      body: [
-        '**Only actionable:** if nobody needs to do anything, it belongs in a digest or a log, not an alert.',
-        '**Right channel:** #sales for leads, #ops-alerts for failures, a direct message for “you, now”.',
-        '**Say what to do:** “Call Jordan Bell today: wants a trainer by June. 555-410-1188.”',
-        '**Mention the owner** of the next step when it’s urgent.',
-      ] },
+      visual: {"type": "sort", "cols": ["Instant alert", "Digest or log"], "items": [{"text": "Payment dispute opened", "col": 0}, {"text": "Workflow ran successfully", "col": 1}, {"text": "Hot lead wants to start this week", "col": 0}, {"text": "Count of newsletter signups", "col": 1}, {"text": "A customer didn’t get their confirmation", "col": 0}, {"text": "Row added to a sheet", "col": 1, "why": "Nobody needs to act on it now."}], "prompt": "Where does each message belong?"},
+      body: ["**Only actionable** messages are alerts; the rest go in a digest or log.", "**Right channel**, and **say what to do**: “Call Jordan Bell today…”.", "**Mention the owner** of the next step when it’s urgent."] },
     { tag: 'try', title: 'Your turn: route the messages',
       check: {
         type: 'multi', q: 'Which should stay as **instant** alerts?',
@@ -34,6 +30,7 @@ export default {
         why: 'Money at risk, a hot lead, and a broken promise to a customer need action now. Success notices and counts go to a digest.',
       } },
     { tag: 'warn', title: 'Privacy in chat',
+      predict: {"q": "Which chat alert is best for an urgent dental request?", "options": ["“Lee: urgent request, see the CRM”", "“URGENT: Lee Park, bleeding gum, lee.park@example.com”", "“New message”", "The whole form"], "answer": 0, "why": "Enough to act, minimum personal data."},
       body: [
         'Team chat is read by many people and kept for a long time. Post the minimum: first name and a link to the record, not health details or full card or ID numbers.',
         'Module 6, lesson 7 has a build on exactly this.',

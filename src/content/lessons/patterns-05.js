@@ -20,6 +20,7 @@ export default {
       },
     },
     { tag: 'how', title: 'How approval steps work',
+      predict: {"q": "Nobody answers an approval request for two days. What should the safe default be?", "options": ["Remind, escalate, then don’t send", "Send it anyway", "Wait forever", "Delete the draft silently"], "answer": 0, "why": "Set a timeout. For anything risky, the safe default is not sending."},
       body: [
         'The workflow pauses and sends a request to a person (chat buttons, an email link, a task) with the draft and context.',
         'The answer (approve / edit / reject) decides the next path. Edits replace the draft.',
@@ -32,6 +33,7 @@ export default {
         why: 'Money, public words, and custom commitments. Routine, reversible record-keeping doesn’t need a person.',
       } },
     { tag: 'biz', title: 'Approval is a selling point',
+      predict: {"q": "After two months the owner approves 97% of drafts unchanged. What can you offer?", "options": ["Automate routine ones; keep approval for risky ones", "Remove the AI", "Add a second approver", "Nothing changes"], "answer": 0, "why": "Track the approval rate. It’s your evidence for reducing friction, and a case-study number."},
       body: [
         'Many owners fear “AI emailing my customers”. Offer approval first; switch to fully automatic once the drafts have proven themselves.',
         'Track how often drafts are approved unchanged. A high approval rate is your evidence for removing the step later (and a case-study number).',

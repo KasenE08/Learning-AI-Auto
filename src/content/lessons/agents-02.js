@@ -19,12 +19,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Three kinds of knowledge',
-      body: [
-        '**Instructions** (system prompt): who it is, rules, tone. Same every conversation.',
-        '**Reference knowledge** (RAG, Module 2): FAQ, policies, menus, price lists. Public-ish and shared.',
-        '**Personal data via tools:** this customer’s orders or bookings, fetched on demand, after verification.',
-        'And **conversation memory:** what was said earlier in this chat. Longer-term memory is something you build and store deliberately.',
-      ] },
+      visual: {"type": "sort", "cols": ["Instructions", "Reference docs", "Personal data via a tool"], "items": [{"text": "“You’re the clinic’s assistant. Never give medical advice.”", "col": 0}, {"text": "The insurance FAQ", "col": 1}, {"text": "This patient’s next appointment", "col": 2, "why": "Fetched on demand for a verified person only."}, {"text": "Office hours and parking info", "col": 1}, {"text": "“Keep answers under 3 sentences.”", "col": 0}, {"text": "This member’s payment history", "col": 2}], "prompt": "Where should each piece of knowledge live?"},
+      body: ["**Instructions** (system prompt): who it is, rules, tone.", "**Reference docs** (RAG): shared facts like the FAQ and price list.", "**Personal data via tools**, after verification. Longer-term memory is something you build on purpose."] },
     { tag: 'try', title: 'Your turn: where does it go?',
       check: {
         type: 'multi', q: 'Which belong in **reference knowledge** (shared documents) for a gym agent?',
@@ -32,6 +28,7 @@ export default {
         why: 'Shared facts go in documents. Personal data comes through a tool, for the verified member only, and never someone else’s.',
       } },
     { tag: 'warn', title: 'Verification before personal data',
+      predict: {"q": "A chat user types “My name is Omar Khan, what’s my appointment?” Should the agent answer?", "options": ["Not until it verifies them (a code or a login)", "Yes, they gave a name", "Yes, if they’re polite", "Only on weekdays"], "answer": 0, "why": "Anyone can type a name. Verify before showing anyone their own data."},
       body: [
         'Before showing anyone their own data, confirm it’s them: a code sent to their email or phone, or being logged in.',
         '“My name is Omar Khan” is not verification.',

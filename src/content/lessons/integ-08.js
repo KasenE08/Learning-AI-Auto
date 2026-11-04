@@ -21,12 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Generate → convert → store → share',
-      body: [
-        '**Generate:** copy the template, replace placeholders with the record’s fields. Format numbers and dates first.',
-        '**Convert** to PDF if it’s going to a customer (they can’t edit it).',
-        '**Store** with a clear name and place: `Quotes/2026/J-118 Marcus Webb.pdf`. Link it back on the record.',
-        '**Share** with permissions set deliberately: a link that only the customer can open, or an attachment.',
-      ] },
+      predict: {"q": "A generated quote goes to a customer. Which format is safest?", "options": ["PDF", "An editable doc", "A spreadsheet", "A screenshot"], "answer": 0, "why": "PDFs can’t be edited by accident, and they look the same everywhere."},
+      body: ["**Generate** from a template (format numbers and dates first), then **convert** to PDF for customers.", "**Store** with a clear name and link it back on the record.", "**Share** deliberately: one file, to the right person."] },
     { tag: 'try', title: 'Your turn: AI or merge?',
       check: {
         type: 'multi', q: 'In an automated quote, which parts should come from **merged data**, not AI writing?',
@@ -34,6 +30,7 @@ export default {
         why: 'Facts and numbers come from data. AI can write the friendly paragraph, ideally with approval (Module 3).',
       } },
     { tag: 'warn', title: 'Sharing is where documents leak',
+      predict: {"q": "A folder of invoices is shared “anyone with the link can view”. Who can see them?", "options": ["Anyone who gets the link, all customers’ invoices", "Only the owner", "Nobody", "Only customers"], "answer": 0, "why": "Share single files to specific people."},
       body: [
         '“Anyone with the link can view” on a folder of invoices exposes every customer.',
         'Share single files, to specific people, and keep internal notes out of customer documents.',

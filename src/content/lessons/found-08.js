@@ -20,12 +20,14 @@ export default {
       },
     },
     { tag: 'how', title: 'Two common ways apps let you in',
+      predict: {"q": "A client clicks “Connect calendar” and approves access. What does your automation tool receive?", "options": ["A token with limited permissions", "Their calendar password", "A copy of the calendar app", "Nothing"], "answer": 0, "why": "That’s OAuth: the person signs in on the app’s own page, and your tool gets a scoped token."},
       body: [
         '[[oauth|OAuth]] (“Sign in with… / Allow access”): the person signs in on the app’s own page and approves [[scope|scopes]]. Your tool gets a token, not the password. Access can be revoked.',
         '[[api-key|API key]]: a long secret string the account owner creates in the app’s settings and pastes into your tool. Simple, but whoever holds it can act as that account.',
         'Either way, your builder stores the connection once. Every block that uses that app reuses it.',
       ] },
     { tag: 'see', title: 'Who owns the connection?',
+      predict: {"q": "You build in your own accounts. The client leaves after a year. What happens?", "options": ["A messy handover: their workflows live in your accounts", "Nothing changes", "The client keeps everything automatically", "The tools move themselves"], "answer": 0, "why": "Build in the client’s accounts, with you added as a removable user. Leaving is then clean."},
       visual: { type: 'compare', cols: ['', 'Client’s own account', 'Your account'], rows: [
         ['Who pays for the tools', 'Client', 'You (bill it back)'],
         ['If you part ways', 'Client keeps everything', 'Messy handover'],
@@ -41,6 +43,7 @@ export default {
         wrong: { 1: '“To be safe” is backwards: more access means more damage if anything goes wrong.' },
       } },
     { tag: 'warn', title: 'Treat keys like passwords',
+      predict: {"q": "An API key is accidentally pasted in a group chat. What’s the right move?", "options": ["Revoke it and create a new one", "Delete the message", "Ask people not to use it", "Nothing"], "answer": 0, "why": "Once exposed, assume it’s compromised. Revoking makes the old key useless."},
       body: [
         'Never paste API keys into emails, chat, docs, or AI chats. Use the builder’s connection settings.',
         'If a key leaks, the account owner deletes it and makes a new one. Deleting it is called **revoking**.',

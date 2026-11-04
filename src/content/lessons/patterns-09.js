@@ -19,12 +19,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Call one workflow from another',
-      body: [
-        'A sub-workflow is a workflow that other workflows call, like a shared function: inputs in, result out.',
-        'Example: “Save lead” takes name, email, phone, source; returns the contact ID. All three lead workflows call it.',
-        'Many builders support this directly (“run another workflow”), or you trigger it with a webhook.',
-        'Benefits: one place to fix, consistent data, easier testing. Cost: an extra hop, and one more thing that must stay on.',
-      ] },
+      predict: {"q": "Three lead workflows share the same “save lead” steps. The client wants a new tag added. How many places change with a sub-workflow?", "options": ["One", "Three", "None", "It depends on the AI"], "answer": 0, "why": "Shared logic in one place: one edit, consistent data, one thing to test."},
+      body: ["A sub-workflow is called by other workflows: inputs in, result out (e.g. “Save lead” returns a contact ID).", "Builders support it directly or via a webhook trigger.", "Benefit: one place to fix. Cost: one more thing that must stay on and be monitored."] },
     { tag: 'try', title: 'Your turn: what goes in the sub-workflow?',
       check: {
         type: 'multi', q: 'Which steps are shared by every lead source and belong in “Save lead”?',
@@ -32,6 +28,7 @@ export default {
         why: 'Shared steps go in the sub-workflow. Source-specific parsing stays in each caller; it passes clean inputs in.',
       } },
     { tag: 'biz', title: 'Reusable pieces are reusable products',
+      predict: {"q": "Which sub-workflow is most reusable across clients?", "options": ["Alert the team when a step fails", "Bright Smile’s exact reminder wording", "One client’s CRM field names", "A one-off data import"], "answer": 0, "why": "Generic pieces become your toolkit, and later your productized services (Module 12)."},
       body: [
         'Sub-workflows are also how you get faster across clients: “save lead”, “alert on failure”, “daily digest” become your own toolkit.',
         'Module 12 turns this into productized services. Start naming and saving good pieces now.',

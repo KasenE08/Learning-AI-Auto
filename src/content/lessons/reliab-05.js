@@ -19,6 +19,7 @@ export default {
       },
     },
     { tag: 'how', title: 'What a useful log has',
+      predict: {"q": "A client asks “did Omar get his confirmation?” What lets you answer in seconds?", "options": ["A log with time, record name, each step’s result", "Your memory", "The CRM’s logo", "Asking Omar"], "answer": 0, "why": "Good logs answer “what happened to this person, when, and why”."},
       body: [
         'Every run: when, which record (a human-readable name or ID), each step’s result, and the error if any.',
         'Builders keep run history, often only for a limited time on free plans. For important workflows, also write key events to a log sheet or table you control.',
@@ -31,6 +32,7 @@ export default {
         why: 'When, which record, which step, and why. The others make you dig.',
       } },
     { tag: 'warn', title: 'Logs hold personal data too',
+      predict: {"q": "What do builder run logs often contain?", "options": ["Every field each step saw, including personal data", "Nothing useful", "Only timestamps", "Only errors"], "answer": 0, "why": "Know who can read logs, how long they’re kept, and trim what’s logged."},
       body: [
         'Run history often stores every field each step saw: names, emails, sometimes health or payment details.',
         'Know who can open the logs, how long they’re kept, and trim what’s logged to what you need (lesson 7).',

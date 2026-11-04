@@ -20,13 +20,10 @@ export default {
       },
     },
     { tag: 'how', title: 'Privacy by design, in four habits',
-      body: [
-        '**Minimize:** collect and pass on only what each step needs. [[pii|Personal data]] not needed = not copied. ([[data-minimization]])',
-        '**Know your vendors:** check each tool’s data terms. Does it train on your data? Where is data stored? Will it sign the agreements the client needs?',
-        '**Limit access:** share records, not whole folders; least privilege for people too.',
-        '**Retention:** delete what you no longer need, on a schedule (old logs, test exports).',
-      ] },
+      visual: {"type": "sort", "cols": ["Minimize", "Know your vendors", "Limit access", "Retention"], "items": [{"text": "Post “first name + see CRM” instead of the whole form", "col": 0}, {"text": "Check whether the AI tool trains on your data", "col": 1}, {"text": "Share one record, not the whole folder", "col": 2}, {"text": "Delete test exports after launch", "col": 3}, {"text": "Check the vendor will sign a BAA for health data", "col": 1}, {"text": "Don’t copy phone numbers into the report", "col": 0, "why": "Not needed = not copied."}], "prompt": "Which privacy habit is each action?"},
+      body: ["**Minimize:** pass on only what each step needs ([[data-minimization]]).", "**Know your vendors** and **limit access** to people and connections.", "**Retention:** delete what you no longer need, on a schedule."] },
     { tag: 'see', title: 'Some data has extra rules',
+      predict: {"q": "A dental clinic’s patient data goes to an AI tool. What do you check first?", "options": ["Whether the vendor meets HIPAA needs (e.g. signs a BAA)", "The tool’s logo", "Its speed", "Nothing"], "answer": 0, "why": "Health data is regulated more strictly. Many tools only sign a BAA on certain plans, or not at all."},
       body: [
         'Health, financial, children’s and biometric data are often regulated more strictly.',
         'Example: in the US, a dental clinic’s patient data is generally protected health information under HIPAA, and vendors handling it may need a business associate agreement (BAA). Many tools only offer one on certain plans, or not at all.',

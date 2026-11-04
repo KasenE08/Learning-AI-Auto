@@ -21,12 +21,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Mapping: wiring fields into inputs',
-      body: [
-        '[[data-mapping|Mapping]] means pointing an input at a field from an earlier step: “To = the trigger’s Email”.',
-        'In builders this shows up as a chip or pill like **[Form › Email]**. At run time it’s replaced by that run’s real value.',
-        'Every run gets its own values. Map once; it works for the 1st record and the 10,000th.',
-        'A step can only use fields from steps **before** it. That’s why order matters.',
-      ] },
+      predict: {"q": "You map “To” to [Form › Email] once. The form gets 500 submissions. What happens?", "options": ["Each email goes to that submission’s own address", "All 500 go to the first person", "You must map it 500 times", "Nothing sends"], "answer": 0, "why": "A mapped field is replaced by each run’s own value. Map once; it works for every record."},
+      body: ["[[data-mapping|Mapping]] points an input at a field from an earlier step, shown as a chip like **[Form › Email]**.", "At run time the chip becomes that run’s real value. Map once; it works for the 1st record and the 10,000th.", "A step can only use fields from steps **before** it. That’s why order matters."] },
     { tag: 'try', title: 'Your turn: what will the message say?',
       body: ['Template in the email step: **“Hi [Format › first name], your [Form › Reason for visit] request is in.”**', 'The trigger record: name = Omar Khan, reason = Routine cleaning.'],
       check: {
@@ -37,11 +33,8 @@ export default {
       },
     },
     { tag: 'warn', title: 'The three classic mapping bugs',
-      body: [
-        '**Wrong field:** “To” mapped to Name instead of Email. Every email bounces.',
-        '**Fixed text where a field belongs:** you typed your test email into “To”. Every customer’s message goes to you.',
-        '**Empty field:** a lead skipped “Phone”, so “Call  at ” goes out with a blank. Lesson 9 shows how to branch on empty fields.',
-      ] },
+      visual: {"type": "sort", "cols": ["Wrong field", "Fixed text", "Empty field"], "items": [{"text": "“To” is mapped to Name, so every email bounces", "col": 0}, {"text": "You typed your own email into “To” while testing", "col": 1}, {"text": "A lead skipped Phone, so “Call  at ” goes out", "col": 2}, {"text": "“Amount” is mapped to the order ID", "col": 0}, {"text": "Every welcome email says “Hi Test”", "col": 1, "why": "The same value every run means it was typed in, not mapped."}], "prompt": "Match each symptom to its bug."},
+      body: ["**Wrong field:** the input points at the wrong field.", "**Fixed text:** you typed a value where a field belongs, so every run gets the same thing.", "**Empty field:** the field is sometimes blank. Lesson 9 shows how to branch on empties."] },
     { tag: 'build', title: 'Build it: alert sales about every lead', build: { challenge: 'lead-alert' },
       body: ['Map Ironside Fitness’s lead fields into a chat post and a spreadsheet row. One check catches mixed-up columns.'] },
   ],

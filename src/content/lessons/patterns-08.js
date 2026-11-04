@@ -20,12 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'The digest pattern',
-      body: [
-        '[[digest|Digest]]: schedule → fetch a time window → aggregate/summarize → deliver one message.',
-        'Define the window exactly: “yesterday 00:00–23:59 in the client’s time zone”. Overlaps double-count; gaps lose records.',
-        'Lead with what needs action (“2 late deliveries”), then the numbers.',
-        'An AI step can write the summary, but compute numbers with ordinary steps and pass them in (Module 2: AI isn’t a calculator).',
-      ] },
+      predict: {"q": "A digest fetches “the last 24 hours” but sometimes runs at 7:04 instead of 7:00. What goes wrong?", "options": ["Some orders are counted twice or missed", "Nothing", "The email bounces", "It stops running"], "answer": 0, "why": "Use fixed windows (“yesterday 00:00–23:59”) so nothing overlaps or falls in a gap."},
+      body: ["[[digest|Digest]]: schedule → fetch a fixed time window → summarize → one message.", "Lead with what needs action, then the numbers.", "Compute numbers with ordinary steps; an AI step can write the words around them."] },
     { tag: 'try', title: 'Your turn: digest or instant?',
       check: {
         type: 'multi', q: 'Which belong in a daily digest rather than an instant alert?',

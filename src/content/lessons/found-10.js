@@ -21,6 +21,7 @@ export default {
       },
     },
     { tag: 'how', title: 'What counts, and why it matters',
+      predict: {"q": "Two automation tools, same workflow. Do they count your monthly usage the same way?", "options": ["No; some count steps, some count runs", "Yes, always", "Only the expensive one counts", "Neither counts"], "answer": 0, "why": "Read the pricing page and count one real run in the tool’s log."},
       body: [
         'Automation tools put a [[quota]] on how much you run. They count it differently: some count each action step, some count every step including the trigger, some count whole runs.',
         'Read the pricing page of the tool you use, and count **one real run** in its log.',
@@ -37,6 +38,7 @@ export default {
         why: '429 = too many requests too fast, from the app’s API. Quotas show up as a plan warning or paused workflows, not 429s.',
       } },
     { tag: 'biz', title: 'Task counts are part of your pricing',
+      predict: {"q": "Spam is 40% of a client’s form submissions. Where should the spam filter go?", "options": ["Right after the trigger", "At the end", "In the middle", "Nowhere"], "answer": 0, "why": "Filtering early means junk stops before it uses up the counted steps after it."},
       body: [
         'More steps × more runs = a bigger plan. Someone pays for it: the client directly, or you, built into your price.',
         'Design lean: filter out junk **early** so spam doesn’t burn 6 tasks per run.',

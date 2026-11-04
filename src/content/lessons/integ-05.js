@@ -20,12 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'Design forms for the workflow',
-      body: [
-        'Use choices (dropdowns, buttons) wherever a later step will branch on the answer.',
-        'Validate at entry: required fields, email and phone formats, dates in the future.',
-        '[[hidden-field|Hidden fields]] capture context the person doesn’t type: ad source, page, campaign.',
-        'Ask only what you’ll use. Every extra field loses some people.',
-      ] },
+      predict: {"q": "A later step routes on “service type”. What should that form field be?", "options": ["A dropdown of fixed choices", "A free-text box", "A hidden field", "Optional"], "answer": 0, "why": "Fixed choices route reliably without any AI."},
+      body: ["Use choices wherever a later step branches on the answer; validate formats at entry.", "[[hidden-field|Hidden fields]] capture context like the ad source.", "Ask only what you’ll use. Every extra field loses some people."] },
     { tag: 'try', title: 'Your turn: choice or free text?',
       check: {
         type: 'multi', q: 'For a gym trial-booking form, which should be fixed choices?',
@@ -33,6 +29,7 @@ export default {
         why: 'Anything you route or count on should be a choice. Keep one free-text box for the rest.',
       } },
     { tag: 'warn', title: 'Forms attract junk',
+      predict: {"q": "Bots fill a client’s form 50 times a day. Where should junk be stopped?", "options": ["Spam protection on the form + a filter before the CRM", "In the CRM, by hand", "Nowhere", "In the monthly report"], "answer": 0, "why": "Stop junk at the door and before it reaches other systems."},
       body: [
         'Bots fill forms. Use the form tool’s spam protection, and filter obvious junk before it reaches the CRM.',
         'Don’t ask for sensitive data (full medical history, card numbers) in a general form. Fewer sensitive fields = less risk (Module 6).',

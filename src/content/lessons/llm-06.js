@@ -20,12 +20,8 @@ export default {
       },
     },
     { tag: 'how', title: 'How tool use works',
-      body: [
-        'You give the model a list of [[tool-use|tools]]: each has a name, a one-line description, and the inputs it takes.',
-        'When a tool would help, the model replies with a **tool request** (name + inputs) instead of an answer.',
-        'Your app or builder runs the tool (searches the CRM, checks the calendar), then sends the result back. The model continues.',
-        'The model never touches the systems directly. Everything goes through tools you chose to give it.',
-      ] },
+      predict: {"q": "A model “uses” a calendar tool. Who actually reads the calendar?", "options": ["Your app, when the model asks for the tool", "The model itself", "The customer", "Nobody"], "answer": 0, "why": "The model asks for a named tool with inputs; your app runs it and hands back the result."},
+      body: ["You give the model [[tool-use|tools]]: each has a name, a description, and inputs.", "When a tool would help, the model replies with a tool request; your app runs it and sends the result back.", "The model never touches systems directly. Only through tools you chose to give it."] },
     { tag: 'try', title: 'Your turn: which tool?',
       body: ['Tools available: **lookup_order(order_id)**, **create_ticket(summary, priority)**, **send_refund(order_id, amount)**.'],
       check: {
@@ -35,12 +31,14 @@ export default {
         wrong: { 1: 'Nobody asked for a refund. This is why risky tools need guardrails (next).' },
       } },
     { tag: 'warn', title: 'Tools are power: give the least you need',
+      predict: {"q": "Where should “refunds over $50 need approval” be enforced?", "options": ["In the workflow or tool itself", "Only in the prompt", "In the customer’s email", "Nowhere"], "answer": 0, "why": "Prompts can be talked around. Hard limits belong in the tool or workflow."},
       body: [
         'A model with a “send_refund” tool can send refunds, including ones it was talked into (lesson 9).',
         'Prefer **read** tools. For **write** tools that cost money or can’t be undone, require a person to approve (Module 3, human approval).',
         'Put limits inside the tool, not just in the prompt: “refunds over $50 need approval” enforced by the workflow.',
       ] },
     { tag: 'key', title: 'In no-code terms',
+      predict: {"q": "What makes a model pick the right tool?", "options": ["A clear description of when to use it and when not to", "A short name", "Many tools", "Bold text"], "answer": 0, "why": "Write tool descriptions like instructions to a new hire."},
       body: [
         'Many builders let an AI step use other workflows or actions as tools. You set a name, a description, and which fields the model fills in.',
         'Write tool descriptions like instructions to a new hire: when to use it and when not to.',

@@ -7,7 +7,10 @@ import { grade } from '../src/core/quiz.js';
 import { challengeById } from '../src/sim/challenges.js';
 
 const TAGS = ['example', 'try', 'how', 'see', 'metaphor', 'key', 'why', 'math', 'biz', 'warn', 'build', 'outside', 'law'];
-const VISUALS = ['flow', 'record', 'exchange', 'calc', 'compare', 'roleplay'];
+const VISUALS = ['flow', 'record', 'exchange', 'calc', 'compare', 'roleplay', 'sort'];
+// Interactive visuals count as active learning; a plain comparison table doesn't.
+const ACTIVE_VISUALS = ['flow', 'record', 'exchange', 'calc', 'roleplay', 'sort'];
+const isActive = (s) => !!(s.check || s.predict || s.build || s.outside || (s.visual && ACTIVE_VISUALS.includes(s.visual.type)));
 const QTYPES = ['mc', 'multi', 'order', 'num'];
 const terms = new Set(glossary.map((g) => g.id));
 const files = readdirSync('src/content/lessons').filter((f) => f.endsWith('.js'));
@@ -27,6 +30,12 @@ const checkVisual = (v, where) => {
   if (v.type === 'flow') expect(v.nodes.length).toBeGreaterThan(0);
   if (v.type === 'compare') for (const r of v.rows) expect([v.cols.length, v.cols.length + 1], `${where}: compare row width`).toContain(r.length);
   if (v.type === 'calc') for (const o of v.outputs) expect(Number.isFinite(o.f(Object.fromEntries(v.inputs.map((i) => [i.key, i.value]))))).toBe(true);
+  if (v.type === 'sort') {
+    expect(v.cols.length, `${where}: sort cols`).toBeGreaterThanOrEqual(2);
+    expect(v.items.length, `${where}: sort items`).toBeGreaterThanOrEqual(3);
+    for (const it of v.items) { expect(it.text).toBeTruthy(); expect(it.col).toBeGreaterThanOrEqual(0); expect(it.col).toBeLessThan(v.cols.length); }
+    for (let c = 0; c < v.cols.length; c++) expect(v.items.some((it) => it.col === c), `${where}: every sort column gets an item`).toBe(true);
+  }
   if (v.type === 'roleplay') {
     expect(v.nodes[v.start], `${where}: roleplay start`).toBeTruthy();
     const seen = new Set();
@@ -46,7 +55,7 @@ const checkVisual = (v, where) => {
 };
 
 const texts = (lesson) => [
-  ...lesson.steps.flatMap((s) => [s.title, ...(s.body || []), s.note || '', s.check?.q || '', s.check?.why || '', ...(s.check?.options || []), s.stuck?.metaphor || '', ...(s.stuck?.worked || [])]),
+  ...lesson.steps.flatMap((s) => [s.title, ...(s.body || []), s.note || '', s.check?.q || '', s.check?.why || '', ...(s.check?.options || []), s.predict?.q || '', s.predict?.why || '', ...(s.predict?.options || []), s.stuck?.metaphor || '', ...(s.stuck?.worked || [])]),
   ...lesson.quiz.flatMap((q) => [q.q, q.why, q.scenario || '', ...(q.options || []), ...(q.items || []), ...Object.values(q.wrong || {})]),
   ...lesson.cards.flatMap((c) => [c.front, c.back]),
 ];
@@ -65,6 +74,9 @@ describe.each(files)('lesson %s', async (file) => {
       expect(s.title).toBeTruthy();
       if (s.visual) checkVisual(s.visual, s.title);
       if (s.check) checkQuestion(s.check, s.title);
+      if (s.predict) checkQuestion({ type: 'mc', ...s.predict }, `${s.title} (predict)`);
+      expect(isActive(s), `${s.title}: every step needs something to do (predict, check, sort, interactive diagram, build)`).toBe(true);
+      expect((s.body || []).length, `${s.title}: at most 3 bullets`).toBeLessThanOrEqual(3);
       if (s.stuck) { expect(s.check, `${s.title}: stuck help needs a check`).toBeTruthy(); expect(s.stuck.metaphor).toBeTruthy(); expect(s.stuck.worked.length).toBeGreaterThan(0); if (s.stuck.visual) checkVisual(s.stuck.visual, s.title); }
       if (s.build) expect(challengeById(s.build.challenge), s.build.challenge).toBeTruthy();
       expect(!!s.build, `${s.title}: build steps use tag 'build'`).toBe(s.tag === 'build');
