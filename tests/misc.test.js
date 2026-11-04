@@ -45,3 +45,13 @@ describe('course map', () => {
     expect(new Set(units.map((u) => u.id)).size).toBe(15);
   });
 });
+
+describe('shuffle fairness', () => {
+  it('puts the correct option (index 0) in every position about equally, even for neighboring seeds', () => {
+    for (const base of [5, 12345, 500000000]) {
+      const pos = [0, 0, 0, 0];
+      for (let k = 0; k < 4000; k++) pos[shuffledOrder(4, base + k).indexOf(0)]++;
+      for (const c of pos) expect(c / 4000).toBeGreaterThan(0.18);
+    }
+  });
+});

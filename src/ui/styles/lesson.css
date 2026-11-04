@@ -110,3 +110,6 @@ a.gl:hover { text-decoration: none; color: var(--blue); }
 .step__predict .q__text { font-size: 16px; }
 .step__reveal { display: grid; gap: 14px; }
 .step__reveal:empty { display: none; }
+
+.seq__slot.is-neutral { border-color: var(--blue); background: var(--blue-soft); }
+.q.is-exam .opt.is-sel { border-color: var(--blue); background: var(--blue-soft); opacity: 1; }

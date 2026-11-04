@@ -21,6 +21,14 @@ export function renderQuestion(q, { seed = 1, mode = 'quiz', onDone = () => {} }
   const fbBox = root.querySelector('.q__fb');
   let finished = false;
   let firstTry = true;
+  const exam = mode === 'exam'; // exam: answers are saved silently; feedback comes at the end
+  const finishExam = (ok, given) => {
+    if (finished) return;
+    finished = true;
+    root.classList.add('is-done', 'is-exam');
+    fbBox.innerHTML = '<p class="muted small">Answer saved.</p>';
+    onDone({ ok, given });
+  };
 
   const feedback = (kind, head, text) => {
     fbBox.innerHTML = String(html`<div class="fb fb--${kind}"><b>${head}</b> ${text ? rich(text) : ''}</div>`);
@@ -44,6 +52,7 @@ export function renderQuestion(q, { seed = 1, mode = 'quiz', onDone = () => {} }
       const b = e.target.closest('.opt');
       if (!b || finished || b.disabled) return;
       const i = Number(b.dataset.i);
+      if (exam) { b.classList.add('is-sel'); body.querySelectorAll('.opt').forEach((x) => { x.disabled = true; }); return finishExam(i === q.answer, q.options[i]); }
       if (i === q.answer) { mark(); return finish(true); }
       b.classList.add('is-wrong');
       b.disabled = true;
@@ -81,6 +90,7 @@ export function renderQuestion(q, { seed = 1, mode = 'quiz', onDone = () => {} }
       }
       if (e.target.closest('.q__check')) {
         const ok = grade(q, [...sel]);
+        if (exam) { body.querySelectorAll('.opt').forEach((x) => { x.disabled = true; }); check.hidden = true; return finishExam(ok, [...sel].map((i) => q.options[i]).join(' · ') || '(nothing)'); }
         if (ok) { mark(); check.hidden = true; return finish(true); }
         firstTry = false;
         if (mode === 'quiz') { mark(); check.hidden = true; return finish(false); }
@@ -94,7 +104,29 @@ export function renderQuestion(q, { seed = 1, mode = 'quiz', onDone = () => {} }
     reveal = () => { q.answer.forEach((i) => sel.add(i)); mark(); check.hidden = true; firstTry = false; finish(false, true); };
   }
 
-  if (q.type === 'order') {
+  if (q.type === 'order' && exam) {
+    const pool = shuffledOrder(q.items.length, seed);
+    const seq = [];
+    const draw = () => {
+      body.innerHTML = String(html`
+        <ol class="seq">${q.items.map((_, k) => html`<li class="seq__slot ${k < seq.length ? 'is-filled is-neutral' : ''}"><span class="seq__n">${k + 1}</span>${k < seq.length ? html`<span>${rich(q.items[seq[k]])}</span>` : html`<span class="muted">${k === seq.length ? 'Tap what comes next' : ''}</span>`}</li>`)}</ol>
+        <div class="pool">${pool.filter((i) => !seq.includes(i)).map((i) => html`<button type="button" class="pool__item" data-i="${i}">${rich(q.items[i])}</button>`)}</div>
+        ${seq.length && !finished ? html`<button type="button" class="btn btn--ghost btn--sm" data-undo>Undo last</button>` : ''}`);
+    };
+    draw();
+    body.addEventListener('click', (e) => {
+      if (finished) return;
+      if (e.target.closest('[data-undo]')) { seq.pop(); return draw(); }
+      const b = e.target.closest('.pool__item');
+      if (!b) return;
+      seq.push(Number(b.dataset.i));
+      draw();
+      if (seq.length === q.items.length) finishExam(seq.every((v, k) => v === k), seq.map((i) => q.items[i]).join(' → '));
+    });
+    answerText = () => q.items.join(' → ');
+  }
+
+  if (q.type === 'order' && !exam) {
     const pool = shuffledOrder(q.items.length, seed);
     let placed = 0;
     const draw = () => {
@@ -133,6 +165,7 @@ export function renderQuestion(q, { seed = 1, mode = 'quiz', onDone = () => {} }
     const submit = () => {
       if (finished || !Number.isFinite(parseNumber(input.value))) return;
       const ok = grade(q, input.value);
+      if (exam) { input.disabled = true; check.disabled = true; return finishExam(ok, fmt(parseNumber(input.value))); }
       if (ok) { input.disabled = true; check.disabled = true; body.querySelector('.numin').classList.add('is-right'); return finish(true); }
       firstTry = false;
       if (mode === 'quiz') { input.disabled = true; check.disabled = true; body.querySelector('.numin').classList.add('is-wrong'); return finish(false); }

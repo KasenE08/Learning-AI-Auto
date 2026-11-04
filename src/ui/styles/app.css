@@ -179,3 +179,23 @@ body.focus-mode .view { padding-top: calc(var(--sat) + 8px); padding-bottom: cal
 .update-toast small { opacity: .75; }
 .update-toast__x { background: none; border: 0; color: #fff; font-size: 16px; padding: 6px; }
 @media (min-width: 900px) { .update-toast { bottom: 20px; } }
+
+/* launch readiness + exam */
+.readiness { display: grid; gap: 8px; }
+.readiness.is-ready { border-color: var(--ok); box-shadow: 0 0 0 1px var(--ok); }
+.rd { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.rd li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+.rd li > span:last-child { display: grid; }
+.rd small { color: var(--ink-3); font-size: 12.5px; }
+.rd__dot { flex: none; width: 12px; height: 12px; border-radius: 50%; margin-top: 4px; background: var(--surface-3); border: 1px solid var(--line-2); }
+.rd li.is-ok .rd__dot { background: var(--ok); border-color: var(--ok); }
+.exam__rules { display: grid; gap: 10px; }
+.exam__rules ul { margin: 0; }
+.exam__prog { display: flex; }
+.exam__prog i { min-width: 0; }
+.exam__score b.is-good { color: var(--ok); }
+.exam__score b.is-low { color: var(--bad); }
+.exam .lr__foot { position: static; }
+.review { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.review li { display: flex; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 10px 12px; }
+.review p { margin: 2px 0; }

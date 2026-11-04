@@ -5,6 +5,7 @@ import { overallSummary, unitSummary, streak } from '../../core/progress.js';
 import { units, unitCode, lessonById, lessonCode } from '../../core/course.js';
 import { retentionByLesson } from '../../core/review.js';
 import { challenges } from '../../sim/challenges.js';
+import { readinessCard } from './exam.js';
 
 export const tab = 'progress';
 
@@ -16,6 +17,7 @@ export function render(view) {
   const outside = Object.entries(p.outside || {});
   view.append(el(html`<div class="screen">
     ${pageHead('No deadline', 'Progress', 'Mastery = lessons finished, best quiz scores, and how well you still remember the flashcards.')}
+    ${readinessCard(p)}
     <div class="stats">
       <div class="card stat"><span class="kicker">Lessons</span><b class="mono">${all.done}<small>/${all.total}</small></b></div>
       <div class="card stat"><span class="kicker">Mastery</span><b class="mono">${pct(all.mastery)}</b></div>

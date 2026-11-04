@@ -31,5 +31,5 @@ export const lessonCode = (l) => `M${pad2(unitById(l.unit).n)} · L${pad2(l.n)}`
 export const unitCode = (u) => `M${pad2(u.n)}`;
 
 /** A lesson is available once its content file exists. */
-export const isAvailable = (l) => hasContent(l.id);
+export const isAvailable = (l) => hasContent(l.id) || l.id === 'exam-01'; // the exam has its own screen
 export const unitBuilt = (u) => u.lessons.some(isAvailable);

@@ -11,7 +11,7 @@ import { pathLessons, units, tracks, unitsOfTrack, unitById } from './course.js'
 export const PROGRESS_VERSION = 1;
 
 export function newProgress(now = Date.now()) {
-  return { version: PROGRESS_VERSION, lessons: {}, builds: {}, outside: {}, days: {}, createdAt: now };
+  return { version: PROGRESS_VERSION, lessons: {}, builds: {}, outside: {}, days: {}, exam: {}, createdAt: now };
 }
 
 export const isDone = (p, id) => !!p.lessons[id]?.done;
@@ -102,6 +102,7 @@ export function resetUnit(p, unitId, challengeUnit = () => null) {
     lessons: keep(p.lessons, (k) => ids.has(k)),
     outside: keep(p.outside, (k) => ids.has(k.split(':')[0])),
     builds: keep(p.builds, (k) => challengeUnit(k) === unitId),
+    exam: unitId === 'exam' ? {} : p.exam,
   };
 }
 
@@ -145,5 +146,5 @@ export function cleanProgress(p, knownIds) {
     if (knownIds.has(id) && r && typeof r === 'object') lessons[id] = r;
   }
   const obj = (x) => (x && typeof x === 'object' && !Array.isArray(x) ? x : {});
-  return { ...newProgress(p?.createdAt), ...p, lessons, builds: obj(p?.builds), outside: obj(p?.outside), days: obj(p?.days) };
+  return { ...newProgress(p?.createdAt), ...p, lessons, builds: obj(p?.builds), outside: obj(p?.outside), days: obj(p?.days), exam: obj(p?.exam) };
 }

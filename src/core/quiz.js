@@ -31,11 +31,21 @@ export function grade(q, value) {
   }
 }
 
+/** Small, well-mixed PRNG (mulberry32). Neighboring seeds give unrelated sequences. */
+function rng(seed) {
+  let a = (Math.imul(Math.floor(seed) | 0, 2654435761) ^ 0x9e3779b9) | 0;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 /** Deterministic shuffle (so a retake reshuffles but tests are repeatable). */
 export function shuffle(arr, seed = Math.random() * 1e9) {
   const a = arr.slice();
-  let s = Math.floor(seed) || 1;
-  const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+  const rnd = rng(seed);
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(rnd() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
@@ -48,6 +58,6 @@ export function shuffledOrder(n, seed) {
   const idx = [...Array(n).keys()];
   if (n < 2) return idx;
   let out = shuffle(idx, seed);
-  if (out.every((v, i) => v === i)) out = [...out.slice(1), out[0]];
+  for (let k = 1; out.every((v, i) => v === i); k++) out = shuffle(idx, seed + k * 7919);
   return out;
 }

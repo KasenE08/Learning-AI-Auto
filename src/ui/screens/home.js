@@ -5,6 +5,7 @@ import { getProgress } from '../../core/store.js';
 import { nextUp, streak, week, unitSummary, isDone } from '../../core/progress.js';
 import { units, unitById, lessonCode, unitCode, isAvailable, tracks } from '../../core/course.js';
 import { dueCount, retentionByLesson } from '../../core/review.js';
+import { readinessCard } from './exam.js';
 
 export const tab = 'home';
 
@@ -33,6 +34,7 @@ export function render(view) {
         <span class="upnext__meta"><span class="muted small">${icons.clock}${next.min} min · try it first</span><span class="btn btn--primary">${icons.play}Start</span></span>
       </a>` : html`<div class="card upnext"><span class="kicker">All available lessons done</span><span class="h2">Nice work.</span><span class="muted">Reviews keep it fresh. New lessons arrive in later build stages.</span></div>`}
 
+      ${readinessCard(p)}
       <a class="card due" href="#/review">
         <span><span class="kicker">Review</span><b>${due ? `${due} card${due === 1 ? '' : 's'} due` : 'Nothing due'}</b><span class="muted small">Spaced repetition: old material keeps coming back.</span></span>
         <span class="btn ${due ? 'btn--primary' : 'btn--ghost'}">Review</span>

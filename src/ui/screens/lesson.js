@@ -16,6 +16,7 @@ import { addLessonCards } from '../../core/review.js';
 import { loadLesson } from '../../core/lessons.js';
 import { lessonById, unitById, lessonCode, pathLessons, isAvailable } from '../../core/course.js';
 import { challengeById } from '../../sim/challenges.js';
+import * as examScreen from './exam.js';
 
 export const tab = 'path';
 
@@ -34,6 +35,7 @@ function placeholder(view, l) {
 }
 
 export function render(view, { id, quiz }) {
+  if (id === 'exam-01') return examScreen.render(view);
   const l = lessonById(id);
   if (!l) {
     view.append(el(html`<div class="screen"><p class="muted">No lesson called “${id}”.</p><a class="btn" href="#/path">Back to the path</a></div>`));
