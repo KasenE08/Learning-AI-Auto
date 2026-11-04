@@ -42,6 +42,7 @@ export default {
       body: ['No automation tool needed. You’ll use Claude itself as the AI step and check its output by hand.'],
       outside: {
         id: 'structured-classify',
+        claudeOnly: true,
         title: 'Make an AI step that always answers in the same shape',
         goal: 'Write a prompt that sorts plumbing emails into fixed categories and returns the same fields every time, then test it on fake emails.',
         steps: [

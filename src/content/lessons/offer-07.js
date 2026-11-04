@@ -33,6 +33,7 @@ export default {
       body: ['Use your top-scored niche from lesson 2, even if it’s a guess for now.'],
       outside: {
         id: 'positioning',
+        claudeOnly: true,
         title: 'Draft and test your positioning statement',
         goal: 'Write a four-part positioning statement for your test niche and get it critiqued.',
         steps: [

@@ -1,0 +1,21 @@
+// Glossary: Module 9 (Getting clients).
+export default [
+  { id: 'sales-pipeline', term: 'Your sales pipeline', aka: ['Funnel'], lessons: ['clients-01'],
+    def: 'The stages prospects move through to become clients: reach, reply, discovery call, proposal, close.' },
+  { id: 'warm-outreach', term: 'Warm outreach', lessons: ['clients-02'],
+    def: 'Contacting people you already know, or who know you, who are connected to businesses.' },
+  { id: 'cold-outreach', term: 'Cold outreach', lessons: ['clients-03', 'clients-04'],
+    def: 'Contacting businesses that don’t know you yet. In the US, cold email must follow CAN-SPAM.' },
+  { id: 'can-spam', term: 'CAN-SPAM', lessons: ['clients-03'],
+    def: 'US law for commercial email (including B2B): honest sender and subject, a physical address, an opt-out, honored within 10 business days.' },
+  { id: 'inbound', term: 'Inbound', lessons: ['clients-05'],
+    def: 'Clients who come to you because of content, referrals or reputation, instead of your outreach.' },
+  { id: 'discovery-call', term: 'Discovery call', lessons: ['clients-07', 'clients-08'],
+    def: 'A call where you mostly ask and listen to learn the prospect’s process, pain, its cost, and who decides.' },
+  { id: 'objection', term: 'Objection', lessons: ['clients-10'],
+    def: 'A concern raised before buying. Handle by acknowledging, asking, answering the real concern, and checking.' },
+  { id: 'closing', term: 'Closing', lessons: ['clients-11'],
+    def: 'Asking for the decision and clearing the last obstacles (timing, terms, access).' },
+  { id: 'follow-up', term: 'Follow-up', lessons: ['clients-12'],
+    def: 'A short message after no reply, adding value or asking an easy question. Two or three, then stop.' },
+];

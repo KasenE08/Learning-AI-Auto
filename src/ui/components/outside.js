@@ -13,6 +13,7 @@ import { recordOutside } from '../../core/progress.js';
 
 export const FREE_TOOL_RULE = 'Use the free plan of any no-code automation tool that does not ask for a credit card. If signup asks for a card, stop and pick another tool.';
 export const ROLEPLAY_RULE = 'Uses your own Claude chat. Practice only: the prospect is made up and nothing is sent to anyone.';
+export const CLAUDE_RULE = 'Uses your own Claude chat. Practice only: nothing is sent to anyone.';
 
 export function roleplayPrompt(rp) {
   return `Let's run a sales practice role-play. You play a prospect; I play a one-person AI automation consultant. This is practice, so make it realistic, not easy.
@@ -38,8 +39,10 @@ ${rp.opening || 'Start by answering the phone as your character.'}`;
 export function gradingPrompt(spec) {
   const intro = spec.roleplay
     ? 'Below is the full transcript of a practice sales conversation. Another Claude chat played the prospect; I played the consultant.'
-    : 'I built this in a no-code automation tool. I’m attaching screenshots or an export of the workflow and of one test run.';
-  const evidence = spec.roleplay ? 'quote the line from the transcript that shows it' : 'give one sentence of evidence from what I shared';
+    : spec.claudeOnly
+      ? 'Below is my work for this exercise.'
+      : 'I built this in a no-code automation tool. I’m attaching screenshots or an export of the workflow and of one test run.';
+  const evidence = spec.roleplay || spec.claudeOnly ? 'quote the part of my work that shows it' : 'give one sentence of evidence from what I shared';
   return `${spec.prompt.trim()}
 
 ${intro}
@@ -56,24 +59,25 @@ export function outsideBuild(spec, lessonId) {
   const saved = getProgress().outside?.[key];
   const checked = new Set(saved?.checked || []);
   const isRp = !!spec.roleplay;
+  const inClaude = isRp || spec.claudeOnly;
   const grade = gradingPrompt(spec);
   const rpText = isRp ? roleplayPrompt(spec.roleplay) : '';
   let n = 0;
   const num = () => ++n;
   const box = el(html`<section class="ob">
-    <span class="kicker">${isRp ? 'Role-play with Claude · practice' : 'Outside the app · free tool, no card'}</span>
+    <span class="kicker">${isRp ? 'Role-play with Claude · practice' : inClaude ? 'Practice with Claude' : 'Outside the app · free tool, no card'}</span>
     <h3 class="h3">${spec.title}</h3>
     <p>${rich(spec.goal)}</p>
-    <p class="ob__rule">${icons.lock}<span>${isRp ? ROLEPLAY_RULE : FREE_TOOL_RULE}</span></p>
-    <details class="ob__sec" open><summary>${num()} · ${isRp ? 'How to run it' : 'What to build'}</summary><ol class="ob__steps">${spec.steps.map((s) => html`<li>${rich(s)}</li>`)}</ol></details>
-    ${spec.data?.length ? html`<details class="ob__sec"><summary>${num()} · ${isRp ? 'Your notes going in' : 'Test it with this fake data'}</summary><ul class="ob__data mono">${spec.data.map((d) => html`<li>${d}</li>`)}</ul></details>` : ''}
+    <p class="ob__rule">${icons.lock}<span>${isRp ? ROLEPLAY_RULE : inClaude ? CLAUDE_RULE : FREE_TOOL_RULE}</span></p>
+    <details class="ob__sec" open><summary>${num()} · ${inClaude ? 'What to do' : 'What to build'}</summary><ol class="ob__steps">${spec.steps.map((s) => html`<li>${rich(s)}</li>`)}</ol></details>
+    ${spec.data?.length ? html`<details class="ob__sec"><summary>${num()} · ${inClaude ? 'Material to use' : 'Test it with this fake data'}</summary><ul class="ob__data mono">${spec.data.map((d) => html`<li>${d}</li>`)}</ul></details>` : ''}
     ${isRp ? html`<details class="ob__sec"><summary>${num()} · Start the role-play</summary>
       <p class="muted">Open a new Claude chat, paste this, and play the consultant. Type END when you’re done, then copy the whole conversation.</p>
       <pre class="ob__prompt" data-pre="rp" tabindex="0">${rpText}</pre>
       <button type="button" class="btn" data-copy="rp">${icons.copy}<span>Copy role-play prompt</span></button>
     </details>` : ''}
     <details class="ob__sec"><summary>${num()} · Get it graded by Claude</summary>
-      <p class="muted">${isRp ? 'In a different new chat, paste this prompt, then paste the full role-play transcript under it.' : 'Copy this prompt into Claude, attach screenshots of your workflow and one test run, and send.'}</p>
+      <p class="muted">${isRp ? 'In a different new chat, paste this prompt, then paste the full role-play transcript under it.' : inClaude ? 'In a new Claude chat, paste this prompt, then paste your work under it.' : 'Copy this prompt into Claude, attach screenshots of your workflow and one test run, and send.'}</p>
       <pre class="ob__prompt" data-pre="grade" tabindex="0">${grade}</pre>
       <button type="button" class="btn" data-copy="grade">${icons.copy}<span>Copy grading prompt</span></button>
     </details>

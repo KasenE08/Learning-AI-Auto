@@ -1,0 +1,80 @@
+// M09 · L09 · Proposals that close
+export default {
+  steps: [
+    { tag: 'example', title: 'A one-page proposal', visualFirst: true,
+      visual: { type: 'compare', cols: ['Section', 'Volunteer Dental (fake)'], rows: [
+        ['Your situation', '“About 10 no-shows a month at roughly $150–200 each. Reminders depend on the front desk remembering, especially on Mondays.” (her words)'],
+        ['What we’ll do', 'Automatic text + email reminders 48 h and 2 h before, a one-tap reschedule link, and a weekly no-show report'],
+        ['What changes', 'Every patient reminded twice, no staff time; goal: cut no-shows in half'],
+        ['Timeline', 'Live 2 weeks after we get scheduling-system access'],
+        ['Investment', 'Option A: $1,800 setup + $250/month. Option B: $2,800 setup + $350/month, adds recall reminders for overdue cleanings'],
+        ['Next step', 'Sign the agreement, pay 50% of setup, share access via the checklist'],
+      ] },
+      body: ['Short, in their words, with a clear next step.'],
+      check: {
+        type: 'mc', q: 'Why does the proposal open with their situation in their words?',
+        options: ['It proves you listened and reminds the decider why this matters', 'It fills space', 'It’s legally required', 'To avoid talking about price'], answer: 0,
+        why: 'Dr. Patel wasn’t on the first call. The first section re-tells the problem in the language the practice uses.',
+      },
+      stuck: {
+        metaphor: 'A contractor’s estimate starts with “Your kitchen: leaking sink, cracked tiles”, not with their company history.',
+        worked: ['The reader may not have been on the call.', 'Their own words show the problem is understood.', 'Then the plan makes sense.'],
+      },
+    },
+    { tag: 'how', title: 'Proposal rules',
+      body: [
+        '**One or two pages.** Situation, what you’ll do, what changes, timeline, investment, next step.',
+        '**Two or three options**, not one. People choose between options instead of deciding yes/no. Put your recommended option in the middle or mark it clearly.',
+        '**Numbers from discovery:** their volume, their cost, your conservative ROI (Module 7).',
+        '**Walk through it live** (a short call) rather than just emailing it.',
+        'Scope details and terms go in the agreement (Module 13).',
+      ] },
+    { tag: 'try', title: 'Your turn: options',
+      check: {
+        type: 'mc', q: 'Why offer two or three options?', options: ['The choice becomes “which one” instead of “yes or no”', 'To confuse the client', 'To charge more for the same thing', 'It looks bigger'], answer: 0,
+        why: 'Options also let budgets fit without you cutting your price.',
+      } },
+    { tag: 'outside', title: 'Draft a proposal (practice)',
+      body: ['Use the discovery notes below (from a fake call).'],
+      outside: {
+        id: 'proposal-draft',
+        claudeOnly: true,
+        title: 'One-page proposal for a fake HVAC company',
+        goal: 'Write a one-page proposal from discovery notes, with two options and a clear next step.',
+        steps: [
+          'Read the discovery notes below.',
+          'Write the six sections: situation (in their words), what you’ll do, what changes, timeline, investment (two options), next step.',
+          'Keep it under one page. Paste it under the grading prompt in a new Claude chat.',
+        ],
+        data: [
+          'Whitaker Heating & Cooling (fake), Maryville TN. Owner: Dale. Office manager: Brenda.',
+          'After 5 pm and weekends: calls go to voicemail; Brenda calls back next morning.',
+          'Dale: “In last summer’s heat wave I bet we lost a dozen installs to whoever picked up.”',
+          'Average install ~$8,000 (about $2,000 profit). Repairs ~$350.',
+          'Tried an answering service 2 years ago; it only took messages and customers hated it.',
+          'Brenda worries about being replaced. Dale wants something live before June.',
+        ],
+        prompt: 'You are a seasoned consultant reviewing a beginner’s one-page proposal written for a small HVAC company after a discovery call. Judge it as the owner would read it.',
+        checklist: [
+          'The situation section uses the owner’s own words and numbers from the notes.',
+          'It explains how this differs from the answering service that failed.',
+          'It addresses Brenda’s role (supports her, doesn’t replace her).',
+          'It offers two clear options with prices.',
+          'The value claim is conservative and based on the notes’ numbers.',
+          'The timeline fits “before June”.',
+          'It ends with one specific next step.',
+          'It fits on one page and avoids technical jargon.',
+        ],
+      } },
+  ],
+  quiz: [
+    { type: 'order', q: 'Order the proposal sections.', items: ['Their situation', 'What we’ll do', 'What changes', 'Timeline', 'Investment (options)', 'Next step'], why: 'Problem → plan → result → when → price → action.' },
+    { type: 'mc', q: 'How long should a small-business proposal be?', options: ['One or two pages', '20 pages', 'One sentence', 'As long as possible'], answer: 0, why: 'Busy owners read short documents.' },
+    { type: 'mc', q: 'Best way to deliver it?', options: ['Walk through it on a short call', 'Email it and wait', 'Mail a printed copy', 'Post it publicly'], answer: 0, why: 'You can answer questions and agree next steps live.' },
+  ],
+  cards: [
+    { id: 'sections', front: 'Proposal sections?', back: 'Situation (their words), what we’ll do, what changes, timeline, investment options, next step.' },
+    { id: 'options', front: 'Why 2–3 options?', back: '“Which one” beats “yes or no”, and fits budgets without discounts.' },
+    { id: 'live', front: 'Email or walk through?', back: 'Walk through it live on a short call.' },
+  ],
+};
