@@ -1,0 +1,87 @@
+// M08 · L08 · Pressure-test the offer
+export default {
+  steps: [
+    { tag: 'example', title: 'Five questions before you sell it', visualFirst: true,
+      visual: { type: 'compare', cols: ['Question', '“Never Miss a Job” (fake offer)'], rows: [
+        ['Does the ROI work for a typical client?', 'Yes: ~2 extra jobs/month covers the fee several times'],
+        ['Can you deliver it in the promised time?', 'Yes, using a reusable build'],
+        ['Can you support 5 clients at once?', 'Unclear: after-hours call issues could pile up'],
+        ['Will owners understand it in one sentence?', 'Tested on 3 owners: yes'],
+        ['What could go badly wrong?', 'A missed emergency call; needs a fallback to the on-call phone'],
+      ] },
+      body: ['Before taking your offer to market, you run it through five questions.'],
+      check: {
+        type: 'mc', q: 'Which answer most needs fixing before you sell?',
+        options: ['“What could go badly wrong?”: add the emergency fallback first', 'The ROI', 'The one-sentence test', 'Delivery time'], answer: 0,
+        why: 'A missed emergency is the failure that ends a client relationship (and could hurt someone). Design the fallback before launch. Capacity is next.',
+      },
+      stuck: {
+        metaphor: 'A pilot’s pre-flight checklist: most items are fine, but you don’t take off until the one red light is fixed.',
+        worked: ['Four answers are fine or nearly fine.', 'A missed emergency is severe and likely enough.', 'Fix it before selling.'],
+      },
+    },
+    { tag: 'how', title: 'The five checks',
+      body: [
+        '**Value:** ROI works at conservative numbers for a typical client.',
+        '**Delivery:** you can build it in the promised time, mostly from reusable parts.',
+        '**Support:** you can run it for several clients at once without drowning (Module 12).',
+        '**Clarity:** owners get it in one sentence.',
+        '**Failure:** you know the worst realistic failure and have a fallback.',
+      ] },
+    { tag: 'try', title: 'Your turn: who to test with',
+      check: {
+        type: 'mc', q: 'Who gives the most useful feedback on your offer?', options: ['Owners in the niche, asked about their problem before hearing your pitch', 'Friends who aren’t in the niche', 'Other automation freelancers', 'Nobody; just launch'], answer: 0,
+        why: 'Real buyers, and ask about their problem first, so their answers aren’t just politeness about your idea.',
+      } },
+    { tag: 'outside', title: 'Role-play: pitch a skeptical owner',
+      body: ['Claude plays an HVAC owner who’s heard plenty of “AI” pitches. Your job: understand their situation and see if your offer fits, not to close.'],
+      outside: {
+        id: 'skeptic-roleplay',
+        title: 'Test your offer on a skeptical owner',
+        goal: 'Run a 10-minute conversation where you learn the owner’s real problem and test whether your offer fits it.',
+        steps: [
+          'Have your positioning statement and one-page offer ready (lessons 4 and 7).',
+          'Open a new Claude chat and paste the role-play prompt. Play yourself.',
+          'Ask about their situation before describing your offer. Use their words when you do.',
+          'Type END when finished, copy the whole conversation, and grade it in a separate chat.',
+        ],
+        data: ['Goal: learn their real problem, then check fit. Not a hard close.', 'Your offer: lead + after-hours call handling, setup fee + monthly'],
+        roleplay: {
+          persona: 'Dale Whitaker, 52, owner of Whitaker Heating & Cooling (fake), Maryville, Tennessee. Practical, busy, skeptical of “AI people”.',
+          business: '9 employees, 6 technicians, one office manager (Brenda). Residential HVAC repair and installs.',
+          situation: 'A friend gave Dale your number. He agreed to a short call while driving between jobs.',
+          hidden: [
+            'After 5 pm and on weekends, calls go to voicemail; Brenda calls back the next morning.',
+            'Last summer during a heat wave he thinks he lost “a lot” of install jobs because callers booked whoever answered first.',
+            'An average install is worth about $8,000; repairs about $350.',
+            'He tried an answering service two years ago; callers complained it didn’t know anything, so he cancelled.',
+            'Brenda is protective of her process and wary of being replaced.',
+          ],
+          objections: ['“I tried an answering service. Customers hated it.”', '“How is this not just a robot that annoys people?”', '“What’s this going to cost me?”'],
+          style: 'Mention you’re driving. If the consultant talks for more than a few sentences at a time, say you’ve got to go soon.',
+          opening: 'Start with: “Yeah, this is Dale. You’re the automation guy? I’ve got about ten minutes.”',
+        },
+        prompt: 'You are an experienced sales coach grading a beginner consultant’s first discovery conversation with a skeptical small-business owner. Be fair but strict.',
+        checklist: [
+          'The consultant asked about the owner’s situation before pitching anything.',
+          'They uncovered the after-hours voicemail problem through questions.',
+          'They asked a question that revealed what a lost job is worth (install or repair value).',
+          'They found out about the failed answering service and addressed why this would be different.',
+          'They used the owner’s own words when describing the offer.',
+          'They kept turns short (no long monologues).',
+          'They answered the cost question honestly or explained what the price depends on, without dodging.',
+          'They ended with a clear, low-pressure next step.',
+        ],
+      } },
+  ],
+  quiz: [
+    { type: 'multi', q: 'The five pressure-test checks?', options: ['Value', 'Delivery', 'Support', 'Clarity', 'Failure', 'Logo design'], answer: [0, 1, 2, 3, 4], why: 'Logo design can wait.' },
+    { type: 'mc', q: 'Why ask about the owner’s problem before pitching?', options: ['Their real answers tell you if the offer fits; a pitch first gets polite answers', 'It’s a trick', 'It wastes time', 'Owners prefer it'], answer: 0, why: 'Learn first, pitch second.' },
+    { type: 'mc', scenario: 'Your offer passes every check except support: you couldn’t handle more than 2 clients’ after-hours issues.', q: 'What do you do?', options: ['Add monitoring, runbooks, and fallbacks so issues are rare and quick, or cap clients for now', 'Ignore it', 'Raise the price only', 'Stop selling'], answer: 0, why: 'Fix the bottleneck or limit volume until you do.' },
+  ],
+  cards: [
+    { id: 'five', front: 'Five pressure-test checks?', back: 'Value, delivery, support, clarity, failure.' },
+    { id: 'feedback', front: 'Best feedback source?', back: 'Owners in the niche, asked about their problem before your pitch.' },
+    { id: 'failure', front: 'Before selling?', back: 'Know the worst realistic failure and have a fallback.' },
+  ],
+};

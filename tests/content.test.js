@@ -7,7 +7,7 @@ import { grade } from '../src/core/quiz.js';
 import { challengeById } from '../src/sim/challenges.js';
 
 const TAGS = ['example', 'try', 'how', 'see', 'metaphor', 'key', 'why', 'math', 'biz', 'warn', 'build', 'outside', 'law'];
-const VISUALS = ['flow', 'record', 'exchange', 'calc', 'compare'];
+const VISUALS = ['flow', 'record', 'exchange', 'calc', 'compare', 'roleplay'];
 const QTYPES = ['mc', 'multi', 'order', 'num'];
 const terms = new Set(glossary.map((g) => g.id));
 const files = readdirSync('src/content/lessons').filter((f) => f.endsWith('.js'));
@@ -27,6 +27,21 @@ const checkVisual = (v, where) => {
   if (v.type === 'flow') expect(v.nodes.length).toBeGreaterThan(0);
   if (v.type === 'compare') for (const r of v.rows) expect([v.cols.length, v.cols.length + 1], `${where}: compare row width`).toContain(r.length);
   if (v.type === 'calc') for (const o of v.outputs) expect(Number.isFinite(o.f(Object.fromEntries(v.inputs.map((i) => [i.key, i.value]))))).toBe(true);
+  if (v.type === 'roleplay') {
+    expect(v.nodes[v.start], `${where}: roleplay start`).toBeTruthy();
+    const seen = new Set();
+    const walk = (id, depth) => {
+      const n = v.nodes[id];
+      expect(n, `${where}: roleplay node ${id}`).toBeTruthy();
+      expect(n.say).toBeTruthy();
+      expect(depth, `${where}: roleplay too deep / loops`).toBeLessThan(12);
+      if (n.end) return;
+      expect(n.choices.length).toBeGreaterThanOrEqual(2);
+      expect(n.choices.some((c) => c.score === 2), `${where}: node ${id} needs a best (2) choice`).toBe(true);
+      for (const c of n.choices) { expect([0, 1, 2]).toContain(c.score); expect(c.why, `${where}: choice needs why`).toBeTruthy(); seen.add(c.next); walk(c.next, depth + 1); }
+    };
+    walk(v.start, 0);
+  }
   if (v.type === 'exchange') for (const m of v.messages) { expect(m.from).toBeLessThan(v.actors.length); expect(m.to).toBeLessThan(v.actors.length); }
 };
 
@@ -54,6 +69,7 @@ describe.each(files)('lesson %s', async (file) => {
       if (s.build) expect(challengeById(s.build.challenge), s.build.challenge).toBeTruthy();
       expect(!!s.build, `${s.title}: build steps use tag 'build'`).toBe(s.tag === 'build');
       expect(!!s.outside, `${s.title}: outside builds use tag 'outside'`).toBe(s.tag === 'outside');
+      if (s.outside?.roleplay) { const r = s.outside.roleplay; for (const k of ['persona', 'business', 'situation']) expect(r[k], `roleplay.${k}`).toBeTruthy(); expect(r.hidden.length).toBeGreaterThan(0); }
       if (s.outside) { expect(s.outside.id).toBeTruthy(); expect(s.outside.steps.length).toBeGreaterThan(0); expect(s.outside.prompt).toBeTruthy(); expect(s.outside.checklist.length).toBeGreaterThanOrEqual(3); }
     }
   });

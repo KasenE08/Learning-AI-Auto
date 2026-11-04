@@ -104,3 +104,21 @@
   .cmp td:last-child { border-bottom: 0; }
   .cmp td[data-label]:not([data-label=""])::before { content: attr(data-label); display: block; font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); margin-bottom: 2px; }
 }
+
+/* role-play */
+.vis--roleplay { background: var(--surface); }
+.rp__who { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.rp__log { display: flex; flex-direction: column; gap: 8px; max-height: 420px; overflow-y: auto; padding: 2px; }
+.rp__msg { max-width: 88%; border-radius: 12px; padding: 8px 12px; display: grid; gap: 4px; }
+.rp__msg p { margin: 0; font-size: 15px; }
+.rp__msg small { font-size: 13px; color: var(--ink-2); }
+.rp__msg--them { align-self: flex-start; background: var(--surface-2); border-bottom-left-radius: 4px; }
+.rp__msg--them:not(.is-now) { opacity: .75; }
+.rp__msg--you { align-self: flex-end; background: var(--blue-soft); border-bottom-right-radius: 4px; }
+.rp__tag { justify-self: start; font: 600 10.5px var(--mono); text-transform: uppercase; letter-spacing: .05em; padding: 2px 6px; border-radius: 3px; }
+.rp__tag--2 { background: var(--ok-soft); color: var(--ok); }
+.rp__tag--1 { background: var(--amber-soft); color: var(--amber); }
+.rp__tag--0 { background: var(--bad-soft); color: var(--bad); }
+.rp__choices { display: grid; gap: 8px; }
+.rp__end { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.rp__end b { font-size: 24px; }

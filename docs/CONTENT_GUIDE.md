@@ -66,7 +66,10 @@ Metaphor and picture first, then a worked answer to work backward from:
 - `exchange` `{ actors: [a, b, c?], messages: [{ from, to, label, kind?: 'request'|'response'|'event'|'error', body?, note? }] }`
   Step-through of apps talking (API calls, webhooks, auth).
 - `calc` `{ inputs: [{ key, label, min, max, step?, value, prefix?, unit? }], outputs: [{ label, f: (v) => n, fmt: 'money'|'hours'|'months'|'pct'|'num', big? }] }`
-- `compare` `{ cols: [a, b], rows: [[label, a, b]], pick? }`
+- `compare` `{ cols: [label?, a, b], rows: [[label, a, b]], pick? }` (stacks into cards on phones)
+- `roleplay` `{ title?, persona: { name, role }, start, nodes: { id: { say, choices: [{ text, score: 0|1|2, why, next }] } | { say, end: true } } }`
+  A branching practice conversation with a simulated prospect. Every choice is scored instantly with a reason.
+  Each decision node needs at least one score-2 choice; every path must reach an `end` node.
 Every visual can take `caption`.
 
 ## Sandbox builds (`build`)
@@ -79,6 +82,17 @@ Fake businesses live in `src/sim/data.js`; blocks in `src/sim/blocks.js`.
 `{ id, title, goal, steps: [...exact build steps...], data?: [...fake test data lines], prompt: 'context for Claude', checklist: [...] }`
 The app adds the free-tool rule, wraps `prompt` with the checklist so Claude answers PASS/FAIL per item,
 and saves which items the reader ticked. Write checklist items Claude can verify from screenshots.
+
+### Claude role-plays (`outside` with `roleplay`)
+Add `roleplay: { persona, business, situation, hidden: [facts revealed only to good questions], objections?: [..], opening?, style? }`
+to an outside spec. The app builds a prompt where Claude plays the prospect (stays in character, never coaches),
+then a grading prompt for the transcript using the spec’s `prompt` + `checklist`. Steps explain how to run it; `data`
+holds the learner’s notes going in. Checklist items must be checkable from a transcript.
+
+## Location
+Legal, tax and compliance examples assume the **United States, Tennessee** (the reader’s state), with federal rules
+noted. Verify specifics with a web search; where sources disagree, say so and point to a CPA or lawyer. Never give
+legal or tax advice; teach the concepts and the questions to ask.
 
 ## Check your work
 `npm test` must pass (it checks tags, step counts, example-first, visuals, quiz answers, glossary links,
