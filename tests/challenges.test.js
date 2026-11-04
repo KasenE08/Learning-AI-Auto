@@ -121,3 +121,28 @@ describe('traps', () => {
     expect(grade(challengeById('minimize-data'), wf).passed).not.toContain('min');
   });
 });
+
+describe('capstone', () => {
+  const build = () => {
+    const { wf, add, router } = wfFor('vet', 'form.new');
+    const ai = add('ai.classify', { text: '{{trigger.reason}}', labels: 'urgent, routine, spam', strict: true });
+    add('filter', { cond: { left: `{{${ai.id}.label}}`, op: 'not_equals', right: 'spam' } });
+    add('crm.upsert', { email: '{{trigger.email}}', name: '{{trigger.owner_name}}', phone: '{{trigger.phone}}' }, 'root', { onError: 'continue' });
+    const p = router([{ label: 'Urgent', cond: { left: `{{${ai.id}.label}}`, op: 'equals', right: 'urgent' } }, { label: 'Otherwise', cond: null }]);
+    const confirm = (listId) => {
+      const r = makeStep(wf, 'router');
+      r.branches = [{ id: 'q1', label: 'OK to text', cond: { left: '{{trigger.text_ok}}', op: 'equals', right: 'yes' }, steps: [] }, { id: 'q2', label: 'Otherwise', cond: null, steps: [] }];
+      getList(wf, listId).push(r);
+      add('sms.send', { to: '{{trigger.phone}}', body: 'Riverbend: we got your request for {{trigger.pet_name}}.' }, `${r.id}/q1`, { onError: 'alert' });
+      add('email.send', { to: '{{trigger.email}}', subject: 'Your request for {{trigger.pet_name}}', body: 'Thanks {{trigger.owner_name}}, we got it.' }, `${r.id}/q2`, { onError: 'alert' });
+    };
+    add('sms.send', { to: '555-423-0000', body: 'URGENT: {{trigger.pet_name}} ({{trigger.species}}): {{trigger.reason}}' }, p(0));
+    add('chat.post', { channel: '#front-desk', message: '{{trigger.pet_name}}: urgent, see CRM' }, p(0));
+    confirm(p(0));
+    add('cal.create', { title: 'Hold: {{trigger.pet_name}}', when: '{{trigger.preferred_time}}' }, p(1));
+    confirm(p(1));
+    return wf;
+  };
+  it('reference solution scores 100%', () => expect(failing(challengeById('capstone-build'), build())).toEqual([]));
+  it('empty workflow scores 0', () => expect(grade(challengeById('capstone-build'), newWorkflow('vet')).score).toBe(0));
+});

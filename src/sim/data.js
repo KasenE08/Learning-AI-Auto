@@ -93,6 +93,39 @@ export const datasets = {
     apps: { crm: [], sheets: { Leads: [] } },
     fabricate: { phone: '555-410-0000', budget: '$50/month' },
   },
+
+  vet: {
+    id: 'vet',
+    name: 'Riverbend Animal Clinic',
+    industry: 'Veterinary clinic · 3 vets, 2 front-desk staff · Chattanooga TN (fake)',
+    blurb: 'Pet owners request appointments through a web form. The front desk reads each one, decides if it’s urgent, calls the on-call vet for emergencies, and confirms by phone or email when they get a minute.',
+    trigger: 'form.new',
+    source: 'Website appointment form',
+    onCall: '555-423-0000',
+    fields: [
+      { key: 'owner_name', label: 'Owner name' }, { key: 'email', label: 'Email' }, { key: 'phone', label: 'Phone' },
+      { key: 'pet_name', label: 'Pet name' }, { key: 'species', label: 'Species' }, { key: 'reason', label: 'Reason' },
+      { key: 'preferred_time', label: 'Preferred time' }, { key: 'text_ok', label: 'OK to text?' },
+    ],
+    events: [
+      { data: { owner_name: 'Maria Lopez', email: 'maria.lopez@example.com', phone: '555-423-1101', pet_name: 'Biscuit', species: 'dog', reason: 'Ate half a chocolate bar an hour ago and is shaking', preferred_time: 'ASAP', text_ok: 'yes' },
+        ai: { urgency: 'urgent' }, loose: { urgency: 'URGENT - possible poisoning' }, summary: 'Dog ate chocolate, shaking.' },
+      { data: { owner_name: 'Tom Becker', email: 'tom.becker@example.com', phone: '555-423-2290', pet_name: 'Luna', species: 'cat', reason: 'Annual vaccines are due', preferred_time: 'Next Tuesday morning', text_ok: 'yes' },
+        ai: { urgency: 'routine' }, loose: { urgency: 'Routine (vaccines)' }, summary: 'Cat vaccines due.' },
+      { data: { owner_name: 'Ana Silva', email: 'ana.silva@example.com', phone: '', pet_name: 'Pepper', species: 'dog', reason: 'Limping a little since yesterday, still eating fine', preferred_time: 'This week', text_ok: 'no' },
+        ai: { urgency: 'routine' }, loose: { urgency: 'Probably routine' }, summary: 'Mild limp, eating normally. No phone given.' },
+      { data: { owner_name: 'Maria Lopez', email: 'maria.lopez@example.com', phone: '555-423-1101', pet_name: 'Biscuit', species: 'dog', reason: 'Following up, Biscuit is still shaking, can we come now?', preferred_time: 'Now', text_ok: 'yes' },
+        ai: { urgency: 'urgent' }, loose: { urgency: 'Urgent!!' }, summary: 'Same dog, still shaking.' },
+      { data: { owner_name: 'Greg Ward', email: 'greg.ward@example', phone: '555-423-7788', pet_name: 'Max', species: 'dog', reason: 'Nail trim', preferred_time: 'Saturday 10am', text_ok: 'no' },
+        ai: { urgency: 'routine' }, loose: { urgency: 'routine' }, summary: 'Nail trim. Email looks mistyped.' },
+      { data: { owner_name: 'Jen Park', email: 'JEN.PARK@EXAMPLE.COM', phone: '555-423-6612', pet_name: 'Mochi', species: 'rabbit', reason: 'Has not eaten anything since this morning', preferred_time: 'Today', text_ok: 'no' },
+        ai: { urgency: 'urgent' }, loose: { urgency: 'Possibly urgent (rabbit not eating)' }, summary: 'Rabbit not eating since morning.' },
+      { data: { owner_name: 'Best SEO Team', email: 'growth@example.net', phone: '', pet_name: 'n/a', species: 'n/a', reason: 'We can rank your clinic #1 on Google in 30 days! Reply YES.', preferred_time: 'n/a', text_ok: 'no' },
+        ai: { urgency: 'spam' }, loose: { urgency: 'Spam / marketing' }, summary: 'SEO spam.' },
+    ],
+    apps: { crm: [], sheets: { Waitlist: [] } },
+    fabricate: { phone: '555-423-0101' },
+  },
 };
 
 export const datasetList = () => Object.values(datasets);

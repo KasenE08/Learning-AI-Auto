@@ -1,0 +1,75 @@
+// CAP · L07 · Deliver and hand over
+export default {
+  steps: [
+    { tag: 'example', title: 'Launch week at Riverbend', visualFirst: true,
+      visual: { type: 'sort', prompt: 'Before launch, launch day, or after launch?', cols: ['Before launch', 'Launch day', 'After launch'], items: [
+        { text: 'Record the baseline: urgent night requests wait ~12 hours', col: 0 },
+        { text: 'Break the confirmation step on purpose to test the alert', col: 0 },
+        { text: '20-minute training with the front desk', col: 1 },
+        { text: 'Watch the first 10 real requests', col: 1 },
+        { text: 'One-week check-in with Keisha', col: 2 },
+        { text: 'First monthly report', col: 2, why: 'Reports start once there’s a month of data.' },
+      ] },
+      body: ['Tuesday 9 am launch (never Friday evening). Sort the week.'],
+      check: {
+        type: 'mc', q: 'The front desk worries the system replaces them. What do you show in training?',
+        options: ['It removes retyping and confirmations; they stay in charge of people and judgment calls', 'Nothing; it’s not your job', 'That it’s smarter than them', 'The AI model’s settings'], answer: 0,
+        why: 'Make them the heroes of the launch: less busywork, more time for pet owners at the counter.',
+      },
+      stuck: {
+        metaphor: 'A new dishwasher in a restaurant kitchen: the cooks still cook; they just stop scrubbing pans.',
+        worked: ['The system takes the repetitive parts.', 'People keep the human parts.', 'Show that clearly.'],
+      },
+    },
+    { tag: 'how', title: 'The handover pack',
+      visual: { type: 'sort', prompt: 'Client guide or build notes + runbook?', cols: ['Client guide (Keisha)', 'Build notes + runbook'], items: [
+        { text: 'How to pause the system', col: 0 },
+        { text: 'What an “#ops-alerts” message means and what to do', col: 0 },
+        { text: 'Which accounts each step uses', col: 1 },
+        { text: 'The test set and change log', col: 1 },
+        { text: 'How to change the confirmation wording', col: 0 },
+        { text: 'Symptom → check → fix table for the texting connection', col: 1, why: 'Runbook material, also shared with the client.' },
+      ] },
+      body: ['Two documents: a 1–2 page guide for daily users, and technical notes + runbook (shared too).', 'Both live in the clinic’s own folder.'] },
+    { tag: 'outside', title: 'Write Keisha’s guide (practice)',
+      body: ['Write the client guide and have Claude grade it as Keisha would use it.'],
+      outside: {
+        id: 'cap-guide',
+        claudeOnly: true,
+        title: 'Riverbend client guide',
+        goal: 'A 1–2 page guide Keisha’s team can actually use on day one.',
+        steps: [
+          'Sections: what it does (3 bullets), what you’ll see, what to do when an alert arrives, how to pause it, who to contact, common small changes.',
+          'Plain words, no jargon. Mention that vets make all medical decisions.',
+          'Paste it under the grading prompt in a new Claude chat.',
+        ],
+        data: ['System: sorts web requests, texts on-call vet for urgent ones, pings #front-desk with pet name only, holds routine slots, confirms to owners (text with consent, else email), alerts #ops-alerts on failures.'],
+        prompt: 'You are Keisha Moore (fake), practice manager at a vet clinic, reading a guide for a new automation, and also an experienced technical writer. Grade it strictly for usefulness to front-desk staff.',
+        checklist: [
+          'Explains what the system does in three plain bullets.',
+          'Says clearly that vets make all medical decisions.',
+          'Tells staff exactly what to do when an alert arrives.',
+          'Explains how to pause the system safely.',
+          'Names who to contact, and how fast they respond.',
+          'Covers at least one common small change (e.g. confirmation wording).',
+          'Fits in two pages with no jargon.',
+        ],
+      } },
+    { tag: 'try', title: 'Your turn: the first week',
+      check: {
+        type: 'mc', scenario: 'Day 3: the texting connection expires overnight; your monitoring alert reaches your phone at 6:10 am.',
+        q: 'Best response?', options: ['Reconnect, re-run the missed confirmations, tell Keisha what happened and what you changed', 'Fix it quietly and say nothing', 'Wait for Keisha to notice', 'Blame the texting provider'], answer: 0,
+        why: 'Fast fix, honest note, prevention. It builds trust exactly when something goes wrong.',
+      } },
+  ],
+  quiz: [
+    { type: 'mc', q: 'Best launch time for Riverbend?', options: ['Tuesday morning, watched', 'Friday 5 pm', 'Midnight', 'During your vacation'], answer: 0, why: 'Watched launches catch surprises.' },
+    { type: 'multi', q: 'What’s in the handover pack?', options: ['Client guide', 'Build notes + runbook', 'Test set and change log', 'Your other clients’ data'], answer: [0, 1, 2], why: 'Never other clients’ data.' },
+    { type: 'mc', q: 'Why record the baseline before launch?', options: ['To prove results in the first report', 'It’s required by law', 'To fill time', 'It isn’t needed'], answer: 0, why: 'Before vs after.' },
+  ],
+  cards: [
+    { id: 'launch', front: 'Riverbend launch?', back: 'Tuesday morning, watched; train the front desk; watch the first 10 runs.' },
+    { id: 'pack', front: 'Handover pack?', back: 'Client guide + build notes + runbook + test set + change log, in the client’s folder.' },
+    { id: 'staff', front: 'Front-desk worry?', back: 'Show the system removes busywork; they keep people and judgment.' },
+  ],
+};

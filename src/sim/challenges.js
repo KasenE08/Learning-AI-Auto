@@ -354,6 +354,70 @@ export const challenges = [
         } },
     ],
   },
+  // ---------------- Capstone ----------------
+  {
+    id: 'capstone-build',
+    unit: 'capstone',
+    lesson: 'capstone-05',
+    title: 'Capstone: Riverbend’s request system',
+    dataset: 'vet',
+    brief: [
+      'Build exactly what your proposal promised Riverbend Animal Clinic.',
+      'Sort every web request into urgent, routine, or spam (fixed categories). Spam gets no action and stays out of the CRM.',
+      'Save every real owner in the CRM once. Urgent: text the on-call vet at 555-423-0000 with the pet’s name, species and reason, and ping #front-desk with only the pet’s name and “urgent, see CRM”.',
+      'Routine: put a calendar hold titled with the pet’s name at the owner’s preferred time.',
+      'Confirm every request to the owner: by text only if they said OK to texts, otherwise by email. Any confirmation that can’t be sent must alert #ops-alerts with the owner’s name.',
+    ],
+    checks: [
+      { id: 'trigger', label: 'Starts when the appointment form is submitted', hint: 'Which trigger fires on a new form entry?',
+        test: ({ wf }) => wf.trigger?.type === 'form.new' },
+      { id: 'classify', label: 'Sorts into urgent / routine / spam with fixed answers', hint: 'AI: classify with those three categories and “answer with exactly one” on.',
+        test: ({ wf }) => stepsOf(wf, 'ai.classify').some((s) => s.config.strict && ['urgent', 'routine', 'spam'].every((l) => labelList(s.config.labels).map((x) => x.toLowerCase()).includes(l))) },
+      { id: 'spam', label: 'Spam causes no action and stays out of the CRM', hint: 'Stop spam with a filter (or an empty path) before the CRM step.',
+        test: ({ result, ds }) => {
+          const i = ds.events.findIndex((e) => e.ai.urgency === 'spam');
+          return result.state.crm.length > 0 && !result.runs[i].trace.some((t) => t.effect) && !result.state.crm.some((c) => c.email === ds.events[i].data.email);
+        } },
+      { id: 'crm', label: 'Every real owner with a valid email is in the CRM, once', hint: 'Use “Find or create CRM contact”. Maria books twice.',
+        test: ({ result, ds }) => {
+          const want = new Set(ds.events.filter((e) => e.ai.urgency !== 'spam' && isEmail(e.data.email)).map((e) => e.data.email.toLowerCase()));
+          const emails = result.state.crm.map((c) => c.email);
+          return want.size > 0 && [...want].every((e) => emails.includes(e)) && new Set(emails).size === emails.length;
+        } },
+      { id: 'oncall', label: 'Every urgent request texts the on-call vet with pet, species and reason', hint: 'In the urgent path, text 555-423-0000 and insert Pet name, Species and Reason.',
+        test: ({ result, ds }) => {
+          const urgent = result.runs.filter((r) => ds.events[r.index].ai.urgency === 'urgent');
+          return urgent.length > 0 && urgent.every((r) => r.trace.some((t) => t.effect?.startsWith('Text sent') && digits(t.input?.to) === digits(ds.onCall)
+            && t.input.body.includes(r.data.trigger.pet_name) && t.input.body.includes(r.data.trigger.species) && t.input.body.toLowerCase().includes(r.data.trigger.reason.slice(0, 10).toLowerCase())))
+            && result.state.sms.filter((m) => m.to === digits(ds.onCall)).length === urgent.length;
+        } },
+      { id: 'desk', label: 'Each urgent request pings #front-desk with the minimum', hint: 'Post “[Pet name]: urgent, see CRM”. No owner email, phone, or last name.',
+        test: ({ result, ds }) => {
+          const urgent = result.runs.filter((r) => ds.events[r.index].ai.urgency === 'urgent');
+          const posts = result.runs.flatMap((r) => r.trace.filter((t) => t.effect?.startsWith('Chat #front-desk')).map((t) => [r.data.trigger, t.input.message.toLowerCase()]));
+          return posts.length > 0 && posts.length === urgent.length && posts.every(([d, m]) => m.includes(d.pet_name.toLowerCase()) && !m.includes('@') && !/\d{3}\D?\d{4}/.test(m) && !m.includes(d.owner_name.split(' ').slice(1).join(' ').toLowerCase()));
+        } },
+      { id: 'holds', label: 'Every routine request gets a calendar hold with the pet’s name at the preferred time', hint: 'In the routine path, create a calendar event: title includes Pet name, When = Preferred time.',
+        test: ({ result, ds }) => {
+          const routine = ds.events.filter((e) => e.ai.urgency === 'routine');
+          return routine.length > 0 && result.state.calendar.length === routine.length && routine.every((e) => result.state.calendar.some((c) => c.title.includes(e.data.pet_name) && c.when === e.data.preferred_time));
+        } },
+      { id: 'consent', label: 'Owners are texted only if they said yes; others get an email', hint: 'Split on “OK to text?” inside each path: text the owner’s phone if yes, otherwise email them.',
+        test: ({ result, ds }) => {
+          const real = ds.events.filter((e) => e.ai.urgency !== 'spam');
+          const noText = real.filter((e) => e.data.text_ok !== 'yes' && e.data.phone).every((e) => !result.state.sms.some((m) => m.to === digits(e.data.phone)));
+          const yesText = real.filter((e) => e.data.text_ok === 'yes').every((e) => result.state.sms.some((m) => m.to === digits(e.data.phone)));
+          const emails = real.filter((e) => e.data.text_ok !== 'yes' && isEmail(e.data.email)).every((e) => result.state.emails.some((m) => m.to === e.data.email.toLowerCase()));
+          return result.state.sms.length > 0 && noText && yesText && emails;
+        } },
+      { id: 'alerts', label: 'Undeliverable confirmations alert #ops-alerts by name; nothing fails silently', hint: 'Set “If this step fails” to alert on the confirmation steps. No red “Failed” runs.',
+        test: ({ result, ds }) => {
+          const bad = ds.events.filter((e) => e.ai.urgency !== 'spam' && e.data.text_ok !== 'yes' && !isEmail(e.data.email));
+          return result.runs.length > 0 && bad.every((e) => result.state.chat.some((m) => m.channel === '#ops-alerts' && m.message.includes(e.data.owner_name)))
+            && result.runs.every((r) => r.status !== 'error' && r.status !== 'dropped');
+        } },
+    ],
+  },
 ];
 
 export const challengeById = (id) => challenges.find((c) => c.id === id) || null;

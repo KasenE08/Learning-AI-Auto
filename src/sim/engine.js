@@ -157,7 +157,7 @@ function resolveConfig(b, cfg, data) {
   return out;
 }
 
-const eventTitle = (ds, e) => e.data.name || e.data.full_name || e.data.subject || `Record`;
+const eventTitle = (ds, e) => e.data.name || e.data.full_name || e.data.owner_name || e.data.from_name || e.data.subject || 'Record';
 
 /**
  * Runs every test record through the workflow.

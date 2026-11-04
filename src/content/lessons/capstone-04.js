@@ -1,0 +1,81 @@
+// CAP · L04 · Write the proposal
+export default {
+  steps: [
+    { tag: 'example', title: 'Assemble the proposal', visualFirst: true,
+      visual: { type: 'sort', prompt: 'Which proposal section does each line belong to?', cols: ['Situation', 'Plan', 'Investment', 'Next step'], items: [
+        { text: '“About 25 requests a week arrive after hours and wait until 8 am, including roughly 3 urgent ones.”', col: 0 },
+        { text: 'Urgent requests text the on-call vet within a minute', col: 1 },
+        { text: 'Core: $2,000 setup + $250/month', col: 2 },
+        { text: 'Sign, pay 50%, and share access via the checklist', col: 3 },
+        { text: '“Last month a family drove to the emergency hospital and later switched clinics.”', col: 0, why: 'Their own story belongs in the situation.' },
+        { text: 'Every owner gets an instant confirmation (text with consent, otherwise email)', col: 1 },
+      ] },
+      body: ['Your proposal for Dr. Whitfield and Keisha. Sort the pieces first.'],
+      check: {
+        type: 'mc', q: 'Dr. Whitfield wasn’t on the discovery call. Which section matters most for him?',
+        options: ['Situation, in Keisha’s words and numbers', 'The technical diagram', 'Your biography', 'The contract clauses'], answer: 0,
+        why: 'The decider needs to feel the problem before the plan and price make sense.',
+      },
+      stuck: {
+        metaphor: 'Briefing a boss who missed the meeting: start with what’s going wrong, then the fix.',
+        worked: ['He missed the call.', 'The situation section tells him the story and the stakes.', 'Then the plan and price land.'],
+      },
+    },
+    { tag: 'how', title: 'Scope it clearly',
+      visual: { type: 'sort', prompt: 'Included in Core, or not?', cols: ['Included', 'Not included'], items: [
+        { text: 'Sorting web requests into urgent / routine / spam', col: 0 },
+        { text: 'An after-hours phone agent', col: 1 },
+        { text: 'Monthly results report', col: 0 },
+        { text: 'Vaccine reminder campaigns', col: 1, why: 'That’s the second option, not Core.' },
+        { text: 'Failure alerts to the team', col: 0 },
+        { text: 'Rebuilding the clinic website', col: 1 },
+      ] },
+      body: ['Write both lists in the proposal; it prevents scope creep later.', 'Medical decisions stay with vets: say so in plain words.'] },
+    { tag: 'outside', title: 'Write it (practice)',
+      body: ['Write the one-page proposal and have Claude grade it as Dr. Whitfield would read it.'],
+      outside: {
+        id: 'cap-proposal',
+        claudeOnly: true,
+        title: 'Riverbend proposal',
+        goal: 'A one-page proposal with the six sections, two options, and conservative numbers.',
+        steps: [
+          'Use your discovery notes (or the material below).',
+          'Write: situation (their words), what you’ll do, what changes, timeline, investment (two options), next step.',
+          'Keep it to one page, no jargon. Paste it under the grading prompt in a new Claude chat.',
+        ],
+        data: [
+          '120 web requests/week; 25 after hours; ~3 urgent at night/week; ~4 min each to handle.',
+          'One family switched clinics after a 9 pm toxic-food emergency went unanswered.',
+          'No-shows ~15/month at ~$90. Front desk loaded cost ~$22/h. On-call vet phone 555-423-0000 (fake).',
+          'Dr. Whitfield approves spending over $1,000. Front desk worries about being replaced.',
+          'Options: Core $2,000 + $250/mo; Core + reminders $3,200 + $350/mo (example prices).',
+        ],
+        prompt: 'You are Dr. Sam Whitfield (fake), owner of a three-vet clinic, reading a proposal from a solo automation consultant, and also an experienced proposal reviewer. Grade it strictly.',
+        checklist: [
+          'Opens with the situation in the clinic’s own words and numbers.',
+          'Clearly says vets keep making medical decisions.',
+          'Describes what changes for owners and for the front desk (supports staff, doesn’t replace them).',
+          'Has two clear options with prices and what each includes.',
+          'States what is not included.',
+          'Uses conservative value numbers with a payback estimate.',
+          'Gives a timeline and one specific next step.',
+          'Fits on one page with no technical jargon.',
+        ],
+      } },
+    { tag: 'try', title: 'Your turn: the walkthrough',
+      check: {
+        type: 'mc', q: 'How do you deliver the proposal?', options: ['A 20-minute call with Dr. Whitfield and Keisha, walking through it', 'Email it and wait', 'Text a link', 'Mail a printout'], answer: 0,
+        why: 'Live walkthroughs answer questions and keep momentum, with the decider present.',
+      } },
+  ],
+  quiz: [
+    { type: 'order', q: 'Order the proposal sections.', items: ['Situation', 'What we’ll do', 'What changes', 'Timeline', 'Investment', 'Next step'], why: 'Problem → plan → result → when → price → action.' },
+    { type: 'mc', q: 'Why two options?', options: ['“Which one” instead of “yes or no”', 'To confuse', 'To double the price', 'It’s required'], answer: 0, why: 'And budgets fit without discounting.' },
+    { type: 'mc', q: 'Where do detailed terms go?', options: ['The agreement', 'The proposal’s first line', 'Nowhere', 'An email later'], answer: 0, why: 'Proposal persuades; agreement governs.' },
+  ],
+  cards: [
+    { id: 'reader', front: 'Who must the proposal convince?', back: 'The decider who missed discovery (Dr. Whitfield): lead with the situation.' },
+    { id: 'scope', front: 'Proposal scope rule?', back: 'List included and not included.' },
+    { id: 'vets', front: 'Riverbend’s safety promise?', back: 'Vets make medical decisions; the system sorts and routes.' },
+  ],
+};
