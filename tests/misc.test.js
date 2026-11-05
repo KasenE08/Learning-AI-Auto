@@ -55,3 +55,21 @@ describe('shuffle fairness', () => {
     }
   });
 });
+
+import { templates, roiNumbers } from '../src/content/templates.js';
+describe('templates', () => {
+  it('six templates render with empty and example values', () => {
+    expect(templates).toHaveLength(6);
+    for (const t of templates) {
+      expect(t.out({})).toBeTruthy();
+      const ex = Object.fromEntries(t.fields.map((f) => [f.key, f.placeholder || '']));
+      expect(t.out(ex)).not.toMatch(/undefined|NaN/);
+    }
+  });
+  it('ROI math matches Module 7', () => {
+    const r = roiNumbers({ tasks: 120, minutes: 3, rate: 22, wins: 1, profit: 600, running: 350, setup: 2000 });
+    expect(Math.round(r.net)).toBe(822);
+    expect(r.payback).toBeCloseTo(2.43, 1);
+  });
+  it('router knows templates', () => expect(parse('#/template/roi')).toEqual({ name: 'template', params: { id: 'roi' } }));
+});

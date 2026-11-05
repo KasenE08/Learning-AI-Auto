@@ -10,6 +10,7 @@ const routes = [
   { re: /^\/builder\/([\w-]+)$/, name: 'workspace', keys: ['id'] },
   { re: /^\/review$/, name: 'review' },
   { re: /^\/library$/, name: 'library' },
+  { re: /^\/template\/([\w-]+)$/, name: 'template', keys: ['id'] },
   { re: /^\/glossary(?:\/([\w-]+))?$/, name: 'glossary', keys: ['term'] },
   { re: /^\/progress$/, name: 'progress' },
   { re: /^\/settings$/, name: 'settings' },

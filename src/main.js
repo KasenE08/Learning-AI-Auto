@@ -26,11 +26,12 @@ import * as builder from './ui/screens/builder.js';
 import * as workspace from './ui/screens/workspace.js';
 import * as review from './ui/screens/review.js';
 import * as library from './ui/screens/library.js';
+import * as template from './ui/screens/template.js';
 import * as glossary from './ui/screens/glossary.js';
 import * as progress from './ui/screens/progress.js';
 import * as settings from './ui/screens/settings.js';
 
-const screens = { home, path, module, lesson, builder, workspace, review, library, glossary, progress, settings };
+const screens = { home, path, module, lesson, builder, workspace, review, library, template, glossary, progress, settings };
 
 async function boot() {
   await store.load();

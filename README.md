@@ -51,4 +51,4 @@ tests/                        vitest
 - ✅ **Stage a (app):** shell, path, lesson player, quizzes, flashcards, streak, progress + module reset, backup, workflow builder sandbox with 2 challenges, outside-app builds, 1 sample lesson.
 - ✅ **Stage b:** Modules 1–6 (technical): 57 lessons, 11 sandbox challenges, 6 outside-app builds.
 - ✅ **Stage c:** Modules 7–13 (business, legal/ethics): 62 lessons, in-app scored role-plays and Claude role-plays. Legal/tax examples assume the US and Tennessee (concepts, not advice).
-- **Stage d:** Capstone, launch-readiness exam, template library.
+- ✅ **Stage d:** capstone (Riverbend Animal Clinic), launch-readiness exam (≥80% overall, ≥70% per track, plus a complete capstone), and 6 client-ready templates: proposal, discovery script, ROI calculator, pricing sheet, onboarding checklist, contract outline.
