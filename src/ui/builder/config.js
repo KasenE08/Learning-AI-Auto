@@ -3,7 +3,7 @@
 import { html, el } from '../dom.js';
 import { icons } from '../icons.js';
 import { BLOCKS, OPS, ON_ERROR, GROUPS, blocksIn } from '../../sim/blocks.js';
-import { fieldsBefore, stepName, stepProblems, findStep } from '../../sim/engine.js';
+import { fieldsBefore, stepName, stepProblems, findStep, inputWarnings } from '../../sim/engine.js';
 import { datasetById } from '../../sim/data.js';
 import { toDisplay, fromDisplay, chip } from './tokens.js';
 
@@ -52,15 +52,17 @@ export function stepConfig(wf, stepId, api) {
   const fields = fieldsBefore(wf, step.id);
   const cfg = step.config;
   const probs = stepProblems(wf, step);
+  const warns = inputWarnings(step);
+  const warn = (k) => html`<p class="cfg__warn" data-warn="${k}" role="status" ${warns[k] ? '' : 'hidden'}>${warns[k] || ''}</p>`;
   const input = (i) => {
     if (i.showIf && !i.showIf(cfg)) return '';
     const v = cfg[i.key];
     const lab = html`<span class="cfg__lbl">${i.label}${i.required ? html` <i class="req">required</i>` : ''}</span>`;
     switch (i.kind) {
       case 'field': return html`<label class="cfg__f">${lab}<select data-k="${i.key}">${fieldOptions(fields, v)}</select></label>`;
-      case 'text': return html`<div class="cfg__f">${lab}<input type="text" data-k="${i.key}" data-tok value="${toDisplay(v, fields)}">${insertSelect(fields, i.key)}</div>`;
-      case 'longtext': return html`<div class="cfg__f">${lab}<textarea rows="3" data-k="${i.key}" data-tok>${toDisplay(v, fields)}</textarea>${insertSelect(fields, i.key)}</div>`;
-      case 'labels': return html`<label class="cfg__f">${lab}<input type="text" data-k="${i.key}" value="${v || ''}" placeholder="e.g. urgent, routine"></label>`;
+      case 'text': return html`<div class="cfg__f">${lab}<input type="text" data-k="${i.key}" data-tok value="${toDisplay(v, fields)}">${insertSelect(fields, i.key)}${warn(i.key)}</div>`;
+      case 'longtext': return html`<div class="cfg__f">${lab}<textarea rows="3" data-k="${i.key}" data-tok>${toDisplay(v, fields)}</textarea>${insertSelect(fields, i.key)}${warn(i.key)}</div>`;
+      case 'labels': return html`<div class="cfg__f"><label class="cfg__f">${lab}<input type="text" data-k="${i.key}" value="${v || ''}" placeholder="${step.type === 'ai.extract' ? 'e.g. name, email, preferred time' : 'e.g. urgent, routine, spam'}"></label>${warn(i.key)}</div>`;
       case 'select': return html`<label class="cfg__f">${lab}<select data-k="${i.key}">${i.options.map((o) => html`<option value="${o}" ${o === v ? 'selected' : ''}>${i.optionLabels?.[o] || o}</option>`)}</select></label>`;
       case 'sheet': {
         const sheets = Object.keys(datasetById(wf.dataset).apps.sheets || {});
@@ -103,6 +105,10 @@ export function stepConfig(wf, stepId, api) {
     </div>
   </div>`);
 
+  const refreshWarnings = () => {
+    const w = inputWarnings(step);
+    box.querySelectorAll('[data-warn]').forEach((p) => { p.textContent = w[p.dataset.warn] || ''; p.hidden = !w[p.dataset.warn]; });
+  };
   const condOf = (key) => (key.startsWith('br:') ? step.branches[Number(key.slice(3))].cond : cfg[key]);
   const handle = (e, live) => {
     const t = e.target;
@@ -111,6 +117,7 @@ export function stepConfig(wf, stepId, api) {
       if (i.kind === 'toggle') cfg[i.key] = t.checked;
       else if (t.matches('[data-tok]')) cfg[i.key] = fromDisplay(t.value, fields);
       else cfg[i.key] = t.value;
+      refreshWarnings();
       return api.change(!live && (i.kind === 'select' || i.kind === 'field' || i.kind === 'toggle'));
     }
     if (t.matches('[data-c]')) {

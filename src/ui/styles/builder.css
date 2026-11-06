@@ -16,7 +16,7 @@
   .bw .bw__flow, .bw .bw__panel { display: block !important; }
   .bw__panel { position: sticky; top: 16px; max-height: calc(100dvh - 32px); overflow: auto; }
 }
-@media (max-width: 899px) { .bw__actions .btn span { display: none; } .bw__actions .btn { padding: 9px 12px; } }
+@media (max-width: 899px) { .bw__actions { width: 100%; } .bw__actions .btn { flex: 1; justify-content: center; } }
 
 .brief { margin-bottom: 12px; display: grid; gap: 6px; }
 .brief summary { cursor: pointer; }
@@ -120,3 +120,17 @@
 .checks .is-pass .checks__i { background: var(--ok); border-color: var(--ok); color: #fff; }
 .checks .is-fail .checks__i { background: var(--bad); border-color: var(--bad); color: #fff; }
 .bw__panel .vis { margin-bottom: 8px; background: var(--surface); }
+
+/* live goals */
+.goals { display: grid; gap: 10px; margin-bottom: 12px; }
+.goals summary { cursor: pointer; }
+details.goals[open] summary { margin-bottom: 10px; }
+details.goals { gap: 0; }
+.goals summary .kicker { display: inline; }
+.goals__done { font: 500 11px var(--mono); color: var(--ok); background: var(--ok-soft); padding: 2px 6px; border-radius: 3px; }
+.goals__list li.is-next .checks__i { border: 2px solid var(--blue); }
+.goals__list li:not(.is-pass):not(.is-next) b { font-weight: 500; color: var(--ink-2); }
+.goals__tag { font: 600 10.5px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--blue); margin-right: 2px; }
+.goals .checks small { color: var(--ink-2); }
+.cfg__warn { margin: 2px 0 0; padding: 7px 10px; background: var(--amber-soft); color: #7a4a00; border-radius: var(--r-sm); font-size: 13px; line-height: 1.45; }
+.cfg__warn[hidden] { display: none; }

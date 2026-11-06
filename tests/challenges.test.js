@@ -1,6 +1,6 @@
 // Every challenge must be solvable: a reference workflow scores 100%.
 import { describe, it, expect } from 'vitest';
-import { newWorkflow, makeStep, getList } from '../src/sim/engine.js';
+import { newWorkflow, makeStep, getList, allSteps, inputWarnings } from '../src/sim/engine.js';
 import { challengeById, grade } from '../src/sim/challenges.js';
 
 function wfFor(ds, trigger) {
@@ -102,6 +102,38 @@ describe.each(Object.keys(solutions))('challenge %s', (id) => {
   it('exists', () => expect(c).toBeTruthy());
   it('reference solution scores 100%', () => expect(failing(c, solutions[id]())).toEqual([]));
   it('empty workflow scores 0', () => expect(grade(c, newWorkflow(c.dataset)).score).toBe(0));
+  it('reference solution triggers no input warnings', () => {
+    const wf = solutions[id]();
+    expect(allSteps(wf).map(({ step }) => inputWarnings(step)).filter((w) => Object.keys(w).length)).toEqual([]);
+  });
+});
+
+describe('input warnings', () => {
+  const step = (type, config) => {
+    const s = makeStep(newWorkflow('dental'), type);
+    Object.assign(s.config, config);
+    return s;
+  };
+  it('flags instructions typed into the extract details box', () => {
+    const w = inputWarnings(step('ai.extract', { text: '{{trigger.message}}', fields: 'name, make sure the email matches and fix typos' }));
+    expect(w.fields).toMatch(/reads like an instruction/);
+  });
+  it('accepts short detail names', () => {
+    expect(inputWarnings(step('ai.extract', { text: '{{trigger.message}}', fields: 'name, email, preferred time' }))).toEqual({});
+  });
+  it('flags a single category', () => {
+    expect(inputWarnings(step('ai.classify', { text: '{{trigger.message}}', labels: 'urgent' })).labels).toMatch(/at least two/);
+  });
+  it('flags AI text with no field in it', () => {
+    expect(inputWarnings(step('ai.summarize', { text: 'summarize the email' })).text).toMatch(/fixed text/);
+  });
+  it('flags a fixed calendar time', () => {
+    expect(inputWarnings(step('cal.create', { title: '{{trigger.name}}', when: 'next open block' })).when).toMatch(/same fixed time/);
+    expect(inputWarnings(step('cal.create', { title: '{{trigger.name}}', when: '{{trigger.preferred_time}}' }))).toEqual({});
+  });
+  it('says nothing about empty boxes', () => {
+    expect(inputWarnings(step('ai.extract', {}))).toEqual({});
+  });
 });
 
 describe('traps', () => {
@@ -144,5 +176,8 @@ describe('capstone', () => {
     return wf;
   };
   it('reference solution scores 100%', () => expect(failing(challengeById('capstone-build'), build())).toEqual([]));
+  it('reference solution triggers no input warnings', () => {
+    expect(allSteps(build()).map(({ step }) => inputWarnings(step)).filter((w) => Object.keys(w).length)).toEqual([]);
+  });
   it('empty workflow scores 0', () => expect(grade(challengeById('capstone-build'), newWorkflow('vet')).score).toBe(0));
 });

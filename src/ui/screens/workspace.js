@@ -6,6 +6,7 @@ import { icons } from '../icons.js';
 import { rich } from '../rich.js';
 import { openSheet, confirmSheet } from '../components/sheet.js';
 import { mountVisual } from '../visuals/index.js';
+import { meter } from '../components/parts.js';
 import { kvTable } from '../visuals/kv.js';
 import { drawFlow } from '../builder/flow.js';
 import { stepConfig, triggerPicker, blockPicker } from '../builder/config.js';
@@ -64,7 +65,20 @@ export function render(view, { id }) {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(() => saveProgress(saveDraft(getProgress(), id, S.wf)), 400);
   };
-  const stale = () => { S.result = null; S.graded = null; };
+  let liveGoals = null;
+  const stale = () => { S.result = null; S.graded = null; liveGoals = null; };
+  const goalsNow = () => (liveGoals ||= grade(challenge, S.wf));
+
+  // The challenge's goals, ticked live as the learner builds. Unmet goals stay neutral; only the next one shows its hint.
+  const goalsCard = (compact = false) => {
+    const g = goalsNow();
+    const next = g.results.find((r) => !r.pass);
+    const items = html`<ul class="checks goals__list">${g.results.map((r) => html`<li class="${r.pass ? 'is-pass' : r === next ? 'is-next' : ''}"><span class="checks__i">${r.pass ? icons.check : ''}</span><span><b>${r.label}</b>${r === next ? html`<small><span class="goals__tag">Next</span> ${r.hint}</small>` : ''}</span></li>`)}</ul>`;
+    const head = html`<span class="kicker">Goals · ${g.passed.length} of ${g.results.length} met</span>`;
+    if (compact) return html`<details class="cfg goals" ${g.score === 1 ? '' : 'open'}><summary>${head}${g.score === 1 ? html` <span class="goals__done">All met</span>` : ''}</summary>${items}</details>`;
+    return html`<div class="card goals">${head}${meter(g.score, 'Goals met')}${items}
+      <p class="muted small">${g.score === 1 ? html`Every goal is met. Press <b>Check build</b> to save your score.` : html`These tick as you build. <b>Run test</b> sends the fake records through so you can see what happened to each one.`}</p></div>`;
+  };
 
   const TABS = [['flow', 'Flow'], ['step', 'Step'], ['data', 'Test data'], ['results', 'Results'], ...(challenge ? [['checks', 'Checks']] : [])];
   const drawTabs = () => {
@@ -78,6 +92,7 @@ export function render(view, { id }) {
     flowBox.innerHTML = String(html`
       ${challenge ? html`<details class="card brief" ${S.wf.trigger ? '' : 'open'}><summary><span class="kicker">The client’s request</span></summary>${challenge.brief.map((p) => html`<p>${rich(p)}</p>`)}</details>`
         : html`<div class="card brief"><span class="kicker">${ds.industry}</span><p>${ds.blurb}</p></div>`}
+      ${challenge ? goalsCard() : ''}
       ${drawFlow(S.wf, { sel: S.sel, trace })}
       ${trace ? html`<p class="bf__legend muted small">Dots show test run ${S.run + 1}: ${S.result.runs[S.run].title}. Grey = did not run.</p>` : ''}`);
   };
@@ -132,6 +147,7 @@ export function render(view, { id }) {
     const c = summarizeRuns(S.result);
     const st = S.result.state;
     const run = S.result.runs[S.run];
+    if (challenge) panel.append(el(goalsCard(true)));
     const box = el(html`<div class="cfg">
       <span class="kicker">Results · ${S.result.runs.length} test runs</span>
       <div class="chips">${Object.entries(c).filter(([, n]) => n).map(([k, n]) => html`<span class="chip chip--${k}">${n} ${STATUS_LABEL[k].toLowerCase()}</span>`)}</div>

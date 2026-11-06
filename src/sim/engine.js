@@ -117,6 +117,40 @@ export function stepProblems(wf, step) {
   return [...new Set(out)];
 }
 
+/**
+ * Soft warnings: settings that are allowed but almost always a mistake.
+ * Returns { inputKey: message }. Shown under the input while the learner types.
+ */
+export function inputWarnings(step) {
+  const b = BLOCKS[step.type];
+  if (!b) return {};
+  const cfg = step.config || {};
+  const out = {};
+  const hasField = (v) => /\{\{\w+\.\w+\}\}/.test(String(v ?? ''));
+  for (const i of b.inputs) {
+    const v = cfg[i.key];
+    const s = String(v ?? '').trim();
+    if (!s) continue;
+    if (i.kind === 'labels') {
+      const items = s.split(',').map((x) => x.trim()).filter(Boolean);
+      const example = step.type === 'ai.extract' ? 'name, email, preferred time' : 'urgent, routine, spam';
+      const long = items.find((x) => x.split(/\s+/).length > 4 || x.length > 32);
+      if (long) {
+        out[i.key] = `“${long.length > 40 ? `${long.slice(0, 40)}…` : long}” reads like an instruction. This box only takes short names separated by commas, like: ${example}. The AI step can’t follow instructions typed here.`;
+      } else if (step.type === 'ai.classify' && items.length === 1) {
+        out[i.key] = 'With one category the AI has nothing to choose between. Add at least two, separated by commas.';
+      }
+    }
+    if (i.key === 'text' && b.group === 'ai' && !hasField(s)) {
+      out[i.key] = 'This is fixed text, so the AI reads the same words for every record. Use “+ Insert field” to give it each record’s message.';
+    }
+    if (step.type === 'cal.create' && i.key === 'when' && !hasField(s)) {
+      out[i.key] = 'Every event will land at this same fixed time. To use each record’s own time, insert that field.';
+    }
+  }
+  return out;
+}
+
 // ---------------------------------------------------------------- running
 
 export const resolve = (tpl, data) => String(tpl ?? '').replace(TOKEN, (_, s, k) => {
