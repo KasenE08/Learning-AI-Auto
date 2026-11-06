@@ -1,5 +1,5 @@
 /* workflow builder */
-.bw { display: flex; flex-direction: column; gap: 12px; }
+.bw { display: flex; flex-direction: column; gap: 12px; min-width: 0; overflow-wrap: anywhere; }
 .bw__head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .bw__title { flex: 1; min-width: 180px; display: grid; gap: 2px; }
 .bw__title b { font-size: 18px; }
@@ -56,7 +56,7 @@
 .bf__legend { margin: 10px 0 0; }
 
 /* panel content */
-.cfg { display: grid; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 14px; margin-bottom: 10px; }
+.cfg { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 14px; margin-bottom: 10px; }
 .cfg p { margin: 0; }
 .cfg__f { display: grid; gap: 5px; }
 .cfg__lbl { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
@@ -100,7 +100,7 @@
 .run small { color: var(--ink-3); font-size: 12px; }
 .run.is-on { border-color: var(--blue); background: var(--blue-soft); }
 .trace { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
-.trace__s { border-left: 3px solid var(--ink-4); padding: 4px 0 4px 10px; display: grid; gap: 2px; font-size: 14px; }
+.trace__s { min-width: 0; border-left: 3px solid var(--ink-4); padding: 4px 0 4px 10px; display: grid; gap: 2px; font-size: 14px; }
 .trace__s.is-ok, .trace__s.is-routed { border-color: var(--ok); }
 .trace__s.is-error { border-color: var(--bad); }
 .trace__s.is-error .trace__msg { color: var(--bad); }
