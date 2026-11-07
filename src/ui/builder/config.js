@@ -7,8 +7,11 @@ import { fieldsBefore, stepName, stepProblems, findStep, inputWarnings } from '.
 import { datasetById } from '../../sim/data.js';
 import { toDisplay, fromDisplay, chip } from './tokens.js';
 
-const fieldOptions = (fields, value) => html`<option value="">Choose a field…</option>${fields.map((f) => html`<option value="${f.ref}" ${f.ref === value ? 'selected' : ''}>${f.source} › ${f.label}</option>`)}`;
-const insertSelect = (fields, k) => html`<select class="ins" data-ins="${k}" aria-label="Insert a field"><option value="">+ Insert field</option>${fields.map((f) => html`<option value="${f.ref}">${f.source} › ${f.label}</option>`)}</select>`;
+// Option text is shortened so a long field name can't make a dropdown wider than the screen.
+const short = (s, n = 44) => (s.length > n ? `${s.slice(0, n - 1)}…` : s);
+const optLabel = (f) => short(`${f.source} › ${f.label}`);
+const fieldOptions = (fields, value) => html`<option value="">Choose a field…</option>${fields.map((f) => html`<option value="${f.ref}" ${f.ref === value ? 'selected' : ''}>${optLabel(f)}</option>`)}`;
+const insertSelect = (fields, k) => html`<select class="ins" data-ins="${k}" aria-label="Insert a field"><option value="">+ Insert field</option>${fields.map((f) => html`<option value="${f.ref}">${optLabel(f)}</option>`)}</select>`;
 const opOptions = (v) => OPS.map((o) => html`<option value="${o.id}" ${o.id === v ? 'selected' : ''}>${o.label}</option>`);
 
 function condEditor(cond, fields, key) {

@@ -259,5 +259,36 @@ export function summarizeRuns(result) {
   return c;
 }
 
+/**
+ * Plain-English verdict for one test run: what happened to this record and why.
+ * tone: ok | warn | info | bad
+ */
+export function runSummary(run) {
+  const who = run.title;
+  const made = run.trace.filter((t) => t.invented?.length);
+  const errs = run.trace.filter((t) => t.status === 'error');
+  const last = errs[errs.length - 1];
+  const madeUp = made.length ? ` Also: the AI made up data in “${made[0].name}”, so something saved for ${who} is fake (details on that step below).` : '';
+  switch (run.status) {
+    case 'ok': {
+      if (!errs.length && !made.length) return { tone: 'ok', text: `Every step ran for ${who} with no problems.` };
+      const parts = [];
+      if (errs.length) parts.push(`“${errs[0].name}” failed (${errs[0].message}) but is set to keep going, so the steps after it ran without its result.`);
+      if (made.length) parts.push(`The AI made up data in “${made[0].name}”, so something saved for ${who} is fake. See the note on that step below.`);
+      return { tone: 'warn', text: `Every step ran for ${who}, but not everything is right. ${parts.join(' ')}` };
+    }
+    case 'filtered': {
+      const f = run.trace.find((t) => t.status === 'filtered');
+      return { tone: 'info', text: `Stopped on purpose at “${f?.name}”: its condition was false for ${who}, so the steps after it were skipped. That’s fine if ${who} was meant to be stopped.${madeUp}` };
+    }
+    case 'dropped':
+      return { tone: 'bad', text: `Nothing happened for ${who}: none of the paths in “${last?.name}” matched this record, so it was dropped without anyone knowing. Add an “Otherwise” path to catch records like this.${madeUp}` };
+    case 'handled':
+      return { tone: 'bad', text: `Broke at “${last?.name}”: ${last?.message} The steps after it never ran for ${who}. Because that step is set to alert the team, a message went to #ops-alerts so a person can fix it.${madeUp}` };
+    default:
+      return { tone: 'bad', text: `Broke at “${last?.name}”: ${last?.message} The steps after it never ran for ${who}, and nobody was told. Fix what goes into that step, or change its “If this step fails” setting.${madeUp}` };
+  }
+}
+
 /** Where a step sits for display: its 1-based position in the main line (branches get "3a.1"). */
 export const STATUS_LABEL = { ok: 'Finished', filtered: 'Stopped by filter', dropped: 'Dropped (no path)', error: 'Failed', handled: 'Failed, team alerted' };

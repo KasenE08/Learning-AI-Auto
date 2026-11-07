@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { runWorkflow, newWorkflow, makeStep, fieldsBefore, stepProblems, testCond, getList } from '../src/sim/engine.js';
+import { runWorkflow, newWorkflow, makeStep, fieldsBefore, stepProblems, testCond, getList, runSummary } from '../src/sim/engine.js';
 import { challenges, challengeById, grade } from '../src/sim/challenges.js';
 import { datasets } from '../src/sim/data.js';
 import { BLOCKS, defaultConfig } from '../src/sim/blocks.js';
@@ -127,5 +127,29 @@ describe('challenges', () => {
 
   it('an empty workflow scores 0', () => {
     for (const c of challenges) expect(grade(c, newWorkflow(c.dataset)).score).toBe(0);
+  });
+});
+
+describe('runSummary', () => {
+  const run = (status, trace) => ({ title: 'Lee Park', status, trace });
+  it('clean run says no problems', () => {
+    expect(runSummary(run('ok', [{ name: 'Send email', status: 'ok' }]))).toEqual({ tone: 'ok', text: 'Every step ran for Lee Park with no problems.' });
+  });
+  it('finished run with made-up data is a warning, not a pass', () => {
+    const s = runSummary(run('ok', [{ name: 'AI: extract details', status: 'ok', invented: ['x'] }]));
+    expect(s.tone).toBe('warn');
+    expect(s.text).toMatch(/made up data in “AI: extract details”/);
+  });
+  it('failed run names the step and the reason', () => {
+    const s = runSummary(run('error', [{ name: 'Send email', status: 'error', message: 'No “To” address.' }]));
+    expect(s.tone).toBe('bad');
+    expect(s.text).toMatch(/Broke at “Send email”: No “To” address\./);
+    expect(s.text).toMatch(/nobody was told/);
+  });
+  it('alerted run says the team was told', () => {
+    expect(runSummary(run('handled', [{ name: 'Send text message', status: 'error', message: 'No phone number to text.' }])).text).toMatch(/#ops-alerts/);
+  });
+  it('filtered run is explained as on purpose', () => {
+    expect(runSummary(run('filtered', [{ name: 'Only continue if…', status: 'filtered' }])).tone).toBe('info');
   });
 });

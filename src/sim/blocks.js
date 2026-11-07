@@ -70,17 +70,25 @@ function classify(text, labels, strict, event) {
   return { label: loose || `${cap(String(truth))}.`, notes: [...notes, 'Free-text answer: wording can change from run to run.'] };
 }
 
+const clip = (s, n = 40) => (s.length > n ? `${s.slice(0, n - 1)}…` : s);
+function madeUpNote(names) {
+  const list = names.map((n) => `“${clip(n)}”`).join(', ');
+  const one = names.length === 1;
+  return `The AI made up ${one ? 'a value' : 'values'} for ${list}. ${one ? 'That detail isn’t' : 'Those details aren’t'} in this record’s text, so it guessed (a “hallucination”). The run kept going, but the guess is fake and was passed on to the next steps as if it were true. Fix: in “Details to pull out”, list short names of details the message actually has (like name, email, preferred time), and tick “Leave a detail empty if it is not in the text”.`;
+}
+
 function extract(text, fields, strict, event, dataset) {
   const out = {};
   const invented = [];
+  const names = [];
   for (const f of fields) {
     const k = slug(f);
     const found = event.extract?.[k];
     if (found && String(text || '').toLowerCase().includes(found.split(' ')[0].toLowerCase())) out[k] = found;
     else if (strict) out[k] = '';
-    else { out[k] = dataset.fabricate?.[k] || `Unknown ${f}`; invented.push(k); }
+    else { out[k] = dataset.fabricate?.[k] || `Unknown ${f}`; invented.push(k); names.push(f); }
   }
-  return { out, invented };
+  return { out, invented, names };
 }
 
 export const BLOCKS = {
@@ -241,7 +249,7 @@ export const BLOCKS = {
       const fields = labelList(c.fields);
       if (!fields.length) return { error: 'No details listed to extract.' };
       const r = extract(c.text, fields, !!c.strict, ctx.event, ctx.dataset);
-      return { output: r.out, invented: r.invented, notes: r.invented.length ? [`Invented (not in the text): ${r.invented.join(', ')}. This is a hallucination.`] : [] };
+      return { output: r.out, invented: r.invented, notes: r.names.length ? [madeUpNote(r.names)] : [] };
     },
   },
   'ai.draft': {

@@ -14,7 +14,7 @@ import { getProgress, saveProgress } from '../../core/store.js';
 import { recordBuild, saveDraft } from '../../core/progress.js';
 import { challengeById, starterWorkflow, grade } from '../../sim/challenges.js';
 import { datasetById } from '../../sim/data.js';
-import { runWorkflow, newWorkflow, makeStep, getList, findStep, summarizeRuns, STATUS_LABEL } from '../../sim/engine.js';
+import { runWorkflow, newWorkflow, makeStep, getList, findStep, summarizeRuns, runSummary, STATUS_LABEL } from '../../sim/engine.js';
 
 export const tab = 'builder';
 
@@ -147,15 +147,22 @@ export function render(view, { id }) {
     const c = summarizeRuns(S.result);
     const st = S.result.state;
     const run = S.result.runs[S.run];
+    const sum = runSummary(run);
     if (challenge) panel.append(el(goalsCard(true)));
     const box = el(html`<div class="cfg">
       <span class="kicker">Results · ${S.result.runs.length} test runs</span>
       <div class="chips">${Object.entries(c).filter(([, n]) => n).map(([k, n]) => html`<span class="chip chip--${k}">${n} ${STATUS_LABEL[k].toLowerCase()}</span>`)}</div>
-      <div class="runs">${S.result.runs.map((r, i) => html`<button type="button" class="run ${i === S.run ? 'is-on' : ''}" data-run-i="${i}"><span class="bf__dot is-${r.status === 'ok' ? 'ok' : r.status === 'filtered' ? 'filtered' : 'error'}"></span><span>${i + 1}. ${r.title}</span><small>${STATUS_LABEL[r.status]}</small></button>`)}</div>
+      <p class="muted small">Each fake record went through your workflow once. Tap a name to see what happened to it.</p>
+      <div class="runs">${S.result.runs.map((r, i) => {
+        const warn = r.status === 'ok' && runSummary(r).tone === 'warn';
+        return html`<button type="button" class="run ${i === S.run ? 'is-on' : ''}" data-run-i="${i}"><span class="bf__dot is-${warn ? 'filtered' : r.status === 'ok' ? 'ok' : r.status === 'filtered' ? 'filtered' : 'error'}"></span><span>${i + 1}. ${r.title}</span><small>${warn ? 'Finished, with a problem' : STATUS_LABEL[r.status]}</small></button>`;
+      })}</div>
       <h4 class="h4">Run ${S.run + 1}: ${run.title}</h4>
-      <ol class="trace">${run.trace.length ? run.trace.map((t) => html`<li class="trace__s is-${t.status}">
-        <b>${t.name}</b><span class="trace__msg">${t.message || t.effect || 'Done'}</span>
-        ${t.notes?.length ? html`<ul class="trace__notes">${t.notes.map((n) => html`<li>${n}</li>`)}</ul>` : ''}
+      <p class="fb fb--${sum.tone === 'ok' ? 'ok' : sum.tone === 'info' ? 'info' : 'bad'} run__sum ${sum.tone === 'warn' ? 'is-warn' : ''}"><b>${sum.tone === 'ok' ? 'All good.' : sum.tone === 'warn' ? 'Finished, with a problem.' : sum.tone === 'info' ? 'Stopped by your filter.' : 'Did not finish.'}</b> ${sum.text}</p>
+      <p class="muted small">Step by step:</p>
+      <ol class="trace">${run.trace.length ? run.trace.map((t) => html`<li class="trace__s is-${t.status} ${t.invented?.length ? 'is-warn' : ''}">
+        <b>${t.name}</b><span class="trace__msg">${t.message || t.effect || (t.invented?.length ? 'Ran, but made something up (see below)' : 'Done')}</span>
+        ${t.notes?.length ? html`<div class="trace__notes">${t.notes.map((n) => html`<p>${n}</p>`)}</div>` : ''}
         ${t.output && Object.keys(t.output).length ? html`<details><summary>Data out</summary>${kvTable(t.output, { hl: t.invented || [] })}</details>` : ''}
         ${t.input ? html`<details><summary>What it was given</summary>${kvTable(Object.fromEntries(Object.entries(t.input).map(([k, v]) => [k, Array.isArray(v) ? v.map((x) => `${x.name}: ${x.value}`) : v])))}</details>` : ''}
       </li>`) : html`<li class="muted">No steps ran.</li>`}</ol>

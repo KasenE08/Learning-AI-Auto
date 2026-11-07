@@ -1,12 +1,14 @@
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+/* Nothing may widen the page on a phone: content wraps instead. */
+html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
 body {
   margin: 0; min-height: 100dvh; background: var(--bg); background-image: var(--grid); background-size: 16px 16px;
+  overflow-x: clip; overflow-wrap: break-word;
   color: var(--ink); font: 16px/1.5 var(--font); -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
 }
 a { color: var(--blue); text-decoration: none; }
 a:hover { text-decoration: underline; }
-button, input, select, textarea { font: inherit; color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; max-width: 100%; min-width: 0; }
 button { cursor: pointer; }
 img, svg { display: block; max-width: 100%; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
